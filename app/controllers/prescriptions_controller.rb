@@ -3,10 +3,16 @@ class PrescriptionsController < ApplicationController
     # View of all prescriptions for a user
     # - includes complete details about prescriptions
     # and (in JS) the option to view old prescriptions
+
+  end
+
+  def show
+    @prescription = User.first.prescriptions.first
   end
 
   def new
     # Form to enter a new prescription
+    @prescription = Prescription.new
   end
 
   def edit

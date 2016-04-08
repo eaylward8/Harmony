@@ -3,4 +3,5 @@ class Drug < ActiveRecord::Base
   has_many :pharmacies, through: :prescriptions
   has_many :users, through: :prescriptions
   has_many :doctors, through: :prescriptions
+  # accepts_nested_attributes_for :prescriptions
 end
