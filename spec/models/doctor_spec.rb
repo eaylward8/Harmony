@@ -11,14 +11,3 @@
 #  last_name  :string
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  name: MyString
-  location: MyString
-  specialty: MyString
-
-two:
-  name: MyString
-  location: MyString
-  specialty: MyString

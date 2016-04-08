@@ -18,30 +18,3 @@
 #  updated_at    :datetime         not null
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  dosage: MyString
-  doses: 1
-  doses_per_day: 1
-  refills: 1
-  fill_duration: 1
-  start_date: 2016-04-07
-  end_date: 2016-04-07
-  doctor_id: 1
-  pharmacy_id: 1
-  user_id: 1
-  drug_id: 1
-
-two:
-  dosage: MyString
-  doses: 1
-  doses_per_day: 1
-  refills: 1
-  fill_duration: 1
-  start_date: 2016-04-07
-  end_date: 2016-04-07
-  doctor_id: 1
-  pharmacy_id: 1
-  user_id: 1
-  drug_id: 1
