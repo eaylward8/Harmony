@@ -24,7 +24,7 @@ script2 = Prescription.create(dosage: '5g', doses: 21, doses_per_day: 3, refills
 script3 = Prescription.create(dosage: '20oz', doses: 100, doses_per_day: 25, refills: 2, fill_duration: 4, start_date: '02-05-2016', end_date: '02-09-2016', doctor_id: 3, pharmacy_id: 2, user_id: 2, drug_id: 3)
 script4 = Prescription.create(dosage: '500mg', doses: 16, doses_per_day: 2, refills: 1, fill_duration: 8, start_date: '04-01-2016', end_date: '04-09-2016', doctor_id: 4, pharmacy_id: 2, user_id: 1, drug_id: 1)
 
-jeffrey = User.create(first_name: 'Jeffrey', last_name: 'Katz', date_of_birth: '01-01-1986')
-sammy = User.create(first_name: 'Sammy', last_name: 'Mernick', date_of_birth: '10-07-1990')
-nami = User.create(first_name: 'Nami', last_name: 'Nami', date_of_birth: '03-04-1989')
-shirley = User.create(first_name: 'Shirley', last_name: 'Berry', date_of_birth: '05-06-1991')
+jeffrey = User.create(first_name: 'Jeffrey', last_name: 'Katz')
+sammy = User.create(first_name: 'Sammy', last_name: 'Mernick')
+nami = User.create(first_name: 'Nami', last_name: 'Nami')
+shirley = User.create(first_name: 'Shirley', last_name: 'Berry')

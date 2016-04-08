@@ -14,11 +14,9 @@ class Drug < ActiveRecord::Base
   has_many :pharmacies, through: :prescriptions
   has_many :users, through: :prescriptions
   has_many :doctors, through: :prescriptions
-<<<<<<< HEAD
-
   validates :name, :rxcui, presence: true
   validates :rxcui, numericality: true
-=======
+
   # accepts_nested_attributes_for :prescriptions
->>>>>>> 29d9077e8050877e6835d8252694fb8e04bf50fb
+
 end
