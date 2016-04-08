@@ -6,10 +6,9 @@
   <div>
     <%= @user.first_name %> <br>
     <%= @user.last_name %><br>
-    <%= @user.date_of_birth %><br>
   </div>
   <br>
-  <div>
+ <!--  <div>
     <% @user.prescriptions.each do |p| %><br>
       Dosage: <%= p.dosage %> <br>
       Doses: <%= p.doses %> <br>
@@ -20,6 +19,12 @@
       Start date: <%= p.start_date %> <br>
       End date: <%= p.end_date %> <br>
       Dr. <%= p.doctor.first_name %> <br>
+    <% end %>
+  </div> -->
+
+  <div>
+    <% @user.active_prescriptions.each do |p| %><br>
+      Name: <%= p.drug.name %><br>
     <% end %>
   </div>
 </body>

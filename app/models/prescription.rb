@@ -1,4 +1,4 @@
-# == Schema Information
+  # == Schema Information
 #
 # Table name: prescriptions
 #
@@ -24,8 +24,29 @@ class Prescription < ActiveRecord::Base
   belongs_to :pharmacy
   belongs_to :user
 
-  validates :dosage, :doses, :doses_per_day, :refills, :fill_duration, :start_date, :end_date, presence: true
+  validates :dosage, :doses, :doses_per_day, :refills, :fill_duration, :start_date, presence: true
   validates :doses, :doses_per_day, :refills, :fill_duration, numericality: true 
+# removed end date from validation
+
+  def refill
+    if refills > 0
+      self.refills -= 1
+      self.end_date += self.fill_duration
+      self.save
+    end
+  end
+
+  def calculate_doses
+    self.doses = self.fill_duration/self.doses_per_day
+    self.save
+  end
+
+  def calculate_end_date
+    self.end_date = self.start_date + self.fill_duration    
+    self.save
+  end
+
+
 
 
 end
