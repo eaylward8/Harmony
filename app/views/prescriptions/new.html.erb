@@ -1,0 +1,35 @@
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+
+  <%= form_for @prescription do |f| %>
+    Drug name? <%=fields_for :drugs do |drug_form| %><br>
+        <%= drug_form.text_field :name %>
+      <% end %><br>
+    Doctor name? <%=fields_for :doctors do |doctor_form| %><br>
+        <%= doctor_form.text_field :name %>
+      <% end %><br>
+    Pharmacy name? <%=fields_for :pharmacys do |pharmacy_form| %><br>
+        <%= pharmacy_form.text_field :name %>
+      <% end %><br>
+    How many times a day?<br>
+    <%= f.number_field :dosage %><br>
+    For how long? <br>
+    <%= f.number_field :dosage %><br> Days
+    How many refills? <br>
+    <%= f.number_field :dosage %><br>
+    Start date? <br>
+    <%= f.date_field :dosage %><br>
+    Dose size?<br>
+     <%= f.text_field :dosage %><br>
+    <%= f.submit :Prescribe! %>
+    <%= %>
+    <%= %>
+    <%= %>
+    <%= %>
+  <% end %>
+
+</body>
+</html>

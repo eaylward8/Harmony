@@ -24,6 +24,13 @@ class Prescription < ActiveRecord::Base
   belongs_to :pharmacy
   belongs_to :user
 
+<<<<<<< HEAD
   validates :dosage, :doses, :doses_per_day, :refills, :fill_duration, :start_date, :end_date, presence: true
   validates :doses, :doses_per_day, :refills, :fill_duration, numericality: true 
+=======
+  def drug_name_to_id(name)
+    drug = Drug.find_by_name(name)
+    self.drug_id = drug.id
+  end
+>>>>>>> 29d9077e8050877e6835d8252694fb8e04bf50fb
 end
