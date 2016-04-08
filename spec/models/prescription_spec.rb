@@ -18,12 +18,3 @@
 #  updated_at    :datetime         not null
 #
 
-class Prescription < ActiveRecord::Base
-  belongs_to :drug
-  belongs_to :doctor
-  belongs_to :pharmacy
-  belongs_to :user
-
-  validates :dosage, :doses, :doses_per_day, :refills, :fill_duration, :start_date, :end_date, presence: true
-  validates :doses, :doses_per_day, :refills, :fill_duration, numericality: true 
-end
