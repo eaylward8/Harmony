@@ -3,7 +3,6 @@ class CreatePharmacies < ActiveRecord::Migration
     create_table :pharmacies do |t|
       t.string :name
       t.string :location
-      t.string :string
 
       t.timestamps null: false
     end

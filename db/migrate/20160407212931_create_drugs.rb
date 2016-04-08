@@ -3,7 +3,8 @@ class CreateDrugs < ActiveRecord::Migration
     create_table :drugs do |t|
       t.string :name
       t.string :generic_name
-      t.stringrxcui :form
+      t.integer :rxcui
+      t.string :form
 
       t.timestamps null: false
     end
