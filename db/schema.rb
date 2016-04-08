@@ -11,23 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407215841) do
+ActiveRecord::Schema.define(version: 20160408143349) do
 
   create_table "doctors", force: :cascade do |t|
-    t.string   "name"
     t.string   "location"
     t.string   "specialty"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   create_table "drugs", force: :cascade do |t|
     t.string   "name"
-    t.string   "generic_name"
     t.integer  "rxcui"
-    t.string   "form"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pharmacies", force: :cascade do |t|
@@ -54,10 +53,11 @@ ActiveRecord::Schema.define(version: 20160407215841) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
     t.date     "date_of_birth"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
 end
