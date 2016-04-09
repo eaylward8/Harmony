@@ -1,4 +1,6 @@
 class PharmaciesController < ApplicationController
+  before_filter :authorize, only: [:edit, :update]
+
   def edit
   end
 

@@ -1,4 +1,6 @@
 class PrescriptionsController < ApplicationController
+  before_filter :authorize, only: [:edit, :update]
+
   def index
     # View of all prescriptions for a user
     # - includes complete details about prescriptions
