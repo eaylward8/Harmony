@@ -8,18 +8,6 @@
     <%= @user.last_name %><br>
   </div>
   <br>
-  <div>
-    <% @user.prescriptions.each do |p| %><br>
-      Dosage: <%= p.dosage %> <br>
-      Doses: <%= p.doses %> <br>
-      Drug: <%= p.drug.name %> <br>
-      Doses/day: <%= p.doses_per_day %> <br>
-      Refills: <%= p.refills %> <br>
-      Fill Duration: <%= p.fill_duration %> <br>
-      Start date: <%= p.start_date %> <br>
-      End date: <%= p.end_date %> <br>
-      Dr. <%= p.doctor.first_name %> <br>
-    <% end %>
-  </div>
+  
 </body>
 </html>

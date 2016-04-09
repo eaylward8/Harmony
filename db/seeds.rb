@@ -28,6 +28,8 @@ script1 = Prescription.create(dosage: '10mg', doses: 5, doses_per_day: 1, refill
 script2 = Prescription.create(dosage: '5g', doses: 21, doses_per_day: 3, refills: 4, fill_duration: 7, start_date: '03-20-2016', end_date: '03-27-2016', doctor_id: 2, pharmacy_id: 1, user_id: 3, drug_id: 4)
 script3 = Prescription.create(dosage: '20oz', doses: 100, doses_per_day: 25, refills: 2, fill_duration: 4, start_date: '02-05-2016', end_date: '02-09-2016', doctor_id: 3, pharmacy_id: 2, user_id: 2, drug_id: 3)
 script4 = Prescription.create(dosage: '500mg', doses: 16, doses_per_day: 2, refills: 1, fill_duration: 8, start_date: '04-01-2016', end_date: '04-09-2016', doctor_id: 4, pharmacy_id: 2, user_id: 1, drug_id: 1)
+script5 = Prescription.create(dosage: '10mg', doses: 5, doses_per_day: 1, refills: 0, fill_duration: 5, start_date: '01-01-2016', end_date: '01-06-2016', doctor_id: 1, pharmacy_id: 1, user_id: 1, drug_id: 2)
+script7 = Prescription.create(dosage: '20oz', doses: 100, doses_per_day: 25, refills: 2, fill_duration: 4, start_date: '02-05-2016', end_date: '02-09-2016', doctor_id: 3, pharmacy_id: 2, user_id: 1, drug_id: 3)
 
 jeffrey = User.create(first_name: 'Jeffrey', last_name: 'Katz', email: 'jkatz@gmail.com', password: 'bobbo')
 sammy = User.create(first_name: 'Sammy', last_name: 'Mernick', email: 'sammym@gmail.com', password: 'tribeca')

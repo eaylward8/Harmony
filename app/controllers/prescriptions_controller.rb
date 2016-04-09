@@ -2,6 +2,7 @@ class PrescriptionsController < ApplicationController
   before_filter :authorize, only: [:edit, :update]
 
   def index
+    @prescriptions = current_user.prescriptions.all
     # View of all prescriptions for a user
     # - includes complete details about prescriptions
     # and (in JS) the option to view old prescriptions

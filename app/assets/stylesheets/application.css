@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+
+.prescription {
+  padding-bottom: 3px;
+}
+
+.ul-header {
+  margin-left: -17px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  font-weight: bold;
+}

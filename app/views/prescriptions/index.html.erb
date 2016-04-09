@@ -1,0 +1,23 @@
+<div><br>
+    <% @prescriptions.each do |p| %>
+      <div class='prescription'>
+        <ul>
+          <p class='ul-header'>Drug:</p>
+          <li>Name: <%= p.drug.name %></li>
+          <li>Dosage: <%= p.dosage %></li>
+          <li>Doses: <%= p.doses %></li>
+          <li>Doses/day: <%= p.doses_per_day %></li>
+          <li>Refills: <%= p.refills %></li>
+          <li>Fill Duration: <%= p.fill_duration %></li>
+          <li>Start date: <%= p.start_date %></li>
+          <li>End date: <%= p.end_date %></li>
+          <p class='ul-header'>Doctor:</p>
+          <li>Dr. <%= p.doctor.first_name %> <%= p.doctor.last_name %>, <%= p.doctor.specialty %></li>
+          <li><%= p.doctor.location %></li>
+          <p class='ul-header'>Pharmacy:</p>
+          <li><%= p.pharmacy.name %></li>
+          <li><%= p.pharmacy.location %></li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
