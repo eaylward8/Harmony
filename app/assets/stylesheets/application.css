@@ -16,6 +16,10 @@
 
 body { padding-top: 70px; }
 
+.btn.btn-default.navbar-btn {
+  margin-left: 10px;
+}
+
 .prescription {
   padding-bottom: 3px;
 }

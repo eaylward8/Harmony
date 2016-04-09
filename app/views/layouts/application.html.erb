@@ -51,10 +51,10 @@
           <ul class="nav navbar-nav navbar-right">
                 <% if current_user %>
                 <p class="navbar-text">Logged in as <%= current_user.email %></p>
-                  <button type="button" class="btn btn-default navbar-btn"><%= link_to 'Log Out', logout_path %></button>
+                  <li><%= button_to 'Log Out', logout_path, class: 'btn btn-default navbar-btn' %></li>
                 <% else %>
-                  <button type="button" class="btn btn-default navbar-btn"><%= link_to 'Sign Up', signup_path %></button>
-                  <button type="button" class="btn btn-default navbar-btn"><%= link_to 'Log In', login_path %></button>
+                  <li><%= button_to 'Sign Up', signup_path, class: 'btn btn-default navbar-btn' %></li>
+                  <li><%= button_to 'Log In', login_path, class: 'btn btn-default navbar-btn' %></li>
                 <% end %>
               </div>
             </nav>
