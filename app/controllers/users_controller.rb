@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def show
     # Main user dashboard for prescription info / schedule
-    @user = User.find(params[:id])
+    @user = current_user
   end
 
   def new

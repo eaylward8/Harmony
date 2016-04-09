@@ -14,6 +14,8 @@
  *= require_self
  */
 
+body { padding-top: 70px; }
+
 .prescription {
   padding-bottom: 3px;
 }
@@ -23,4 +25,16 @@
   margin-bottom: 5px;
   margin-top: 5px;
   font-weight: bold;
+}
+
+.days-of-the-week-container {
+  margin-top: 100px;
+  justify-content: center;
+  display: flex;
+}
+
+.day-of-the-week {
+  border: 1px solid gray;
+  width: 150px;
+  height: 250px;
 }
