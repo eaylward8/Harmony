@@ -22,11 +22,6 @@ body {
   padding-top: 70px;
 }
 
-.row {
-
-  margin: auto 0px;
-}
-
 .btn.btn-default.navbar-btn {
   margin-left: 10px;
 }
@@ -45,8 +40,34 @@ body {
 
 .pillbox-cell-head {
   background-color: #F7E4BE;
-  color: #78909C;
+  color: #607D8B;
+  font-size: 1.5em;
+  line-height: 95px;
 }
+
+/*.pillbox-head-morning {
+  font-size: 1.5em;
+  text-align: center;
+  color: #F0B49E;
+}
+
+.pillbox-head-afternoon {
+  font-size: 1.5em;
+  text-align: center;
+  color: #B38184;
+}
+
+.pillbox-head-evening {
+  font-size: 1.5em;
+  text-align: center;
+  color: #73626E;
+}
+
+.pillbox-head-bedtime {
+  font-size: 1.5em;
+  text-align: center;
+  color: #413E4A;
+}*/
 
 .pillbox-cell-morning {
   background-color: #F0B49E;

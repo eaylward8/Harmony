@@ -5,13 +5,13 @@
 <body>
 
   <%= form_for @prescription do |f| %>
-    Drug name? <%=fields_for :drugs do |drug_form| %><br>
+    Drug name? <%=fields_for :drug do |drug_form| %><br>
         <%= drug_form.text_field :name %>
       <% end %><br>
-    Doctor name? <%=fields_for :doctors do |doctor_form| %><br>
+    Doctor name? <%=fields_for :doctor do |doctor_form| %><br>
         <%= doctor_form.text_field :name %>
       <% end %><br>
-    Pharmacy name? <%=fields_for :pharmacys do |pharmacy_form| %><br>
+    Pharmacy name? <%=fields_for :pharmacy do |pharmacy_form| %><br>
         <%= pharmacy_form.text_field :name %>
       <% end %><br>
     How many times a day?<br>
@@ -25,10 +25,6 @@
     Dose size?<br>
      <%= f.text_field :dosage %><br>
     <%= f.submit :Prescribe! %>
-    <%= %>
-    <%= %>
-    <%= %>
-    <%= %>
   <% end %>
 
 </body>

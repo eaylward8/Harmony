@@ -23,6 +23,7 @@ class PrescriptionsController < ApplicationController
   end
 
   def create
+    byebug
     # Creates a new prescription
   end
 
