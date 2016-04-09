@@ -14,10 +14,54 @@
  *= require_self
  */
 
-body { padding-top: 70px; }
+/** {
+  border: 1px dashed blue;
+}
+*/
+body {
+  padding-top: 70px;
+}
+
+.row {
+
+  margin: auto 0px;
+}
 
 .btn.btn-default.navbar-btn {
   margin-left: 10px;
+}
+
+.pillbox-row {
+  margin-top: 8px;
+}
+
+.pillbox-cell {
+  height: 120px;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 10px;
+  margin-left: 1px;
+}
+
+.pillbox-cell-head {
+  background-color: #F7E4BE;
+  color: #78909C;
+}
+
+.pillbox-cell-morning {
+  background-color: #F0B49E;
+}
+
+.pillbox-cell-afternoon {
+  background-color: #B38184;
+}
+
+.pillbox-cell-evening {
+  background-color: #73626E;
+}
+
+.pillbox-cell-bedtime {
+  background-color: #413E4A;
 }
 
 .prescription {
@@ -29,16 +73,4 @@ body { padding-top: 70px; }
   margin-bottom: 5px;
   margin-top: 5px;
   font-weight: bold;
-}
-
-.days-of-the-week-container {
-  margin-top: 100px;
-  justify-content: center;
-  display: flex;
-}
-
-.day-of-the-week {
-  border: 1px solid gray;
-  width: 150px;
-  height: 250px;
 }
