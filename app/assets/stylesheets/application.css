@@ -18,8 +18,37 @@
   border: 1px dashed blue;
 }
 */
-body {
-  padding-top: 70px;
+
+.pillbox-container {
+  padding-top: 100px;
+}
+
+.background {
+  background: url('background.jpg');
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow-y: hidden;
+  background-attachment: fixed;
+  background-position: center center;
+}
+
+#form-container {
+  display: inline-block;
+  text-align: left;
+  padding-top: 150px;
+}
+
+#centered-form-container {
+  margin: 0px auto;
+  text-align: center;
 }
 
 .btn.btn-default.navbar-btn {
@@ -27,7 +56,7 @@ body {
 }
 
 .pillbox-row {
-  margin-top: 8px;
+  margin-top: 1px;
 }
 
 .pillbox-cell {
@@ -35,39 +64,15 @@ body {
   color: #FFFFFF;
   text-align: center;
   padding: 10px;
-  margin-left: 1px;
+  margin-left: 2px;
 }
 
 .pillbox-cell-head {
   background-color: #F7E4BE;
-  color: #607D8B;
+  color: #757575;
   font-size: 1.5em;
   line-height: 95px;
 }
-
-/*.pillbox-head-morning {
-  font-size: 1.5em;
-  text-align: center;
-  color: #F0B49E;
-}
-
-.pillbox-head-afternoon {
-  font-size: 1.5em;
-  text-align: center;
-  color: #B38184;
-}
-
-.pillbox-head-evening {
-  font-size: 1.5em;
-  text-align: center;
-  color: #73626E;
-}
-
-.pillbox-head-bedtime {
-  font-size: 1.5em;
-  text-align: center;
-  color: #413E4A;
-}*/
 
 .pillbox-cell-morning {
   background-color: #F0B49E;

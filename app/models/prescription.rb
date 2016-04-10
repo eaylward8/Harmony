@@ -19,7 +19,6 @@
 #
 
 class Prescription < ActiveRecord::Base
-  include Adapters::InteractionApi
   belongs_to :drug
   belongs_to :doctor
   belongs_to :pharmacy

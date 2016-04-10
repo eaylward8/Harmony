@@ -1,10 +1,14 @@
 module Adapters
   module InteractionApi
-    def rxcui(drug_name)
+    # Drug instance method; searches API by drug name and returns a new Drug object
+    def find_by(drug_name)
       response = HTTParty.get("https://rxnav.nlm.nih.gov/REST/rxcui?name=#{drug_name}")
-      response['rxnormdata']['idGroup']['rxnormId']
+      name = response['rxnormdata']['idGroup']['name'].capitalize
+      rxcui = response['rxnormdata']['idGroup']['rxnormId']
+      Drug.new(name: name, rxcui: rxcui)
     end
 
+    # Drug instance method; searches API by one or more drug names and returns array of interactions
     def interactions(*drug_names)
       rxcuis = drug_names.map { |name| self.rxcui(name) }
       if rxcuis.length == 1
