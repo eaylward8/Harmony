@@ -11,10 +11,18 @@ require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean
 
-dr_leon = Doctor.create(first_name: 'Leon', last_name: 'Harary', location: 'Upper West Side', specialty: 'Proctologist')
-dr_greg = Doctor.create(first_name: 'Greg', last_name: 'Marquet', location: 'Harlem', specialty: 'Brain Surgeon')
-dr_erik = Doctor.create(first_name: 'Erik', last_name: 'Aylward', location: 'Brooklyn', specialty: 'Pediatrician')
-dr_doug = Doctor.create(first_name: 'Doug', last_name: 'Tebay', location: 'Brooklyn', specialty: 'Cardiologist')
+specialty = ['Audiologist', 'Allergist', 'Anesthesiologist', 'Cardiologist', 'Dentist', 'Dermatologist', 'Endocrinologist', 'Gynecologist', 'Epidemiologist', 'Immunologist', 'Neurologist']
+location = ['Upper West Side', 'Upper east Side', 'TriBeCa', 'Midtown', 'Chelsea', 'Flatiron District', 'West Village', 'East Village', 'Park Slope', 'Bay Ridge', 'Williamsburg', 'Greenpoint']
+
+# dr_leon = Doctor.create(first_name: 'Leon', last_name: 'Harary', location: 'Upper West Side', specialty: 'Proctologist')
+# dr_greg = Doctor.create(first_name: 'Greg', last_name: 'Marquet', location: 'Harlem', specialty: 'Brain Surgeon')
+# dr_erik = Doctor.create(first_name: 'Erik', last_name: 'Aylward', location: 'Brooklyn', specialty: 'Pediatrician')
+# dr_doug = Doctor.create(first_name: 'Doug', last_name: 'Tebay', location: 'Brooklyn', specialty: 'Cardiologist')
+
+20.times do |doctor|
+  Doctor.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, location: location.sample, specialty: specialty.sample)
+end
+
 
 
 lipitor = Drug.create(name: 'Lipitor', rxcui: '153165')
@@ -80,7 +88,12 @@ script4 = Prescription.create(dosage: '500mg', doses: 16, doses_per_day: 2, refi
 script5 = Prescription.create(dosage: '10mg', doses: 5, doses_per_day: 1, refills: 0, fill_duration: 5, start_date: '01-01-2016', end_date: '01-06-2016', doctor_id: 1, pharmacy_id: 1, user_id: 1, drug_id: 2)
 script7 = Prescription.create(dosage: '20oz', doses: 100, doses_per_day: 25, refills: 2, fill_duration: 4, start_date: '02-05-2016', end_date: '02-09-2016', doctor_id: 3, pharmacy_id: 2, user_id: 1, drug_id: 3)
 
-jeffrey = User.create(first_name: 'Jeffrey', last_name: 'Katz', email: 'jkatz@gmail.com', password: 'bobbo')
-sammy = User.create(first_name: 'Sammy', last_name: 'Mernick', email: 'sammym@gmail.com', password: 'tribeca')
-nami = User.create(first_name: 'Nami', last_name: 'Nami', email: 'naminami@gmail.com', password: 'matisse')
-shirley = User.create(first_name: 'Shirley', last_name: 'Berry', email: 'shirleyb@gmail.com', password: 'bluejay')
+# jeffrey = User.create(first_name: 'Jeffrey', last_name: 'Katz', email: 'jkatz@gmail.com', password: 'bobbo')
+# sammy = User.create(first_name: 'Sammy', last_name: 'Mernick', email: 'sammym@gmail.com', password: 'tribeca')
+# nami = User.create(first_name: 'Nami', last_name: 'Nami', email: 'naminami@gmail.com', password: 'matisse')
+# shirley = User.create(first_name: 'Shirley', last_name: 'Berry', email: 'shirleyb@gmail.com', password: 'bluejay')
+
+20.times do |user|
+  User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, password: 'password123')
+end
+

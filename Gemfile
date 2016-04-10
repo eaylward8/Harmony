@@ -40,6 +40,7 @@ group :development, :test do
   gem 'byebug'
   gem 'database_cleaner'
   gem 'rspec-rails'
+  gem 'faker'
 end
 
 group :development do
