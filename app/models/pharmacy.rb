@@ -15,5 +15,5 @@ class Pharmacy < ActiveRecord::Base
   has_many :users, through: :prescriptions
   has_many :drugs, through: :prescriptions
 
-  validates :name, :location, presence: true
+  validates :name,  presence: true
 end

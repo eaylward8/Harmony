@@ -17,5 +17,5 @@ class Doctor < ActiveRecord::Base
   has_many :users, through: :prescriptions
   has_many :drugs, through: :prescriptions
 
-  validates :first_name, :last_name, :specialty, :location, presence: true
+  validates :first_name, :last_name, presence: true
 end

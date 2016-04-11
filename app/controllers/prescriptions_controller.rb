@@ -2,8 +2,6 @@ class PrescriptionsController < ApplicationController
   before_filter :authorize, only: [:edit, :update]
 
   def index
-    u = User.all.first
-    u.doses_by_time_of_day('morning')
     @prescriptions = current_user.prescriptions.all
     # View of all prescriptions for a user
     # - includes complete details about prescriptions
@@ -12,12 +10,13 @@ class PrescriptionsController < ApplicationController
   end
 
   def show
-    @prescription = User.first.prescriptions.first
+    @prescription = Prescription.find(params[:id])
   end
 
   def new
     # Form to enter a new prescription
     @prescription = Prescription.new
+
   end
 
   def edit
@@ -25,7 +24,13 @@ class PrescriptionsController < ApplicationController
   end
 
   def create
-    byebug
+    @prescription = Prescription.create(prescription_params)
+    new_drug_params = Drug.new.find_by(drug_params[:name])
+    @prescription.drug = Drug.find_or_create_by(new_drug_params)
+    @prescription.doctor = Doctor.find_or_create_by(doctor_params)
+    @prescription.pharmacy = Pharmacy.find_or_create_by(pharmacy_params)
+    @prescription.save
+    redirect_to @prescription
     # Creates a new prescription
   end
 
@@ -35,5 +40,23 @@ class PrescriptionsController < ApplicationController
 
   def destroy
     # Destroys a prescription
+  end
+
+  private
+
+  def doctor_params
+    params.require(:doctor).permit(:first_name, :last_name)
+  end
+
+  def pharmacy_params
+    params.require(:pharmacy).permit(:name)
+  end
+
+  def drug_params
+    params.require(:drug).permit(:name)
+  end
+
+  def prescription_params
+    params.require(:prescription).permit(:fill_duration, :refills, :start_date, :dose_size)
   end
 end
