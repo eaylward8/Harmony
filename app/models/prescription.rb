@@ -23,8 +23,8 @@ class Prescription < ActiveRecord::Base
   belongs_to :user
   has_many :scheduled_doses
 
-  validates :refills, :fill_duration, :start_date, presence: true
-  validates :refills, :fill_duration, numericality: true 
+  validates :dose_size, :refills, :fill_duration, :start_date, presence: true
+  validates :refills, :fill_duration, numericality: true
 # removed end date from validation
 
   def refill

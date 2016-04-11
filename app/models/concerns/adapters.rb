@@ -11,7 +11,7 @@ module Adapters
 
     # Drug instance method; searches API by one or more drug names and returns array of interactions
     def interactions(*drug_names)
-      rxcuis = drug_names.map { |name| self.rxcui(name) }
+      rxcuis = drug_names.map { |name| self.find_by(name).rxcui }
       if rxcuis.length == 1
         get_interactions_for_med(rxcuis.first)
       elsif rxcuis.length > 1

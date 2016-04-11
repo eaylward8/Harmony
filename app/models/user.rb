@@ -50,6 +50,9 @@ class User < ActiveRecord::Base
     end
   end
 
-
-
+  def drugs_by_time_of_day(time_of_day)
+    self.drugs.select do |drug|
+      drug.prescriptions.joins(:scheduled_doses).where('time_of_day == ?', time_of_day).length > 0
+    end
+  end
 end
