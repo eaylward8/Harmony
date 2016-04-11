@@ -1,5 +1,5 @@
 class PrescriptionsController < ApplicationController
-  before_filter :authorize, only: [:edit, :update]
+  # before_filter :authorize, only: [:edit, :update]
 
   def index
     @prescriptions = current_user.prescriptions.all
@@ -21,10 +21,11 @@ class PrescriptionsController < ApplicationController
 
   def edit
     # Form to edit a prescription
+    @prescription = Prescription.find(params[:id])
+
   end
 
   def create
-    byebug
     @prescription = Prescription.create(prescription_params)
     new_drug_params = Drug.new.find_by(drug_params[:name])
     @prescription.drug = Drug.find_or_create_by(new_drug_params)
@@ -44,6 +45,18 @@ class PrescriptionsController < ApplicationController
 
   def update
     # Updates a prescription
+    @prescription = Prescription.find(params[:id])
+    new_drug_params = Drug.new.find_by(drug_params[:name])
+    @prescription.drug = Drug.find_or_create_by(new_drug_params)
+    @prescription.doctor = Doctor.find_or_create_by(doctor_params)
+    @prescription.pharmacy = Pharmacy.find_or_create_by(pharmacy_params)
+
+    scheduled_doses_params.each do |time_of_day, count|
+      count.to_i.times do
+        ScheduledDose.create(time_of_day: time_of_day, prescription_id: @prescription.id)
+      end
+    end
+    redirect_to @prescription
   end
 
   def destroy
