@@ -6,15 +6,12 @@
   <br>
   <div>
     ***add more data on this page***<br>
-      Dosage: <%= @prescription.dosage %> <br>
-      Doses: <%= @prescription.doses %> <br>
       Drug: <%= @prescription.drug.name %> <br>
-      Doses/day: <%= @prescription.doses_per_day %> <br>
       Refills: <%= @prescription.refills %> <br>
       Fill Duration: <%= @prescription.fill_duration %> <br>
       Start date: <%= @prescription.start_date %> <br>
       End date: <%= @prescription.end_date %> <br>
-      Dr. <%= @prescription.doctor.first_name %> <br>
+      Dr. <%= @prescription.doctor.first_name %>  <%= @prescription.doctor.last_name %> <br>
       Pharmacy <%= @prescription.pharmacy.name %> <br>
 
     
