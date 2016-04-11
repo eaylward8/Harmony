@@ -32,7 +32,7 @@ class PrescriptionsController < ApplicationController
     @prescription.pharmacy = Pharmacy.find_or_create_by(pharmacy_params)
 
     scheduled_doses_params.each do |time_of_day, count|
-      count.times do
+      count.to_i.times do
         ScheduledDose.create(time_of_day: time_of_day, prescription_id: @prescription.id)
       end
     end

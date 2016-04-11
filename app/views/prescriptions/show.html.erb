@@ -13,7 +13,16 @@
       End date: <%= @prescription.end_date %> <br>
       Dr. <%= @prescription.doctor.first_name %>  <%= @prescription.doctor.last_name %> <br>
       Pharmacy <%= @prescription.pharmacy.name %> <br>
-      Dose Schedule: <% @prescription.scheduled_doses
+      Dose Schedule: 
+      <ul>
+        <li>Morning: <%= @prescription.daily_schedule[:morning] %></li>
+        <li>Afternoon: <%= @prescription.daily_schedule[:afternoon] %></li>
+        <li>Evening: <%= @prescription.daily_schedule[:evening] %></li>
+        <li>Bedtime: <%= @prescription.daily_schedule[:bedtime] %></li>
+      </ul>
+
+
+
 
     
   </div>

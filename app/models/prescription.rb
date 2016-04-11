@@ -45,6 +45,14 @@ class Prescription < ActiveRecord::Base
     self.save
   end
 
+  def daily_schedule
+    schedule = {morning: 0, afternoon: 0, evening: 0, bedtime: 0}
+    self.scheduled_doses.each do |scheduled_dose|
+      schedule[scheduled_dose.time_of_day.to_sym] += 1
+    end
+    schedule
+  end
+
 
 
 
