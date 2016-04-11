@@ -15,6 +15,9 @@ class Drug < ActiveRecord::Base
   has_many :pharmacies, through: :prescriptions
   has_many :users, through: :prescriptions
   has_many :doctors, through: :prescriptions
+  has_many :drug_interactions
+  has_many :interactions, through: :drug_interactions
+
   validates :name, :rxcui, presence: true
   validates :rxcui, numericality: true
 
