@@ -40,13 +40,20 @@ has_many users, through: :prescription
 has_many doctors, through: :prescription
 
 Prescription
-dosage  | doses | doses/day | refills | fill duration | start date | end date | Doctor ID | Pharm ID | User ID | Drug  ID| 
-  10mg      21         3          3         7             4/22/2016   4/29/2016   1          1         1          1
+dose_size | refills | fill duration | start date | end date | Doctor ID | Pharm ID | User ID | Drug  ID| 
+  10mg        3         7             4/22/2016   4/29/2016   1          1         1          1
 belongs_to drug
 belongs_to doctor
 belongs_to pharmacy
 belongs_to user
+has_many scheduled_doses
 
+Scheduled_Doses
+time_of_day | Prescription_ID | 
+  morning           1          
+  morning           1
+  evening           1
+belongs_to prescription
 
 
 

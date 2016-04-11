@@ -3,9 +3,6 @@
 # Table name: prescriptions
 #
 #  id            :integer          not null, primary key
-#  dosage        :string
-#  doses         :integer
-#  doses_per_day :integer
 #  refills       :integer
 #  fill_duration :integer
 #  start_date    :date
@@ -16,6 +13,7 @@
 #  drug_id       :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  dose_size     :string
 #
 
 require 'test_helper'
