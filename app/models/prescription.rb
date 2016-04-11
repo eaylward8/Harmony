@@ -16,26 +16,6 @@
 #  dose_size     :string
 #
 
-  # == Schema Information
-#
-# Table name: prescriptions
-#
-#  id            :integer          not null, primary key
-#  dosage        :string
-#  doses         :integer
-#  doses_per_day :integer
-#  refills       :integer
-#  fill_duration :integer
-#  start_date    :date
-#  end_date      :date
-#  doctor_id     :integer
-#  pharmacy_id   :integer
-#  user_id       :integer
-#  drug_id       :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#
-
 class Prescription < ActiveRecord::Base
   belongs_to :drug
   belongs_to :doctor
@@ -63,6 +43,14 @@ class Prescription < ActiveRecord::Base
   def calculate_end_date
     self.end_date = self.start_date + self.fill_duration    
     self.save
+  end
+
+  def daily_schedule
+    schedule = {morning: 0, afternoon: 0, evening: 0, bedtime: 0}
+    self.scheduled_doses.each do |scheduled_dose|
+      schedule[scheduled_dose.time_of_day.to_sym] += 1
+    end
+    schedule
   end
 
 
