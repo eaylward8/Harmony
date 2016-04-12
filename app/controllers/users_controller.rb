@@ -13,6 +13,7 @@ class UsersController < ApplicationController
 
   def edit
     # Form to edit user profile
+    @user = current_user
   end
 
   def create
@@ -27,6 +28,10 @@ class UsersController < ApplicationController
 
   def update
     # Updates user profile
+    @user = current_user
+    @user.update(user_params)
+    @user.save
+    redirect_to user_path
   end
 
   def destroy

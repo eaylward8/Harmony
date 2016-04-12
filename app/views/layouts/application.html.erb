@@ -56,7 +56,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
                 <% if current_user %>
-                <p class="navbar-text">Logged in as <%= current_user.email %></p>
+                <p class="navbar-text">Logged in as <%= current_user.first_name %></p>
                   <li><%= button_to 'Log Out', logout_path, method: 'get', class: 'btn btn-default navbar-btn' %></li>
                 <% else %>
                   <li><%= button_to 'Sign Up', signup_path, method: 'get', class: 'btn btn-default navbar-btn' %></li>
