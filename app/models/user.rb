@@ -19,6 +19,14 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :first_name, :last_name, presence: true
   
+  def doctors_names
+    my_docs = []
+    self.doctors.collect do |d|
+      my_docs << "#{d.id} - Dr. #{d.first_name} #{d.last_name}"
+    end
+    my_docs
+  end
+
   def active_prescriptions
     self.prescriptions.where("end_date >= ?", Date.today)
   end
