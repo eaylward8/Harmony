@@ -70,11 +70,10 @@ naproxen = Drug.create(name: 'Naproxen', rxcui: '7258')
 augmentin = Drug.create(name: 'Augmentin', rxcui: '151392')
 viagra = Drug.create(name: 'Viagra', rxcui: '190465')
 
-
 duane_reade = Pharmacy.create(name: 'Duane Reade', location: '11 Broadway')
 cvs = Pharmacy.create(name: 'CVS', location: '20 Park Avenue')
 
-1.times do |user|
+2.times do |user|
   User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, password: 'password123')
 end
 

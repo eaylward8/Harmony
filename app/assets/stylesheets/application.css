@@ -99,4 +99,9 @@
   font-weight: bold;
 }
 
+#home-jumbotron {
+  background-color: transparent;
+  margin-top: 140px;
+  color: #e7e7e7
+}
 
