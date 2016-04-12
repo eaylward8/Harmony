@@ -8,20 +8,27 @@
     Drug name? <%=fields_for :drug do |drug_form| %><br>
         <%= drug_form.text_field :name %>
       <% end %><br>
+     <br> ********************** <br>
     Doctor <%=fields_for :doctor do |doctor_form| %><br>
+    
+    <%= radio_button_tag(:doc_type, "existing", checked: 'checked') %> My Doctors: 
+      <%= doctor_form.select :doctor, current_user.doctors_names %><br>
+    <%= radio_button_tag(:doc_type, "new") %> New Doctor: 
         First Name<%= doctor_form.text_field :first_name %>
-        Last Name<%= doctor_form.text_field :last_name %>
+        Last Name<%= doctor_form.text_field :last_name %> <br>
       <% end %><br>
+      
     Pharmacy name? <%=fields_for :pharmacy do |pharmacy_form| %><br>
         <%= pharmacy_form.text_field :name %>
       <% end %><br>
 
+      <br> ********************** <br>
 
     How many days? <br>
-    <%= f.number_field :fill_duration %> <br>
+    <%= f.number_field :fill_duration, min: 0 %> <br>
 
     How many refills? <br>
-    <%= f.number_field :refills %><br>
+    <%= f.number_field :refills, min: 0 %><br>
 
     Start date? <br>
     <%= f.date_field :start_date, :value => Date.today %><br>

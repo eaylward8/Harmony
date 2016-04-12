@@ -18,4 +18,8 @@ class Doctor < ActiveRecord::Base
   has_many :drugs, through: :prescriptions
 
   validates :first_name, :last_name, presence: true
+
+  def professional_name
+    "Dr. #{self.first_name} #{self.last_name}"
+  end
 end

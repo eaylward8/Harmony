@@ -18,10 +18,10 @@
 
 
     How many days? <br>
-    <%= f.number_field :fill_duration%> <br>
+    <%= f.number_field :fill_duration, min: 0%> <br>
 
     How many refills? <br>
-    <%= f.number_field :refills %><br>
+    <%= f.number_field :refills, min: 0 %><br>
 
     Start date? <br>
     <%= f.date_field :start_date, :value => Date.today %><br>
@@ -31,19 +31,19 @@
 
     What is your medication schedule? <br>
     Morning: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
-      <%= scheduled_dose_form.select :morning, [0, 1, 2, 3, 4, 5, 6, 7], value: @prescription.daily_schedule[:morning] %>
+      <%= scheduled_dose_form.select :morning, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.daily_schedule[:morning] %>
     <% end %><br>
 
     Afternoon: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
-      <%= scheduled_dose_form.select :afternoon, [0, 1, 2, 3, 4, 5, 6, 7], value: @prescription.daily_schedule[:afternoon] %>
+      <%= scheduled_dose_form.select :afternoon, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.daily_schedule[:afternoon] %>
     <% end %><br>
 
     Evening: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
-      <%= scheduled_dose_form.select :evening, [0, 1, 2, 3, 4, 5, 6, 7], value: @prescription.daily_schedule[:evening] %>
+      <%= scheduled_dose_form.select :evening, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.daily_schedule[:evening] %>
     <% end %><br>
 
     Bedtime: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
-      <%= scheduled_dose_form.select :bedtime, [0, 1, 2, 3, 4, 5, 6, 7], value: @prescription.daily_schedule[:bedtime] %>
+      <%= scheduled_dose_form.select :bedtime, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.daily_schedule[:bedtime] %>
     <% end %><br>
 
     <%= f.submit :EditPrescription! %>

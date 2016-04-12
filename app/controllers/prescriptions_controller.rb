@@ -26,19 +26,27 @@ class PrescriptionsController < ApplicationController
   end
 
   def create
-    @prescription = Prescription.create(prescription_params)
+    @prescription = Prescription.new(prescription_params)
+    @prescription.user = current_user
     new_drug_params = Drug.new.find_by(drug_params[:name])
     @prescription.drug = Drug.find_or_create_by(new_drug_params)
-    @prescription.doctor = Doctor.find_or_create_by(doctor_params)
+    # logic for doctor creation or associaton
+    debugger
+    if params[:doc_type] == "new"
+      @prescription.doctor = Doctor.find_or_create_by(doctor_params)
+    else
+      @prescription.doctor = Doctor.find(params[:doctor][:doctor].split(" ").first.to_i)
+    end
     @prescription.pharmacy = Pharmacy.find_or_create_by(pharmacy_params)
+
 
     scheduled_doses_params.each do |time_of_day, count|
       count.to_i.times do
         ScheduledDose.create(time_of_day: time_of_day, prescription_id: @prescription.id)
       end
     end
-
     @prescription.save
+    @prescription.calculate_end_date
     redirect_to @prescription
     # Creates a new prescription
   end
@@ -50,7 +58,7 @@ class PrescriptionsController < ApplicationController
     @prescription.drug = Drug.find_or_create_by(new_drug_params)
     @prescription.doctor = Doctor.find_or_create_by(doctor_params)
     @prescription.pharmacy = Pharmacy.find_or_create_by(pharmacy_params)
-
+    @prescription.scheduled_doses.clear
     scheduled_doses_params.each do |time_of_day, count|
       count.to_i.times do
         ScheduledDose.create(time_of_day: time_of_day, prescription_id: @prescription.id)
