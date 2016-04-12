@@ -56,7 +56,7 @@ class PrescriptionsController < ApplicationController
 
     
     @prescription.calculate_end_date
-    redirect_to @prescription
+    redirect_to user_path(current_user)
     # Creates a new prescription
   end
 
