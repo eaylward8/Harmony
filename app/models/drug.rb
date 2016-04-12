@@ -22,4 +22,8 @@ class Drug < ActiveRecord::Base
 
   # accepts_nested_attributes_for :prescriptions
 
+  def self.all_drug_names
+    self.pluck('name')
+  end
+
 end

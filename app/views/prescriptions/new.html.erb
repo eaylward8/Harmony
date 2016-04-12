@@ -8,7 +8,6 @@
     Drug name? <%=fields_for :drug do |drug_form| %><br>
         <%= drug_form.text_field :name %>
       <% end %><br>
-     <br> ********************** <br>
     Doctor <%=fields_for :doctor do |doctor_form| %><br>
     
     <%= radio_button_tag(:doc_type, "existing", checked: 'checked') %> My Doctors: 
@@ -28,9 +27,8 @@
         Location<%= pharmacy_form.text_field :location %> <br>
       <% end %><br>
 
-      <br> ********************** <br>
 
-    How many days? <br>
+    Prescription Length (in days): <br>
     <%= f.number_field :fill_duration, min: 0 %> <br>
 
     How many refills? <br>
@@ -40,9 +38,9 @@
     <%= f.date_field :start_date, :value => Date.today %><br>
 
     Dose size?<br>
-     <%= f.text_field :dose_size %><br>
+     <%= f.text_field :dose_size, placeholder: "ex. 2 pills, 40 mg"%><br>
 
-    What is your medication schedule? <br>
+    How many doses will you be taking at the following times? <br>
     Morning: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
       <%= scheduled_dose_form.select :morning, [0, 1, 2, 3, 4, 5, 6, 7] %>
     <% end %><br>
@@ -59,7 +57,7 @@
       <%= scheduled_dose_form.select :bedtime, [0, 1, 2, 3, 4, 5, 6, 7] %>
     <% end %><br>
 
-    <%= f.submit :Add_Prescription! %>
+    <%= f.submit "Add New Prescription!" %>
   <% end %>
 
 </body>

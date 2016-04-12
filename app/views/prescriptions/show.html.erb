@@ -5,21 +5,11 @@
 <body>
   <br>
   <div>
-    ***add more data on this page***<br>
-      Drug: <%= @prescription.drug.name %> <br>
-      Refills: <%= @prescription.refills %> <br>
-      Fill Duration: <%= @prescription.fill_duration %> <br>
-      Start date: <%= @prescription.start_date %> <br>
-      End date: <%= @prescription.end_date %> <br>
-      Dr. <%= @prescription.doctor.first_name %>  <%= @prescription.doctor.last_name %> <br>
-      Pharmacy <%= @prescription.pharmacy.name %> <br>
-      Dose Schedule: 
-      <ul>
-        <li>Morning: <%= @prescription.daily_schedule[:morning] %></li>
-        <li>Afternoon: <%= @prescription.daily_schedule[:afternoon] %></li>
-        <li>Evening: <%= @prescription.daily_schedule[:evening] %></li>
-        <li>Bedtime: <%= @prescription.daily_schedule[:bedtime] %></li>
-      </ul>
+    <% if @prescription.user == current_user %>
+    <%= render "prescription_detail" %>
+    <% else %>
+      Oops! You navigated to a prescription that isnt yours...
+    <% end %>
 
 
 

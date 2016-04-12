@@ -28,11 +28,10 @@ class PrescriptionsController < ApplicationController
   def create
     @prescription = Prescription.new(prescription_params)
     @prescription.user = current_user
-    # new_drug_params = Drug.new.find_by(drug_params[:name])
-    new_drug_params = Adapters::DrugClient.find_by_name(drug_params[:name])
+    new_drug = Drug.new.find_by(drug_params[:name])
+    new_drug_params = {name: new_drug.name, rxcui: new_drug.rxcui}
     @prescription.drug = Drug.find_or_create_by(new_drug_params)
     # logic for doctor creation or associaton
-    
     if params[:doc_type] == "new"
       @prescription.doctor = Doctor.find_or_create_by(doctor_params)
     else
@@ -57,14 +56,15 @@ class PrescriptionsController < ApplicationController
 
     
     @prescription.calculate_end_date
-    redirect_to @prescription
+    redirect_to user_path(current_user)
     # Creates a new prescription
   end
 
   def update
     # Updates a prescription
     @prescription = Prescription.find(params[:id])
-    new_drug_params = Drug.new.find_by(drug_params[:name])
+    new_drug = Drug.new.find_by(drug_params[:name])
+    new_drug_params = {name: new_drug.name, rxcui: new_drug.rxcui}
     @prescription.drug = Drug.find_or_create_by(new_drug_params)
     @prescription.doctor = Doctor.find_or_create_by(doctor_params)
     @prescription.pharmacy = Pharmacy.find_or_create_by(pharmacy_params)

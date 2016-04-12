@@ -93,6 +93,12 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+<<<<<<< HEAD
+=======
+    pry-byebug (3.3.0)
+      byebug (~> 8.0)
+      pry (~> 0.10)
+>>>>>>> ba9bf44a0e9dba282ef377393c2e20501dee6009
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -181,14 +187,17 @@ PLATFORMS
 DEPENDENCIES
   annotate
   bcrypt (~> 3.1.7)
-  byebug
   coffee-rails (~> 4.1.0)
   database_cleaner
   faker
   httparty
   jbuilder (~> 2.0)
   jquery-rails
+<<<<<<< HEAD
   pry
+=======
+  pry-byebug
+>>>>>>> ba9bf44a0e9dba282ef377393c2e20501dee6009
   rails (= 4.2.5.2)
   rspec-rails
   sass-rails (~> 5.0)
