@@ -24,7 +24,15 @@ class User < ActiveRecord::Base
     self.doctors.collect do |d|
       my_docs << "#{d.id} - Dr. #{d.first_name} #{d.last_name}"
     end
-    my_docs
+    my_docs.uniq
+  end
+
+  def pharmacy_names
+    my_pharms = []
+    self.pharmacies.collect do |p|
+      my_pharms << "#{p.id} - #{p.name} - #{p.location}"
+    end
+    my_pharms.uniq
   end
 
   def active_prescriptions
