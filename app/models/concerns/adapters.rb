@@ -5,8 +5,8 @@ module Adapters
       response = HTTParty.get("https://rxnav.nlm.nih.gov/REST/rxcui?name=#{drug_name}")
       name = response['rxnormdata']['idGroup']['name'].capitalize
       rxcui = response['rxnormdata']['idGroup']['rxnormId']
-      # Drug.new(name: name, rxcui: rxcui)
-      {name: name, rxcui: rxcui}
+      Drug.new(name: name, rxcui: rxcui)
+      # {name: name, rxcui: rxcui}
     end
 
     # Drug instance method; searches API by one or more drug names and returns array of interactions
