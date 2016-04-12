@@ -50,17 +50,33 @@ class User < ActiveRecord::Base
     end
   end
 
-  def drugs_by_time_of_day(time_of_day)
-    drugs = self.drugs.select do |drug|
-      drug.prescriptions.joins(:scheduled_doses).where('time_of_day == ?', time_of_day).length > 0
+  def prescriptions_by_time_of_day(time_of_day)
+    prescriptions = self.active_prescriptions.select do |prescription|
+      prescription.scheduled_doses.map {|dose| dose.time_of_day}.include?(time_of_day)
     end
-    drug_names_and_doses(drugs)
+    render_prescriptions(prescriptions, time_of_day)
   end
 
-  def drug_names_and_doses(drugs)
-    drugs.map do |drug|
-      count = drugs.select {|d| d.name == drug.name}.count
-      {name: drug.name, count: count}
+  def render_prescriptions(prescriptions, time_of_day)
+    prescriptions.map do |prescription|
+      name = prescription.drug.name
+      doses = prescription.scheduled_doses.select {|dose| dose.time_of_day == time_of_day}.count
+      dose_size = prescription.dose_size
+      {name: name, doses: doses, dose_size: dose_size}
     end
   end
+
+  # def drugs_by_time_of_day(time_of_day)
+  #   drugs = self.drugs.select do |drug|
+  #     drug.prescriptions.joins(:scheduled_doses).where('time_of_day == ?', time_of_day).length > 0
+  #   end
+  #   drug_names_and_doses(drugs)
+  # end
+
+  # def drug_names_and_doses(drugs)
+  #   drugs.map do |drug|
+  #     count = drugs.select {|d| d.name == drug.name}.count
+  #     {name: drug.name, count: count}
+  #   end
+  # end
 end

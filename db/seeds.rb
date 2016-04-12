@@ -14,16 +14,9 @@ DatabaseCleaner.clean
 specialty = ['Audiologist', 'Allergist', 'Anesthesiologist', 'Cardiologist', 'Dentist', 'Dermatologist', 'Endocrinologist', 'Gynecologist', 'Epidemiologist', 'Immunologist', 'Neurologist']
 location = ['Upper West Side', 'Upper east Side', 'TriBeCa', 'Midtown', 'Chelsea', 'Flatiron District', 'West Village', 'East Village', 'Park Slope', 'Bay Ridge', 'Williamsburg', 'Greenpoint']
 
-# dr_leon = Doctor.create(first_name: 'Leon', last_name: 'Harary', location: 'Upper West Side', specialty: 'Proctologist')
-# dr_greg = Doctor.create(first_name: 'Greg', last_name: 'Marquet', location: 'Harlem', specialty: 'Brain Surgeon')
-# dr_erik = Doctor.create(first_name: 'Erik', last_name: 'Aylward', location: 'Brooklyn', specialty: 'Pediatrician')
-# dr_doug = Doctor.create(first_name: 'Doug', last_name: 'Tebay', location: 'Brooklyn', specialty: 'Cardiologist')
-
 5.times do |doctor|
   Doctor.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, location: location.sample, specialty: specialty.sample)
 end
-
-
 
 lipitor = Drug.create(name: 'Lipitor', rxcui: '153165')
 hydrocodone = Drug.create(name: 'Hydrocodone', rxcui: '5489')
@@ -81,19 +74,12 @@ viagra = Drug.create(name: 'Viagra', rxcui: '190465')
 duane_reade = Pharmacy.create(name: 'Duane Reade', location: '11 Broadway')
 cvs = Pharmacy.create(name: 'CVS', location: '20 Park Avenue')
 
-# script1 = Prescription.create(dosage: '10mg', doses: 5, doses_per_day: 1, refills: 0, fill_duration: 5, start_date: '01-01-2016', end_date: '01-06-2016', doctor_id: 1, pharmacy_id: 1, user_id: 4, drug_id: 2)
-# script2 = Prescription.create(dosage: '5g', doses: 21, doses_per_day: 3, refills: 4, fill_duration: 7, start_date: '03-20-2016', end_date: '03-27-2016', doctor_id: 2, pharmacy_id: 1, user_id: 3, drug_id: 4)
-# script3 = Prescription.create(dosage: '20oz', doses: 100, doses_per_day: 25, refills: 2, fill_duration: 4, start_date: '02-05-2016', end_date: '02-09-2016', doctor_id: 3, pharmacy_id: 2, user_id: 2, drug_id: 3)
-# script4 = Prescription.create(dosage: '500mg', doses: 16, doses_per_day: 2, refills: 1, fill_duration: 8, start_date: '04-01-2016', end_date: '04-09-2016', doctor_id: 4, pharmacy_id: 2, user_id: 1, drug_id: 1)
-# script5 = Prescription.create(dosage: '10mg', doses: 5, doses_per_day: 1, refills: 0, fill_duration: 5, start_date: '01-01-2016', end_date: '01-06-2016', doctor_id: 1, pharmacy_id: 1, user_id: 1, drug_id: 2)
-# script7 = Prescription.create(dosage: '20oz', doses: 100, doses_per_day: 25, refills: 2, fill_duration: 4, start_date: '02-05-2016', end_date: '02-09-2016', doctor_id: 3, pharmacy_id: 2, user_id: 1, drug_id: 3)
-
 1.times do |user|
   User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, password: 'password123')
 end
 
 25.times do |prescription|
-  start_date = Date.today + rand(1..100)
+  start_date = Date.today + rand(-30..30)
   fill_duration = rand(1..20)
   Prescription.create(refills: rand(1..5), fill_duration: fill_duration, start_date: start_date, end_date: ((start_date + fill_duration) - 1), doctor_id: rand(1..Doctor.all.count), pharmacy_id: rand(1..Pharmacy.all.count), user_id: rand(1..User.all.count), drug_id: rand(1..Drug.all.count), dose_size: "#{rand(20..500)}mg")
 end

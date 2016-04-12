@@ -4,23 +4,23 @@
       <div class="col-md-1"></div>
       <div class="col-md-2 pillbox-cell pillbox-cell-head"><%= Time.now.strftime("%a, %b %d %Y") %></div>
       <div class="col-md-2 pillbox-cell pillbox-cell-morning">
-        <% @user.drugs_by_time_of_day('morning').uniq.each do |drug| %>
-        <%= drug[:name] %> x<%= drug[:count] %><br>
+        <% @user.prescriptions_by_time_of_day('morning').each do |drug| %>
+        <%= drug[:name] %> x<%= drug[:doses] %> (<%= drug[:dose_size] %>)<br>
         <% end %>
       </div>
       <div class="col-md-2 pillbox-cell pillbox-cell-afternoon">
-        <% @user.drugs_by_time_of_day('afternoon').uniq.each do |drug| %>
-        <%= drug[:name] %> x<%= drug[:count] %><br>
+        <% @user.prescriptions_by_time_of_day('afternoon').each do |drug| %>
+        <%= drug[:name] %> x<%= drug[:doses] %> (<%= drug[:dose_size] %>)<br>
         <% end %>
       </div>
       <div class="col-md-2 pillbox-cell pillbox-cell-evening">
-        <% @user.drugs_by_time_of_day('evening').uniq.each do |drug| %>
-        <%= drug[:name] %> x<%= drug[:count] %><br>
+        <% @user.prescriptions_by_time_of_day('evening').each do |drug| %>
+        <%= drug[:name] %> x<%= drug[:doses] %> (<%= drug[:dose_size] %>)<br>
         <% end %>
       </div>
       <div class="col-md-2 pillbox-cell pillbox-cell-bedtime">
-        <% @user.drugs_by_time_of_day('bedtime').uniq.each do |drug| %>
-        <%= drug[:name] %> x<%= drug[:count] %><br>
+        <% @user.prescriptions_by_time_of_day('bedtime').each do |drug| %>
+        <%= drug[:name] %> x<%= drug[:doses] %> (<%= drug[:dose_size] %>)<br>
         <% end %>
       </div>
       <div class="col-md-1"></div>
