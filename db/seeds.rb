@@ -77,13 +77,13 @@ cvs = Pharmacy.create(name: 'CVS', location: '20 Park Avenue')
   User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, password: 'password123')
 end
 
-25.times do |prescription|
+100.times do |prescription|
   start_date = Date.today + rand(-30..30)
   fill_duration = rand(1..20)
   Prescription.create(refills: rand(1..5), fill_duration: fill_duration, start_date: start_date, end_date: ((start_date + fill_duration) - 1), doctor_id: rand(1..Doctor.all.count), pharmacy_id: rand(1..Pharmacy.all.count), user_id: rand(1..User.all.count), drug_id: rand(1..Drug.all.count), dose_size: "#{rand(20..500)}mg")
 end
 
-25.times do |scheduled_doses|
+100.times do |scheduled_doses|
   times_of_day = {'0' =>  'morning', '1' => 'afternoon', '2' => 'evening', '3' => 'bedtime'}
   ScheduledDose.create(time_of_day: times_of_day[rand(0..3).to_s], prescription_id: rand(1..Prescription.all.count))
 end

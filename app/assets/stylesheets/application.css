@@ -16,11 +16,37 @@
 
 /** {
   border: 1px dashed blue;
-}
-*/
+}*/
 
 .pillbox-container {
   padding-top: 100px;
+}
+
+
+.morning-icon {
+  zoom: 8%;
+}
+
+.afternoon-icon {
+  zoom: 8%;
+}
+
+.evening-icon {
+  zoom: 9.5%;
+}
+
+.bedtime-icon {
+  zoom: 7%;
+}
+
+.icon-container {
+  text-align: center;
+  padding-top: 7px;
+  padding-bottom: 15px;
+}
+
+.pillbox-cell-icon-container {
+  height: 20px;
 }
 
 .background {

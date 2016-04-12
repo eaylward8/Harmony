@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   end
 
   def active_prescriptions
-    self.prescriptions.where("end_date >= ?", Date.today)
+    self.prescriptions.where("end_date >= ?", Date.today).where("start_date <= ?", Date.today)
   end
 
   def inactive_prescriptions
