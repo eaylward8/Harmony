@@ -28,7 +28,7 @@ class PrescriptionsController < ApplicationController
   def create
     @prescription = Prescription.new(prescription_params)
     @prescription.user = current_user
-    new_drug = Drug.new.find_by(drug_params[:name])
+    new_drug = Adapters::DrugClient.find_by_name(drug_params[:name])
     new_drug_params = {name: new_drug.name, rxcui: new_drug.rxcui}
     @prescription.drug = Drug.find_or_create_by(new_drug_params)
     # logic for doctor creation or associaton
