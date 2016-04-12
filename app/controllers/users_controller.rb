@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  # allows new user signup 
+  skip_before_action :authorized?, only: [:new, :create]
+
   def show
     # Main user dashboard for prescription info / schedule
     @user = current_user

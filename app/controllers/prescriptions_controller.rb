@@ -1,5 +1,5 @@
 class PrescriptionsController < ApplicationController
-  # before_filter :authorize, only: [:edit, :update]
+  # before_filter :authorized?
 
   def index
     @prescriptions = current_user.prescriptions.all
