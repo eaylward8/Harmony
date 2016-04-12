@@ -79,6 +79,10 @@ class PrescriptionsController < ApplicationController
 
   def destroy
     # Destroys a prescription
+    prescription = Prescription.find(params[:id])
+    prescription.end_date = Date.today() - 1
+    prescription.save
+    redirect_to current_user
   end
 
   private
