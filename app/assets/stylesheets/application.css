@@ -60,9 +60,8 @@
 }
 
 .pillbox-cell {
-  height: 120px;
+  height: 200px;
   color: #FFFFFF;
-  text-align: center;
   padding: 10px;
   margin-left: 2px;
 }
@@ -71,7 +70,6 @@
   background-color: #F7E4BE;
   color: #757575;
   font-size: 1.5em;
-  line-height: 95px;
 }
 
 .pillbox-cell-morning {

@@ -51,8 +51,16 @@ class User < ActiveRecord::Base
   end
 
   def drugs_by_time_of_day(time_of_day)
-    self.drugs.select do |drug|
+    drugs = self.drugs.select do |drug|
       drug.prescriptions.joins(:scheduled_doses).where('time_of_day == ?', time_of_day).length > 0
+    end
+    drug_names_and_doses(drugs)
+  end
+
+  def drug_names_and_doses(drugs)
+    drugs.map do |drug|
+      count = drugs.select {|d| d.name == drug.name}.count
+      {name: drug.name, count: count}
     end
   end
 end
