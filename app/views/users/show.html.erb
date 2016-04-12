@@ -2,7 +2,10 @@
   <div class='pillbox-container'>
     <div class="row pillbox-row">
       <div class="col-md-1"></div>
-      <div class="col-md-2 pillbox-cell pillbox-cell-head"><%= Time.now.strftime("%a, %b %d %Y") %></div>
+      <div class="col-md-2 pillbox-cell pillbox-cell-head">
+      <%= Time.now.strftime("%A") %><br>
+      <%= Time.now.strftime("%B %d") %>
+      </div>
       <div class="col-md-2 pillbox-cell pillbox-cell-morning">
         <% @user.prescriptions_by_time_of_day('morning').each do |drug| %>
         <%= drug[:name] %> x<%= drug[:doses] %> (<%= drug[:dose_size] %>)<br>
