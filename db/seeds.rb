@@ -88,7 +88,7 @@ cvs = Pharmacy.create(name: 'CVS', location: '20 Park Avenue')
 # script5 = Prescription.create(dosage: '10mg', doses: 5, doses_per_day: 1, refills: 0, fill_duration: 5, start_date: '01-01-2016', end_date: '01-06-2016', doctor_id: 1, pharmacy_id: 1, user_id: 1, drug_id: 2)
 # script7 = Prescription.create(dosage: '20oz', doses: 100, doses_per_day: 25, refills: 2, fill_duration: 4, start_date: '02-05-2016', end_date: '02-09-2016', doctor_id: 3, pharmacy_id: 2, user_id: 1, drug_id: 3)
 
-1.times do |user|
+2.times do |user|
   User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, password: 'password123')
 end
 

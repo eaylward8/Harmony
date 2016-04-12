@@ -37,7 +37,7 @@ class PrescriptionsController < ApplicationController
         ScheduledDose.create(time_of_day: time_of_day, prescription_id: @prescription.id)
       end
     end
-
+    
     @prescription.save
     redirect_to @prescription
     # Creates a new prescription
