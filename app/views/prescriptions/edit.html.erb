@@ -8,13 +8,27 @@
     Drug name? <%=fields_for :drug do |drug_form| %><br>
         <%= drug_form.text_field :name, value: @prescription.drug.name %>
       <% end %><br>
+
     Doctor <%=fields_for :doctor do |doctor_form| %><br>
-        First Name<%= doctor_form.text_field :first_name, value: @prescription.doctor.first_name %>
-        Last Name<%= doctor_form.text_field :last_name, value: @prescription.doctor.last_name %>
+    
+    <%= radio_button_tag(:doc_type, "existing", checked: 'checked') %> My Doctors: 
+      <%= doctor_form.select :doctor, current_user.doctors_names, selected: nil %><br>
+    <%= radio_button_tag(:doc_type, "new") %> New Doctor: 
+        First Name<%= doctor_form.text_field :first_name %>
+        Last Name<%= doctor_form.text_field :last_name %> 
+        Location<%= doctor_form.text_field :location %> <br>
       <% end %><br>
+      
     Pharmacy name? <%=fields_for :pharmacy do |pharmacy_form| %><br>
-        <%= pharmacy_form.text_field :name, value: @prescription.pharmacy.name %>
+    
+      <%= radio_button_tag(:pharm_type, "existing", checked: 'checked') %> My Pharmacies: 
+      <%= pharmacy_form.select :pharmacy, current_user.pharmacy_names %><br>
+    <%= radio_button_tag(:pharm_type, "new") %> New pharmacy: 
+        Name<%= pharmacy_form.text_field :name %>
+        Location<%= pharmacy_form.text_field :location %> <br>
       <% end %><br>
+
+    
 
 
     How many days? <br>
@@ -46,7 +60,7 @@
       <%= scheduled_dose_form.select :bedtime, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.daily_schedule[:bedtime] %>
     <% end %><br>
 
-    <%= f.submit :EditPrescription! %>
+    <%= f.submit "Edit Prescription!" %>
   <% end %>
 
 </body>

@@ -12,16 +12,17 @@
     Doctor <%=fields_for :doctor do |doctor_form| %><br>
     
     <%= radio_button_tag(:doc_type, "existing", checked: 'checked') %> My Doctors: 
-      <%= doctor_form.select :doctor, current_user.doctors_names %><br>
+      <%= doctor_form.select :doctor, current_user.doctors_names, prompt: "select" %><br>
     <%= radio_button_tag(:doc_type, "new") %> New Doctor: 
         First Name<%= doctor_form.text_field :first_name %>
-        Last Name<%= doctor_form.text_field :last_name %> <br>
+        Last Name<%= doctor_form.text_field :last_name %>
+        Location<%= doctor_form.text_field :location %> <br>
       <% end %><br>
       
     Pharmacy name? <%=fields_for :pharmacy do |pharmacy_form| %><br>
     
       <%= radio_button_tag(:pharm_type, "existing", checked: 'checked') %> My Pharmacies: 
-      <%= pharmacy_form.select :pharmacy, current_user.pharmacy_names %><br>
+      <%= pharmacy_form.select :pharmacy, current_user.pharmacy_names, prompt: "select" %><br>
     <%= radio_button_tag(:pharm_type, "new") %> New pharmacy: 
         Name<%= pharmacy_form.text_field :name %>
         Location<%= pharmacy_form.text_field :location %> <br>

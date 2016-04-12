@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   def doctors_names
     my_docs = []
     self.doctors.collect do |d|
-      my_docs << "#{d.id} - Dr. #{d.first_name} #{d.last_name}"
+      my_docs << "#{d.id} - Dr. #{d.first_name} #{d.last_name} - #{d.location}"
     end
     my_docs.uniq
   end
