@@ -41,6 +41,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'rspec-rails'
   gem 'faker'
+  gem 'factory_girl_rails'
 end
 
 group :development do
