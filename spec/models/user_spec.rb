@@ -12,34 +12,42 @@
 #
 require 'rails_helper'
 
-describe User do 
-  
-  context "Validations" do 
+describe 'User' do
 
-    let(:user) { User.new(first_name: "John", last_name: "Johnson", email: "john@yahoo.com", password: "password123")}
-    
-    it "requires first and last name, email, and password to be created" do
-      expect(user).to be_valid
+  describe 'factory' do 
+    it 'has a valid factory' do
+      expect(build(:user)).to be_valid
+    end
+  end
+
+  describe 'validations' do
+
+    it 'is invalid without a first name' do
+      user = build(:user, first_name: nil)
+      user.valid?
+
+      expect(user.errors[:first_name]).to include("can't be blank")
     end
 
-    it "is invalid without a first name" do
-      user.first_name = nil
-      expect(user).to be_invalid
+    it 'is invalid without a last name' do
+      user = build(:user, last_name: nil)
+      user.valid?
+
+      expect(user.errors[:last_name]).to include("can't be blank")
     end
 
-    it "is invalid without a last name" do
-      user.last_name = nil
-      expect(user).to be_invalid
+    it 'is invalid without an email address' do
+      user = build(:user, email: nil)
+      user.valid?
+
+      expect(user.errors[:email]).to include("can't be blank")
     end
 
-    it "is invalid without an email" do
-      user.email = nil
-      expect(user).to be_invalid
-    end
+    it 'is invalid without a password' do
+      user = build(:user, password: nil)
+      user.valid?
 
-    it "is invalid without a password" do
-      user.password = nil
-      expect(user).to be_invalid
+      expect(user.errors[:password]).to include("can't be blank")
     end
   end
 
