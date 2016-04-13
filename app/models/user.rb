@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_many :drugs, through: :prescriptions
   has_secure_password
   validates :first_name, :last_name, presence: true
-  
+
   def doctors_names
     my_docs = []
     self.doctors.collect do |d|
@@ -82,23 +82,19 @@ class User < ActiveRecord::Base
     end
   end
 
-    def active_drugs
-      self.active_prescriptions.map do |prescription|
-        prescription.drug.name
-      end
+  def active_drugs
+    self.active_prescriptions.map do |prescription|
+      prescription.drug.name
     end
   end
 
-  # def drugs_by_time_of_day(time_of_day)
-  #   drugs = self.drugs.select do |drug|
-  #     drug.prescriptions.joins(:scheduled_doses).where('time_of_day == ?', time_of_day).length > 0
-  #   end
-  #   drug_names_and_doses(drugs)
-  # end
-
-  # def drug_names_and_doses(drugs)
-  #   drugs.map do |drug|
-  #     count = drugs.select {|d| d.name == drug.name}.count
-  #     {name: drug.name, count: count}
-  #   end
-  # end
+  def active_drug_interactions
+    self.active_drugs.combination(2).to_a.map do |pair|
+      # Unless the DrugInteraction table includes ids for both
+      # drugs in the pair and the interaction_ids for both drugs
+      # are the same (meaning they've been checked as a pair before)
+      # then run the API check and persist the results
+      Adapters::InteractionsClient.interactions(pair.first, pair.second)
+    end
+  end
+end
