@@ -131,3 +131,23 @@
   color: #e7e7e7
 }
 
+.drugs-link {
+  text-decoration: none;
+}
+
+.drugs-link:hover {
+  text-decoration: none;
+}
+
+.drugs-div {
+  /*border: 1px solid red;*/
+}
+
+.prescription {
+  /*border: 1px solid red;*/
+}
+
+.parent-prescription {
+  /*border: 1px solid blue;*/
+  margin: 30px; 
+}
