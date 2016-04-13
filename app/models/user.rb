@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   end
 
   def prescription_schedule_week
-    # [{4/8/2016: [script 1, script2]},{4/9/2016: [script 1, script2]}...] 
+    # [{4/8/2016: [script 1, script2]},{4/9/2016: [script 1, script2]}...]
     today = Date.today
     schedule = []
     7.times do |i|
@@ -78,7 +78,23 @@ class User < ActiveRecord::Base
       name = prescription.drug.name
       doses = prescription.scheduled_doses.select {|dose| dose.time_of_day == time_of_day}.count
       dose_size = prescription.dose_size
-      {name: name, doses: doses, dose_size: dose_size}
+      interactions = get_interactions_by_drug(prescription.drug)
+      associate_drug_names_with_interactions(interactions, prescription.drug)
+      {name: name, doses: doses, dose_size: dose_size, interactions: interactions}
+    end
+  end
+
+  def get_interactions_by_drug(drug)
+    interactions = Interaction.joins(:drug_interactions).where("drug_id = ?", drug.id)
+    interactions.reject {|interaction| interaction.description == "No interactions."}
+  end
+
+  def associate_drug_names_with_interactions(interactions, drug)
+    interactions.map do |interaction|
+      drug_interactions = DrugInteraction.all.select {|drug_interaction| drug_interaction.interaction_id == interaction.id}
+      drug_interaction = drug_interactions.reject {|drug_interaction| drug_interaction.drug_id == drug.id}
+      drug = Drug.find(drug_interaction[0].drug_id)
+      {drug_name: drug.name, interaction: interaction.description}
     end
   end
 
