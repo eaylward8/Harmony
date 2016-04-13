@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   resources :pharmacies
   resources :users
   root 'welcome#index'
+  get '/prescriptionsjson' => 'prescriptions#json', as: :prescriptionsJSON 
 end

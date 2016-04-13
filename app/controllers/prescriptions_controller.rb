@@ -85,6 +85,13 @@ class PrescriptionsController < ApplicationController
     redirect_to current_user
   end
 
+  def json
+    @prescriptions = current_user.prescriptions
+    render(json: {prescriptions: @prescriptions}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
+
+  
+  end
+
   private
 
   def doctor_params
