@@ -1,5 +1,5 @@
 module Adapters
-  class InteractionsClient
+  class InteractionClient
 
     def self.connection
       @connection ||= Adapters::DrugInteractionsApiConnection.new
@@ -29,14 +29,18 @@ module Adapters
     def self.get_interactions_for_meds(rxcuis)
       rxcuis_list = rxcuis.join('+')
       response = connection.class.get("/interaction/list.json?rxcuis=#{rxcuis_list}")
-      interaction_pairs = response["fullInteractionTypeGroup"][0]["fullInteractionType"]
-      interaction_pairs.map! do |pair|
-        name_1 = pair["interactionPair"][0]["interactionConcept"][0]["minConceptItem"]["name"]
-        name_2 = pair["interactionPair"][0]["interactionConcept"][1]["minConceptItem"]["name"]
-        rxcui_1 = pair["interactionPair"][0]["interactionConcept"][0]["minConceptItem"]["rxcui"]
-        rxcui_2 = pair["interactionPair"][0]["interactionConcept"][1]["minConceptItem"]["rxcui"]
-        description = pair["interactionPair"][0]["description"]
-        {interaction_pairs: [{drug_1: {name: name_1, rxcui: rxcui_1}}, {drug_2: {name: name_2, rxcui: rxcui_2}}, description: description]}
+      if response["fullInteractionTypeGroup"]
+        interaction_pairs = response["fullInteractionTypeGroup"][0]["fullInteractionType"]
+        interaction_pairs.map! do |pair|
+          name_1 = pair["interactionPair"][0]["interactionConcept"][0]["minConceptItem"]["name"]
+          name_2 = pair["interactionPair"][0]["interactionConcept"][1]["minConceptItem"]["name"]
+          rxcui_1 = pair["interactionPair"][0]["interactionConcept"][0]["minConceptItem"]["rxcui"]
+          rxcui_2 = pair["interactionPair"][0]["interactionConcept"][1]["minConceptItem"]["rxcui"]
+          description = pair["interactionPair"][0]["description"]
+          {interaction_pairs: [{drug_1: {name: name_1, rxcui: rxcui_1}}, {drug_2: {name: name_2, rxcui: rxcui_2}}, description: description]}
+        end
+      else
+        "No interactions."
       end
     end
   end

@@ -88,13 +88,21 @@ class User < ActiveRecord::Base
     end
   end
 
-  def active_drug_interactions
-    self.active_drugs.combination(2).to_a.map do |pair|
-      # Unless the DrugInteraction table includes ids for both
-      # drugs in the pair and the interaction_ids for both drugs
-      # are the same (meaning they've been checked as a pair before)
-      # then run the API check and persist the results
-      Adapters::InteractionsClient.interactions(pair.first, pair.second)
+  def update_drug_interactions(drug)
+    self.active_drugs.combination(2).to_a.select{|pair| pair.include?(drug.name)}.map do |pair|
+      drug1 = Drug.find_by(name: pair.first)
+      drug2 = Drug.find_by(name: pair.second)
+      unless drug_interaction_is_known?(drug1, drug2)
+        interaction = Adapters::InteractionClient.interactions(pair.first, pair.second)
+        # Stopped here - should add Interaction & DrugInteraction to the database - remove mapping in line 92?
+        binding.pry
+      end
     end
+  end
+
+  def drug_interaction_is_known?(drug1, drug2)
+    DrugInteraction.find_by(drug_id: drug1.id) &&
+    DrugInteraction.find_by(drug_id: drug2.id) &&
+    DrugInteraction.find_by(drug_id: drug1.id).interaction_id == DrugInteraction.find_by(drug_id: drug2.id).interaction_id
   end
 end

@@ -87,3 +87,11 @@ end
   times_of_day = {'0' =>  'morning', '1' => 'afternoon', '2' => 'evening', '3' => 'bedtime'}
   ScheduledDose.create(time_of_day: times_of_day[rand(0..3).to_s], prescription_id: rand(1..Prescription.all.count))
 end
+
+20.times do |interaction|
+  Interaction.create(description: Faker::Lorem.sentence)
+end
+
+100.times do |drug_interaction|
+  DrugInteraction.create(drug_id: rand(1..Drug.all.count), interaction_id: rand(1..Interaction.all.count))
+end
