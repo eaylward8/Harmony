@@ -31,6 +31,7 @@ class PrescriptionsController < ApplicationController
     new_drug = Adapters::DrugClient.find_by_name(drug_params[:name])
     new_drug_params = {name: new_drug.name, rxcui: new_drug.rxcui}
     @prescription.drug = Drug.find_or_create_by(new_drug_params)
+    current_user.persist_drug_interactions(@prescription.drug)
     # logic for doctor creation or associaton
     if params[:doc_type] == "new"
       @prescription.doctor = Doctor.find_or_create_by(doctor_params)

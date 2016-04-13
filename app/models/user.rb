@@ -84,25 +84,33 @@ class User < ActiveRecord::Base
 
   def active_drugs
     self.active_prescriptions.map do |prescription|
-      prescription.drug.name
+      prescription.drug
     end
   end
 
-  def update_drug_interactions(drug)
-    self.active_drugs.combination(2).to_a.select{|pair| pair.include?(drug.name)}.map do |pair|
-      drug1 = Drug.find_by(name: pair.first)
-      drug2 = Drug.find_by(name: pair.second)
-      unless drug_interaction_is_known?(drug1, drug2)
-        interaction = Adapters::InteractionClient.interactions(pair.first, pair.second)
-        # Stopped here - should add Interaction & DrugInteraction to the database - remove mapping in line 92?
-        binding.pry
-      end
+  def persist_drug_interactions(drug)
+    drug_pairs = create_drug_pairs(drug)
+    interactions_not_known = drug_pairs.reject {|drug_pair| drug_interaction_is_known?(drug_pair)}
+    interactions_not_known.each do |drug_pair|
+      interaction = Adapters::InteractionClient.interactions(drug_pair)
+      interaction.save
+      DrugInteraction.create(drug_id: drug_pair[0].id, interaction_id: interaction.id)
+      DrugInteraction.create(drug_id: drug_pair[1].id, interaction_id: interaction.id)
     end
   end
 
-  def drug_interaction_is_known?(drug1, drug2)
-    DrugInteraction.find_by(drug_id: drug1.id) &&
-    DrugInteraction.find_by(drug_id: drug2.id) &&
-    DrugInteraction.find_by(drug_id: drug1.id).interaction_id == DrugInteraction.find_by(drug_id: drug2.id).interaction_id
+  # Returns an array of arrays combining the drug from the argument with all other active drugs
+  def create_drug_pairs(drug)
+    drugs = self.active_drugs.reject {|d| d.name == drug.name}
+    drugs.map {|d| [drug, d]}.uniq
+  end
+
+  # Checks whether both drugs passed in as arguments have already been recorded
+  # in the drug interactions table and whether they share an interaction
+  def drug_interaction_is_known?(drug_pair)
+    DrugInteraction.find_by(drug_id: drug_pair[0].id) &&
+    DrugInteraction.find_by(drug_id: drug_pair[1].id) &&
+    DrugInteraction.find_by(drug_id: drug_pair[0].id).interaction_id ==
+    DrugInteraction.find_by(drug_id: drug_pair[1].id).interaction_id
   end
 end
