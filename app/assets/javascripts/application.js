@@ -44,15 +44,14 @@ $(function() {
       
       // populating data 
       // create the four objects below
-      var doctor = new app.doctor.model.new(data.prescriptions[i].doctor.first_name, data.prescriptions[i].doctor.last_name, data.prescriptions[i].doctor.location, data.prescriptions[i].doctor.specialty)
-      var user = new app.user.model.new(data.prescriptions[i].user.first_name, data.prescriptions[i].user.last_name)
-      var pharmacy = new app.pharmacy.model.new(data.prescriptions[i].pharmacy.name, data.prescriptions[i].pharmacy.location)
-      var drug = new app.drug.model.new(data.prescriptions[i].drug.name, data.prescriptions[i].drug.rxcui)
+      var doctor = new app.doctor.model.new(data.prescriptions[i].doctor.first_name, data.prescriptions[i].doctor.last_name, data.prescriptions[i].doctor.location, data.prescriptions[i].doctor.specialty, data.prescriptions[i].doctor.id)
+      var user = new app.user.model.new(data.prescriptions[i].user.first_name, data.prescriptions[i].user.last_name, data.prescriptions[i].user.id)
+      var pharmacy = new app.pharmacy.model.new(data.prescriptions[i].pharmacy.name, data.prescriptions[i].pharmacy.location, data.prescriptions[i].pharmacy.id)
+      var drug = new app.drug.model.new(data.prescriptions[i].drug.name, data.prescriptions[i].drug.rxcui, data.prescriptions[i].drug.id)
 
       // use the four objects to make a prescription
-      var prescription = new app.prescription.model.new(data.prescriptions[i].fill_duration, data.prescriptions[i].refills, data.prescriptions[i].start_date, data.prescriptions[i].dose_size, drug, doctor, pharmacy, user);
+      var prescription = new app.prescription.model.new(data.prescriptions[i].fill_duration, data.prescriptions[i].refills, data.prescriptions[i].start_date, data.prescriptions[i].dose_size, drug, doctor, pharmacy, user, data.prescriptions[i].id);
       // make a build function for adding new scripts
-      debugger
       prescription.build();
     };
 
