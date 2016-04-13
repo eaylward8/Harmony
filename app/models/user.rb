@@ -79,14 +79,15 @@ class User < ActiveRecord::Base
       doses = prescription.scheduled_doses.select {|dose| dose.time_of_day == time_of_day}.count
       dose_size = prescription.dose_size
       interactions = get_interactions_by_drug(prescription.drug)
-      associate_drug_names_with_interactions(interactions, prescription.drug)
+      interactions = associate_drug_names_with_interactions(interactions, prescription.drug)
+      interactions = self.limit_interactions_to_active_drugs(interactions)
       {name: name, doses: doses, dose_size: dose_size, interactions: interactions}
     end
   end
 
   def get_interactions_by_drug(drug)
     interactions = Interaction.joins(:drug_interactions).where("drug_id = ?", drug.id)
-    interactions.reject {|interaction| interaction.description == "No interactions."}
+    interactions = interactions.reject {|interaction| interaction.description == "No interactions."}
   end
 
   def associate_drug_names_with_interactions(interactions, drug)
@@ -96,6 +97,10 @@ class User < ActiveRecord::Base
       drug = Drug.find(drug_interaction[0].drug_id)
       {drug_name: drug.name, interaction: interaction.description}
     end
+  end
+
+  def limit_interactions_to_active_drugs(interactions)
+    interactions.select {|interaction| self.active_drugs.map {|drug| drug.name}.include?(interaction[:drug_name]) }
   end
 
   def active_drugs

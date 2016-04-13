@@ -22,6 +22,10 @@
   padding-top: 100px;
 }
 
+.warning-icon {
+  padding-left: 3%;
+  zoom: 3%;
+}
 
 .morning-icon {
   zoom: 8%;
@@ -42,7 +46,7 @@
 .icon-container {
   text-align: center;
   padding-top: 7px;
-  padding-bottom: 15px;
+  padding-bottom: 0px;
 }
 
 .pillbox-cell-icon-container {
