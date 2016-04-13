@@ -28,7 +28,7 @@ class PrescriptionsController < ApplicationController
   def create
     @prescription = Prescription.new(prescription_params)
     @prescription.user = current_user
-    new_drug = Drug.new.find_by(drug_params[:name])
+    new_drug = Adapters::DrugClient.find_by_name(drug_params[:name])
     new_drug_params = {name: new_drug.name, rxcui: new_drug.rxcui}
     @prescription.drug = Drug.find_or_create_by(new_drug_params)
     # logic for doctor creation or associaton
@@ -79,6 +79,10 @@ class PrescriptionsController < ApplicationController
 
   def destroy
     # Destroys a prescription
+    prescription = Prescription.find(params[:id])
+    prescription.end_date = Date.today() - 1
+    prescription.save
+    redirect_to current_user
   end
 
   private

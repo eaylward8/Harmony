@@ -190,6 +190,7 @@ DEPENDENCIES
   httparty
   jbuilder (~> 2.0)
   jquery-rails
+  pry
   pry-byebug
   rails (= 4.2.5.2)
   rspec-rails

@@ -9,7 +9,12 @@
         <%= drug_form.text_field :name %>
       <% end %><br>
     Doctor <%=fields_for :doctor do |doctor_form| %><br>
-    
+    <% if current_user.doctors.length < 1 %>
+    <%= radio_button_tag(:doc_type, "new", checked: 'checked') %> New Doctor: 
+        First Name<%= doctor_form.text_field :first_name %>
+        Last Name<%= doctor_form.text_field :last_name %>
+        Location<%= doctor_form.text_field :location %> <br>
+    <% else %>
     <%= radio_button_tag(:doc_type, "existing", checked: 'checked') %> My Doctors: 
       <%= doctor_form.select :doctor, current_user.doctors_names, prompt: "select" %><br>
     <%= radio_button_tag(:doc_type, "new") %> New Doctor: 
@@ -17,14 +22,20 @@
         Last Name<%= doctor_form.text_field :last_name %>
         Location<%= doctor_form.text_field :location %> <br>
       <% end %><br>
-      
+    <% end %>  
     Pharmacy name? <%=fields_for :pharmacy do |pharmacy_form| %><br>
-    
-      <%= radio_button_tag(:pharm_type, "existing", checked: 'checked') %> My Pharmacies: 
+    <% if current_user.pharmacies.length < 1  %>  
+        <%= radio_button_tag(:pharm_type, "new", checked: 'checked') %> New pharmacy: 
+        Name<%= pharmacy_form.text_field :name %>
+        Location<%= pharmacy_form.text_field :location %> <br>  
+    <% else %>
+          <%= radio_button_tag(:pharm_type, "existing", checked: 'checked') %> My Pharmacies: 
       <%= pharmacy_form.select :pharmacy, current_user.pharmacy_names, prompt: "select" %><br>
     <%= radio_button_tag(:pharm_type, "new") %> New pharmacy: 
         Name<%= pharmacy_form.text_field :name %>
-        Location<%= pharmacy_form.text_field :location %> <br>
+        Location<%= pharmacy_form.text_field :location %> <br>  
+    <% end %>  
+
       <% end %><br>
 
 
