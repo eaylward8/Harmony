@@ -14,7 +14,7 @@
 // #  created_at    :datetime         not null
 // #  updated_at    :datetime         not null
 // #  dose_size     :string
-app = {}
+
 
 
 app.prescription = {
@@ -37,8 +37,8 @@ app.prescription = {
          $('#prescriptions').append(this.prescriptionEl());
          // $('#task_prescription_id').append(this.optionEl());
       };
-
-    })
+      return prescription;
+    }())
 
 
   },

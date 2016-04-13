@@ -15,6 +15,10 @@
 //= require turbolinks
 //= require_tree 
 //= require models/prescriptions.js
+//= require models/doctors.js
+//= require models/users.js
+//= require models/pharmacies.js
+//= require models/drugs.js
 
 $(function() {
   // document ready
@@ -37,16 +41,18 @@ $(function() {
     $('#prescriptions').empty();
     // $('#task_list_id').empty();
     for (var i = 0; i < data.prescriptions.length; i++) {
-      debugger
+      
       // populating data 
       // create the four objects below
-      // var doctor
-      // var user
-      // var pharmacy
-      // var drug 
+      var doctor = new app.doctor.model.new(data.prescriptions[i].doctor.first_name, data.prescriptions[i].doctor.last_name, data.prescriptions[i].doctor.location, data.prescriptions[i].doctor.specialty)
+      var user = new app.user.model.new(data.prescriptions[i].user.first_name, data.prescriptions[i].user.last_name)
+      var pharmacy = new app.pharmacy.model.new(data.prescriptions[i].pharmacy.name, data.prescriptions[i].pharmacy.location)
+      var drug = new app.drug.model.new(data.prescriptions[i].drug.name, data.prescriptions[i].drug.rxcui)
+
       // use the four objects to make a prescription
       var prescription = new app.prescription.model.new(data.prescriptions[i].fill_duration, data.prescriptions[i].refills, data.prescriptions[i].start_date, data.prescriptions[i].dose_size, drug, doctor, pharmacy, user);
       // make a build function for adding new scripts
+      debugger
       prescription.build();
     };
 

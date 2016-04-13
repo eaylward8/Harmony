@@ -1,12 +1,14 @@
 
-app.drug = {
+app.user = {
   model: {
     all: [],
     new: (function () {
-      var drug = function Drug(name, rxcui){
-        this.name = name;
-        this.rxcui = rxcui;
+      var user = function User(first_name, last_name){
+        this.first_name = first_name;
+        this.last_name = last_name;
+        app.user.model.all.push(this);
       };
-    })  
+      return user;
+    }())  
   }
 }

@@ -1,12 +1,14 @@
 
-app.drug = {
+app.pharmacy = {
   model: {
     all: [],
     new: (function () {
-      var drug = function Drug(name, rxcui){
+      var pharmacy = function Pharmacy(name, location){
         this.name = name;
-        this.rxcui = rxcui;
+        this.location = location;
+        app.pharmacy.model.all.push(this);
       };
-    })  
+      return pharmacy;
+    }())  
   }
 }

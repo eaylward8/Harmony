@@ -8,6 +8,7 @@ app.drug = {
         this.rxcui = rxcui;
         app.drug.model.all.push(this);
       };
-    })  
+      return drug;
+    }())
   }
 }
