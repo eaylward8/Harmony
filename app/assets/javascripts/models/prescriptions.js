@@ -31,9 +31,13 @@ app.prescription = {
         app.prescription.model.all.push(this);
       };
       prescription.prototype.prescriptionEl = function() {
-        return '<div class="prescription"><h2><button class="destroy-prescription">x</button><a href="/prescriptions/'+this.id+'">'+this.name+'</a></h2><ul id="prescription-'+this.id+'" data-id="'+this.id+'"></ul></div>';
+      
+        // return '<div class="prescription"><h2><button class="destroy-prescription">x</button><a href="/prescriptions/'+this.id+'">'+this.name+'</a></h2><ul id="prescription-'+this.id+'" data-id="'+this.id+'"></ul></div>';
+        // return '<div class="prescription"><h2><a href="/prescriptions/'+this.drug.name+'">'+this.user.first_name+'</a></h2><ul id="prescription-'+this.id+'" data-id="'+this.id+'"></ul></div>';
+        return '<div class="prescription"><h2><a href="/prescriptions/'+this.drug.name+'"></a></h2><ul id="prescription-'+3443+'" data-id="'+5445+'"></ul></div>';
       };      
       prescription.prototype.build = function() {
+        debugger
          $('#prescriptions').append(this.prescriptionEl());
          // $('#task_prescription_id').append(this.optionEl());
       };
