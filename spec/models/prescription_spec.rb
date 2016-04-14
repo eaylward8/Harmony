@@ -51,7 +51,8 @@ describe 'Prescription' do
     end
 
     it 'is invalid without a start date' do 
-      rx = build(:prescription, start_date: nil)
+      rx = build(:prescription)
+      binding.pry
       rx.valid?
 
       expect(rx.errors[:start_date]).to include("can't be blank")
