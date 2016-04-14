@@ -1,6 +1,6 @@
 app.drugs = {
   controller: {
-    new: function DrugsController() {},
+    new: function DrugsController() {}
   }
 };
 
