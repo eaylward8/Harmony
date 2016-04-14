@@ -11,9 +11,9 @@
     <% else %>
     <%= radio_button_tag(:doc_type, "existing", checked: 'checked') %> My Doctors: 
       <%= doctor_form.select :doctor, current_user.doctors_names, prompt: "select" %><br>
-    <%= radio_button_tag(:doc_type, "new") %> New Doctor: 
-        First Name<%= doctor_form.text_field :first_name %>
-        Last Name<%= doctor_form.text_field :last_name %>
+    <%= radio_button_tag(:doc_type, "new") %> New Doctor: <br> 
+        First Name<%= doctor_form.text_field :first_name %><br>
+        Last Name<%= doctor_form.text_field :last_name %><br>
         Location<%= doctor_form.text_field :location %> <br>
       <% end %><br>
     <% end %>  
