@@ -40,6 +40,11 @@ $(function() {
 
     $('#prescriptions').empty();
     // $('#task_list_id').empty();
+    if (data.prescriptions.length ===0) {
+      $('prescriptions').append("<div class='prescription'><h2>You have no active prescriptions</h2></div>");
+    } else {
+
+
     for (var i = 0; i < data.prescriptions.length; i++) {
       
       // populating data 
@@ -52,7 +57,9 @@ $(function() {
       // use the four objects to make a prescription
       var prescription = new app.prescription.model.new(data.prescriptions[i].fill_duration, data.prescriptions[i].refills, data.prescriptions[i].start_date, data.prescriptions[i].dose_size, drug, doctor, pharmacy, user, data.prescriptions[i].id);
       // make a build function for adding new scripts
+      
       prescription.build();
+      }
     };
 
   })
