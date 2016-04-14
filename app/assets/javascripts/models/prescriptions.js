@@ -49,14 +49,21 @@ app.prescription = {
 
   },
   controller: {
-    new: (function () {
-      var controller = function PrescriptionController() {
-        // body...l
-      }
-      controller.prototype.init = function() {
-        var that = this;
-
-      };
-    })
+    new: function PrescriptionController() {
+      
+    }
   }
 }
+
+app.prescription.controller.new.prototype.init = function() {
+  $('#form-submit').click(function(event) {
+    event.preventDefault;
+    var formData = $('form').serializeArray();
+
+    $.ajax({
+    //  get all the user's prescriptions
+    url: '/prescriptions/create',
+    method: 'POST',
+    json: formData
+  });
+});

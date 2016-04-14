@@ -61,7 +61,7 @@
     Bedtime: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
       <%= scheduled_dose_form.select :bedtime, [0, 1, 2, 3, 4, 5, 6, 7] %>
     <% end %><br><br>
-    <%= f.submit "Add New Prescription!" %>
+    <%= f.submit "Add New Prescription!", id: "form-submit" %>
     <div class="modal-footer">
       
        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

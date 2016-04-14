@@ -24,7 +24,9 @@ $(function() {
   var drugsController = new app.drugs.controller.new();
   drugsController.init();
   // document ready
-
+  debugger
+  var prescriptionController = new app.prescription.controller.new();
+  prescriptionController.init();
   // creating new  prescription controller
   // prescriptionController = new app.prescription.controller.new();
 
@@ -63,6 +65,7 @@ $(function() {
       prescription.build();
       }
     };
-    debugger
+    
   })
 })
+}
