@@ -40,7 +40,7 @@ class Drug < ActiveRecord::Base
     end
   end
 
-  def persist_drug_interactions(user)
+  def persist_interactions(user)
     drug_pairs = create_drug_pairs(user)
     interactions_not_known = drug_pairs.reject {|drug_pair| drug_interaction_is_known?(drug_pair)}
     interactions_not_known.each do |drug_pair|
@@ -54,7 +54,7 @@ class Drug < ActiveRecord::Base
   # Returns an array of arrays pairing the drug passed in with all other active drugs
   def create_drug_pairs(user)
     drugs = user.active_drugs.reject {|d| d.name == self.name}
-    drugs.map {|d| [drug, d]}.uniq
+    drugs.map {|d| [self, d]}.uniq
   end
 
   # Checks whether both drugs passed in as arguments have already been recorded
