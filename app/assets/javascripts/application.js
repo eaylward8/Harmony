@@ -21,6 +21,8 @@
 //= require models/drugs.js
 
 $(function() {
+  var drugsController = new app.drugs.controller.new();
+  drugsController.init();
   // document ready
 
   // creating new  prescription controller

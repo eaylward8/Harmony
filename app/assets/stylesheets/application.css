@@ -18,8 +18,17 @@
   border: 1px dashed blue;
 }*/
 
+
 .pillbox-container {
   padding-top: 100px;
+}
+
+.warning-headline {
+  font-weight: bold;
+}
+
+.warning-icon-container {
+  display: inline;
 }
 
 .warning-icon {
@@ -154,4 +163,18 @@
 .parent-prescription {
   /*border: 1px solid blue;*/
   margin: 30px; 
+}
+.warning-message {
+  position: absolute;
+  background: rgba(117, 117, 117, 0.95);
+  /*margin-top: -130px;*/
+  padding: 10px;
+  opacity: 50%;
+  width: 270px;
+  overflow: scroll;
+  /*top: -5px;*/
+  /*bottom: 165px;*/
+  /*left: 129px;*/
+  display: none;
+  z-index: 100;
 }

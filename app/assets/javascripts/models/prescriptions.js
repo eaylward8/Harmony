@@ -35,7 +35,6 @@ app.prescription = {
         app.prescription.model.all.push(this);
       };
       prescription.prototype.prescriptionEl = function() {
-        debugger      
         // return '<div class="prescription"><h2><button class="destroy-prescription">x</button><a href="/prescriptions/'+this.id+'">'+this.name+'</a></h2><ul id="prescription-'+this.id+'" data-id="'+this.id+'"></ul></div>';
         // return '<div class="prescription"><h2><a href="/prescriptions/'+this.drug.name+'">'+this.user.first_name+'</a></h2><ul id="prescription-'+this.id+'" data-id="'+this.id+'"></ul></div>';
         return '<div class="prescription"><h2><a href="/prescriptions/'+this.id+'">'+this.drug.name+'</a></h2><ul id="prescription-'+this.id+'" drug-id="'+this.drug.id+'"><li>Dr. '+this.doctor.first_name+' '+this.doctor.last_name+'</li></ul></div>';
