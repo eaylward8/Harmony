@@ -54,6 +54,6 @@ $(function() {
       // make a build function for adding new scripts
       prescription.build();
     };
-
+    debugger
   })
 })

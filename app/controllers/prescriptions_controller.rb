@@ -3,6 +3,7 @@ class PrescriptionsController < ApplicationController
 
   def index
     @prescriptions = current_user.prescriptions.all
+    @prescription = Prescription.new
     # View of all prescriptions for a user
     # - includes complete details about prescriptions
     # and (in JS) the option to view old prescriptions
