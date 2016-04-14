@@ -27,7 +27,6 @@ class PrescriptionsController < ApplicationController
   end
 
   def create
-    
     @prescription = Prescription.new(prescription_params)
     @prescription.user = current_user
     new_drug = Adapters::DrugClient.find_by_name(drug_params[:name])
@@ -56,10 +55,11 @@ class PrescriptionsController < ApplicationController
         ScheduledDose.create(time_of_day: time_of_day, prescription_id: @prescription.id)
       end
     end
-
     
     @prescription.calculate_end_date
-    render json: "Hi"
+
+    render(json: {prescription: @prescription}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
+    # render json: {prescription: @prescription}
     # redirect_to user_path(current_user)
     # Creates a new prescription
   end
