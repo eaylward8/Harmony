@@ -12,6 +12,25 @@ FactoryGirl.define do
     start_date { Date.today + rand(-30..30) }
     end_date { (start_date || Date.today) + (fill_duration || 7) }
 
+    factory :no_refills_prescription do 
+      refills 0
+      fill_duration 3
+      start_date { Date.today }
+    end
+
+    factory :expiring_soon do 
+      fill_duration 3
+      start_date { Date.today }
+    end
+
+    factory :active_prescription do 
+      start_date { Date.today }
+    end
+
+    factory :inactive_prescription do
+      start_date { Date.today - rand(40..200)}
+    end
+
   end
 end
 
