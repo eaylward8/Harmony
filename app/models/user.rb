@@ -78,29 +78,11 @@ class User < ActiveRecord::Base
       name = prescription.drug.name
       doses = prescription.scheduled_doses.select {|dose| dose.time_of_day == time_of_day}.count
       dose_size = prescription.dose_size
-      interactions = get_interactions_by_drug(prescription.drug)
-      interactions = associate_drug_names_with_interactions(interactions, prescription.drug)
-      interactions = self.limit_interactions_to_active_drugs(interactions)
+      interactions = prescription.drug.interactions
+      interactions = prescription.drug.associate_drug_names_with_interactions(interactions)
+      interactions = self.active_drugs_interactions(interactions)
       {name: name, doses: doses, dose_size: dose_size, interactions: interactions}
     end
-  end
-
-  def get_interactions_by_drug(drug)
-    interactions = Interaction.joins(:drug_interactions).where("drug_id = ?", drug.id)
-    interactions = interactions.reject {|interaction| interaction.description == "No interactions."}
-  end
-
-  def associate_drug_names_with_interactions(interactions, drug)
-    interactions.map do |interaction|
-      drug_interactions = DrugInteraction.all.select {|drug_interaction| drug_interaction.interaction_id == interaction.id}
-      drug_interaction = drug_interactions.reject {|drug_interaction| drug_interaction.drug_id == drug.id}
-      drug = Drug.find(drug_interaction[0].drug_id)
-      {drug_name: drug.name, interaction: interaction.description}
-    end
-  end
-
-  def limit_interactions_to_active_drugs(interactions)
-    interactions.select {|interaction| self.active_drugs.map {|drug| drug.name}.include?(interaction[:drug_name]) }
   end
 
   def active_drugs
@@ -109,29 +91,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  def persist_drug_interactions(drug)
-    drug_pairs = create_drug_pairs(drug)
-    interactions_not_known = drug_pairs.reject {|drug_pair| drug_interaction_is_known?(drug_pair)}
-    interactions_not_known.each do |drug_pair|
-      interaction = Adapters::InteractionClient.interactions(drug_pair)
-      interaction.save
-      DrugInteraction.create(drug_id: drug_pair[0].id, interaction_id: interaction.id)
-      DrugInteraction.create(drug_id: drug_pair[1].id, interaction_id: interaction.id)
+  def active_drugs_interactions(interactions)
+    interactions.select do |interaction|
+      self.active_drugs.map {|drug| drug.name}.include?(interaction[:drug_name])
     end
-  end
-
-  # Returns an array of arrays combining the drug from the argument with all other active drugs
-  def create_drug_pairs(drug)
-    drugs = self.active_drugs.reject {|d| d.name == drug.name}
-    drugs.map {|d| [drug, d]}.uniq
-  end
-
-  # Checks whether both drugs passed in as arguments have already been recorded
-  # in the drug interactions table and whether they share an interaction
-  def drug_interaction_is_known?(drug_pair)
-    DrugInteraction.find_by(drug_id: drug_pair[0].id) &&
-    DrugInteraction.find_by(drug_id: drug_pair[1].id) &&
-    DrugInteraction.find_by(drug_id: drug_pair[0].id).interaction_id ==
-    DrugInteraction.find_by(drug_id: drug_pair[1].id).interaction_id
   end
 end
