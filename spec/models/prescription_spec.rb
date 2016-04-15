@@ -51,7 +51,7 @@ describe 'Prescription' do
     end
 
     it 'is invalid without a start date' do 
-      rx = build(:prescription)
+      rx = build(:prescription, start_date: nil)
       binding.pry
       rx.valid?
 

@@ -55,10 +55,12 @@ class PrescriptionsController < ApplicationController
         ScheduledDose.create(time_of_day: time_of_day, prescription_id: @prescription.id)
       end
     end
-
     
     @prescription.calculate_end_date
-    redirect_to user_path(current_user)
+
+    render(json: {prescription: @prescription}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
+    # render json: {prescription: @prescription}
+    # redirect_to user_path(current_user)
     # Creates a new prescription
   end
 

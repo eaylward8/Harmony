@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree 
 //= require models/prescriptions.js
 //= require models/doctors.js
@@ -24,7 +23,8 @@ $(function() {
   var drugsController = new app.drugs.controller.new();
   drugsController.init();
   // document ready
-
+  var prescriptionController = new app.prescription.controller.new();
+  prescriptionController.init();
   // creating new  prescription controller
   // prescriptionController = new app.prescription.controller.new();
 
@@ -63,6 +63,6 @@ $(function() {
       prescription.build();
       }
     };
-
+    
   })
 })

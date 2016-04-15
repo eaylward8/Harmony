@@ -43,20 +43,39 @@ app.prescription = {
          $('#prescriptions').append(this.prescriptionEl());
          // $('#task_prescription_id').append(this.optionEl());
       };
+      prescription.prototype.build_first = function() {
+         $('#prescriptions').prepend(this.prescriptionEl());
+         // $('#task_prescription_id').append(this.optionEl());
+      };
       return prescription;
     }())
 
 
   },
   controller: {
-    new: (function () {
-      var controller = function PrescriptionController() {
-        // body...l
-      }
-      controller.prototype.init = function() {
-        var that = this;
-
-      };
-    })
+    new: function PrescriptionController() {
+      
+    }
   }
+}
+
+app.prescription.controller.new.prototype.init = function() {
+  $('#form-submit').click(function(event) {
+    event.preventDefault();
+    var formData = $('form').serializeArray();
+    $.ajax({
+    url: '/prescriptions',
+    method: 'POST',
+    data: formData
+    }).success(function(data) {
+      var doctor = new app.doctor.model.new(data.prescription.doctor.first_name, data.prescription.doctor.last_name, data.prescription.doctor.location, data.prescription.doctor.specialty, data.prescription.doctor.id)
+      var user = new app.user.model.new(data.prescription.user.first_name, data.prescription.user.last_name, data.prescription.user.id)
+      var pharmacy = new app.pharmacy.model.new(data.prescription.pharmacy.name, data.prescription.pharmacy.location, data.prescription.pharmacy.id)
+      var drug = new app.drug.model.new(data.prescription.drug.name, data.prescription.drug.rxcui, data.prescription.drug.id)
+
+      var prescription = new app.prescription.model.new(data.prescription.fill_duration, data.prescription.refills, data.prescription.start_date, data.prescription.dose_size, drug, doctor, pharmacy, user, data.prescription.id);
+      prescription.build_first();
+      $("#close").click();
+  })
+});
 }
