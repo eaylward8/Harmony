@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   has_many :drugs, through: :prescriptions
   has_secure_password
   validates :first_name, :last_name, :email, presence: true
+  validates :email, uniqueness: true
 
   def doctors_names
     my_docs = []

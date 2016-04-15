@@ -1,9 +1,9 @@
 body {
-  background-color: #424242 !important;
+  background-color: #525252 !important;
 }
 
 .pillbox-container {
-  padding-top: 80px;
+  padding-top: 90px;
 }
 
 .row {
@@ -13,7 +13,7 @@ body {
 
 .warning-headline {
   
-  color: #EEEEEE;
+  color: #FFFFFF;
 }
 
 .warning-icon-container {
@@ -74,6 +74,10 @@ body {
   padding-top: 150px;
 }
 
+.navbar-brand {
+
+}
+
 #centered-form-container {
   margin: 0px auto;
   text-align: center;
@@ -83,25 +87,34 @@ body {
   margin-left: 10px;
 }
 
+a {
+  font-size: 1.3em;
+}
+
 .pillbox-row {
   margin-top: 1px;
 }
 
 .pillbox-cell {
-  height: 280px;
+  height: 320px;
   color: #FFFFFF;
   padding: 10px;
   font-size: 1.4em;
-  border: 2px #424242 solid;
   /*border: 2px #e6e9ee solid;*/
+  border: 2px #525252 solid;
   padding-left: 50px;
   /*text-shadow: 0px 0px 1px rgba(90, 90, 90, .5);*/
 }
 
+.navbar {
+  /*font-size: 20px;*/
+}
+
 .pillbox-cell-head {
-  color: #9E9E9E;
+  color: #E0E0E0;
   font-size: 2em;
   padding: 10px;
+  background-color: #757575;
 }
 
 .pillbox-cell-morning {
@@ -161,9 +174,9 @@ body {
 }
 .warning-message {
   position: absolute;
-  background: rgba(53, 92, 125, 1);
+  background: rgba(158, 158, 158, .98);
   /*margin-top: -130px;*/
-  color: #9E9E9E;
+  color: #616161;
   /*border: 1px solid #FFFFFF;*/
   margin-top: -150px;
   padding: 20px;

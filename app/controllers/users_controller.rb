@@ -7,9 +7,9 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
-  def new
-    @user = User.new
-  end
+  # def new
+  #   @user = User.new
+  # end
 
   def edit
     # Form to edit user profile

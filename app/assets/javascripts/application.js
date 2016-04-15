@@ -12,7 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree 
+//= require bootstrap-sprockets
+//= require_tree
 //= require models/prescriptions.js
 //= require models/doctors.js
 //= require models/users.js
