@@ -13,7 +13,7 @@ body {
 
 .warning-headline {
   
-  color: #EEEEEE;
+  color: #FFFFFF;
 }
 
 .warning-icon-container {
@@ -74,6 +74,10 @@ body {
   padding-top: 150px;
 }
 
+.navbar-brand {
+
+}
+
 #centered-form-container {
   margin: 0px auto;
   text-align: center;
@@ -81,6 +85,10 @@ body {
 
 .btn.btn-default.navbar-btn {
   margin-left: 10px;
+}
+
+a {
+  font-size: 1.3em;
 }
 
 .pillbox-row {
@@ -102,7 +110,7 @@ body {
 }
 
 .pillbox-cell-head {
-  color: #EEEEEE;
+  color: #E0E0E0;
   font-size: 2em;
   padding: 10px;
   background-color: #757575;
@@ -163,9 +171,9 @@ body {
 }
 .warning-message {
   position: absolute;
-  background: rgba(53, 92, 125, 1);
+  background: rgba(158, 158, 158, .98);
   /*margin-top: -130px;*/
-  color: #9E9E9E;
+  color: #616161;
   /*border: 1px solid #FFFFFF;*/
   margin-top: -150px;
   padding: 20px;
