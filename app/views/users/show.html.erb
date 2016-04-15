@@ -1,16 +1,18 @@
 <div class='container-fluid'>
   <div class='pillbox-container'>
     <div class="row pillbox-row">
-    <div class="row pillbox-row">
-      <div class="col-md-1"></div>
-      <div class="col-md-2 pillbox-cell pillbox-cell-head">
-      <%= Time.now.strftime("%A") %><br>
-      <%= Time.now.strftime("%B %d") %>
+      <div class="col-xs-12 pillbox-cell-head">
+        <%= Time.now.strftime("%A %B %d") %>, <%= Time.now.strftime("%Y") %>
       </div>
-      <div class="col-md-2 pillbox-cell pillbox-cell-morning">
+    </div>
+    <div class="row pillbox-row">
+      <div class="col-xs-3 pillbox-cell pillbox-cell-morning">
         <div class='icon-container'><%= image_tag 'morning.png', class: 'morning-icon' %></div>
         <% @user.prescriptions_by_time_of_day('morning').each do |drug| %>
-        <br><%= drug[:name] %> <%= drug[:doses] %> (<%= drug[:dose_size] %>)
+        <br><%= drug[:name] %> (<%= drug[:dose_size] %>)
+        <% if drug[:doses] != 1 %>
+          x<%= drug[:doses] %>
+        <% end %>
           <% if drug[:interactions].length > 0 %>
             <div class='warning-icon-container'>
               <%= image_tag 'warning.png', class: 'warning-icon' %>
@@ -24,10 +26,13 @@
           <% end %>
         <% end %>
       </div>
-      <div class="col-md-2 pillbox-cell pillbox-cell-afternoon">
+      <div class="col-xs-3 pillbox-cell pillbox-cell-afternoon">
         <div class='icon-container'><%= image_tag 'afternoon.png', class: 'afternoon-icon' %></div>
         <% @user.prescriptions_by_time_of_day('afternoon').each do |drug| %>
-        <br><%= drug[:name] %> <%= drug[:doses] %> (<%= drug[:dose_size] %>)
+        <br><%= drug[:name] %> (<%= drug[:dose_size] %>)
+        <% if drug[:doses] != 1 %>
+          x<%= drug[:doses] %>
+        <% end %>
           <% if drug[:interactions].length > 0 %>
             <div class='warning-icon-container'>
               <%= image_tag 'warning.png', class: 'warning-icon' %>
@@ -41,10 +46,13 @@
           <% end %>
         <% end %>
       </div>
-      <div class="col-md-2 pillbox-cell pillbox-cell-evening">
+      <div class="col-xs-3 pillbox-cell pillbox-cell-evening">
       <div class='icon-container'><%= image_tag 'evening.png', class: 'evening-icon' %></div>
         <% @user.prescriptions_by_time_of_day('evening').each do |drug| %>
-        <br><%= drug[:name] %> <%= drug[:doses] %> (<%= drug[:dose_size] %>)
+        <br><%= drug[:name] %> (<%= drug[:dose_size] %>)
+        <% if drug[:doses] != 1 %>
+          x<%= drug[:doses] %>
+        <% end %>
           <% if drug[:interactions].length > 0 %>
             <div class='warning-icon-container'>
               <%= image_tag 'warning.png', class: 'warning-icon' %>
@@ -58,10 +66,13 @@
           <% end %>
         <% end %>
       </div>
-      <div class="col-md-2 pillbox-cell pillbox-cell-bedtime">
+      <div class="col-xs-3 pillbox-cell pillbox-cell-bedtime">
       <div class='icon-container'><%= image_tag 'bedtime.png', class: 'bedtime-icon' %></div>
         <% @user.prescriptions_by_time_of_day('bedtime').each do |drug| %>
-        <br><%= drug[:name] %> <%= drug[:doses] %> (<%= drug[:dose_size] %>)
+        <br><%= drug[:name] %> (<%= drug[:dose_size] %>)
+        <% if drug[:doses] != 1 %>
+          x<%= drug[:doses] %>
+        <% end %>
           <% if drug[:interactions].length > 0 %>
             <div class='warning-icon-container'>
               <%= image_tag 'warning.png', class: 'warning-icon' %>
@@ -75,7 +86,6 @@
           <% end %>
         <% end %>
       </div>
-      <div class="col-md-1"></div>
     </div>
   </div>
 </div>

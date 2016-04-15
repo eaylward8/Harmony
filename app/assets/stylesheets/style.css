@@ -1,0 +1,175 @@
+body {
+  background-color: #424242 !important;
+}
+
+.pillbox-container {
+  padding-top: 80px;
+}
+
+.row {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.warning-headline {
+  
+  color: #EEEEEE;
+}
+
+.warning-icon-container {
+  display: inline;
+}
+
+.warning-icon {
+  padding-left: 3%;
+  zoom: 4%;
+}
+
+.morning-icon {
+  zoom: 10%;
+}
+
+.afternoon-icon {
+  zoom: 10%;
+}
+
+.evening-icon {
+  zoom: 11.5%;
+}
+
+.bedtime-icon {
+  zoom: 9%;
+}
+
+.icon-container {
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 0px;
+}
+
+.pillbox-cell-icon-container {
+  height: 20px;
+}
+
+.background {
+  background: url('background.jpg');
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow-y: hidden;
+  background-attachment: fixed;
+  background-position: center center;
+}
+
+#form-container {
+  display: inline-block;
+  text-align: left;
+  padding-top: 150px;
+}
+
+#centered-form-container {
+  margin: 0px auto;
+  text-align: center;
+}
+
+.btn.btn-default.navbar-btn {
+  margin-left: 10px;
+}
+
+.pillbox-row {
+  margin-top: 1px;
+}
+
+.pillbox-cell {
+  height: 280px;
+  color: #FFFFFF;
+  padding: 10px;
+  font-size: 1.4em;
+  border: 2px #424242 solid;
+  padding-left: 50px;
+  /*text-shadow: 0px 0px 1px rgba(90, 90, 90, .5);*/
+}
+
+.pillbox-cell-head {
+  color: #9E9E9E;
+  font-size: 2em;
+  padding: 10px;
+}
+
+.pillbox-cell-morning {
+  background-color: #F8B195;
+}
+
+.pillbox-cell-afternoon {
+  background-color: #F67280;
+}
+
+.pillbox-cell-evening {
+  background-color: #C06C84;
+}
+
+.pillbox-cell-bedtime {
+  background-color: #6C5B7B;
+}
+
+.prescription {
+  padding-bottom: 3px;
+}
+
+.ul-header {
+  margin-left: -17px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+#home-jumbotron {
+  background-color: transparent;
+  margin-top: 140px;
+  color: #e7e7e7
+}
+
+.drugs-link {
+  text-decoration: none;
+}
+
+.drugs-link:hover {
+  text-decoration: none;
+}
+
+.drugs-div {
+  /*border: 1px solid red;*/
+}
+
+.prescription {
+  /*border: 1px solid red;*/
+}
+
+.parent-prescription {
+  /*border: 1px solid blue;*/
+  margin: 30px; 
+}
+.warning-message {
+  position: absolute;
+  background: rgba(53, 92, 125, 1);
+  /*margin-top: -130px;*/
+  color: #9E9E9E;
+  /*border: 1px solid #FFFFFF;*/
+  margin-top: -150px;
+  padding: 20px;
+  opacity: 50%;
+  width: 300px;
+  overflow: scroll;
+  /*top: -5px;*/
+  /*bottom: 165px;*/
+  /*left: 129px;*/
+  display: none;
+  z-index: 100;
+}
