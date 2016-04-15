@@ -12,4 +12,4 @@ app.user = {
       return user;
     }())  
   }
-}
+};

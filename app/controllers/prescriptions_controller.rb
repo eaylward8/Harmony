@@ -2,6 +2,7 @@ class PrescriptionsController < ApplicationController
   # before_filter :authorized?
 
   def index
+    @user = current_user
     @prescriptions = current_user.prescriptions.all
     @prescription = Prescription.new
     # View of all prescriptions for a user
@@ -16,6 +17,7 @@ class PrescriptionsController < ApplicationController
 
   def new
     # Form to enter a new prescription
+    @user = current_user
     @prescription = Prescription.new
 
   end
