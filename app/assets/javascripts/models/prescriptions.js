@@ -37,7 +37,7 @@ app.prescription = {
       prescription.prototype.prescriptionEl = function() {
         // return '<div class="prescription"><h2><button class="destroy-prescription">x</button><a href="/prescriptions/'+this.id+'">'+this.name+'</a></h2><ul id="prescription-'+this.id+'" data-id="'+this.id+'"></ul></div>';
         // return '<div class="prescription"><h2><a href="/prescriptions/'+this.drug.name+'">'+this.user.first_name+'</a></h2><ul id="prescription-'+this.id+'" data-id="'+this.id+'"></ul></div>';
-        return '<div class="prescription"><h2><a href="/prescriptions/'+this.id+'">'+this.drug.name+'</a></h2><ul id="prescription-'+this.id+'" drug-id="'+this.drug.id+'"><li>Dr. '+this.doctor.first_name+' '+this.doctor.last_name+'</li></ul></div>';
+        return '<div class="row drug-row"><div class="col-md-2"></div><a href="/prescriptions/'+this.id+'"><div class="prescription col-md-8"><h2>'+this.drug.name+' <small id="prescription-'+this.id+'" drug-id="'+this.drug.id+'"> '+this.start_date+' </small></h2></div></a><div class="col-md-2"></div>'
       };      
       prescription.prototype.build = function() {
          $('#prescriptions').append(this.prescriptionEl());
@@ -79,3 +79,4 @@ app.prescription.controller.new.prototype.init = function() {
   })
 });
 }
+
