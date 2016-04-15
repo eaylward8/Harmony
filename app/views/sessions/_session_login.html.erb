@@ -1,0 +1,20 @@
+<!-- <div class='background'>
+<div class='container'>
+<div id='centered-form-container'>
+<div id='form-container'> -->
+  
+<%= form_tag sessions_path do %>
+  <div class="text-center" class='field'>
+    <%= label_tag :email %><br>
+    <%= text_field_tag :email, params[:email] %>
+  </div>
+  <div class="text-center" class='field'>
+    <%= label_tag :password %><br>
+    <%= password_field_tag :password %><br>
+  </div>
+  <div class="text-center" class='actions' class="btn btn-default navbar-btn"><%= submit_tag 'Log In', class: "btn btn-primary"  %></div>
+<% end %>
+</div>
+</div>
+</div>
+</div>
