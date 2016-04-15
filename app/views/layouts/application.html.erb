@@ -8,6 +8,9 @@
   
 </head>
 <body>
+                  
+                  <%= render "layouts/login_modal" %>
+                  <%= render "layouts/sign_up_modal" %>
 <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
@@ -51,8 +54,15 @@
           </ul>
                   </li>
                 <% else %>
-                  <li><%= button_to 'Sign Up', signup_path, method: 'get', class: 'btn btn-default navbar-btn' %></li>
-                  <li><%= button_to 'Log In', login_path, method: 'get', class: 'btn btn-default navbar-btn' %></li>
+       <!--            <li><%= button_to 'Sign Up', signup_path, method: 'get', class: 'btn btn-default navbar-btn' %></li> -->
+<!--                   <li><%= button_to 'Log In', login_path, method: 'get', class: 'btn btn-default navbar-btn' %></li> -->
+                  <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#signUpModal">
+                    Sign Up
+                  </button>
+                  <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#loginModal">
+                  Log In
+                  </button>
+
                 <% end %>
               </div>
             </nav>
