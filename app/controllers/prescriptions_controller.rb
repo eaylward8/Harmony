@@ -90,10 +90,8 @@ class PrescriptionsController < ApplicationController
   end
 
   def json
-    @prescriptions = current_user.prescriptions
+    @prescriptions = current_user.prescriptions.sort_by { |p| p.end_date }
     render(json: {prescriptions: @prescriptions}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
-
-  
   end
 
   private

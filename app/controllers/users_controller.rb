@@ -38,6 +38,12 @@ class UsersController < ApplicationController
     # Destroys a user
   end
 
+  def refill_json
+    @refills = current_user.upcoming_refills
+    render(json: {refills: @refills}, include: [:drug, :user, :pharmacy])
+
+  end
+
   private
 
   def user_params

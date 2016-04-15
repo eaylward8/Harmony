@@ -4,6 +4,7 @@ body {
 
 .pillbox-container {
   padding-top: 80px;
+  padding-bottom: 60px;
 }
 
 .row {
@@ -173,3 +174,17 @@ body {
   display: none;
   z-index: 100;
 }
+
+#refill-msgs {
+  color: white;
+}
+
+#exp-soon-header {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+#exp-soon-table {
+  font-size: 1.4em;
+}
+

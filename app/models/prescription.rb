@@ -53,7 +53,9 @@ class Prescription < ActiveRecord::Base
     schedule
   end
 
-
+  def format_date(date)
+    date.strftime('%A, %B %d')
+  end
 
 
 end
