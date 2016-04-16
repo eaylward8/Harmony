@@ -132,6 +132,18 @@ a {
   background-color: #6C5B7B;
 }
 
+.morning-warning-message {
+  background-color: #fedac1;
+}
+
+.afternoon-warning-message {
+background-color: #fd9bab;
+}
+
+.bedtime-warning-message {
+  background-color: #937da5;
+}
+
 .prescription {
   padding-bottom: 3px;
 }
@@ -171,9 +183,9 @@ a {
 }
 .warning-message {
   position: absolute;
-  background: rgba(158, 158, 158, .98);
+  /*background: rgba(158, 158, 158, .98);*/
   /*margin-top: -130px;*/
-  color: #616161;
+  color: #424242;
   /*border: 1px solid #FFFFFF;*/
   margin-top: -150px;
   padding: 20px;

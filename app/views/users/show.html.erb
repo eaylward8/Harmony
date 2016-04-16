@@ -16,7 +16,7 @@
           <% if drug[:interactions].length > 0 %>
             <div class='warning-icon-container'>
               <%= image_tag 'warning.png', class: 'warning-icon' %>
-              <div class='warning-message'>
+              <div class='warning-message morning-warning-message'>
                 <% drug[:interactions].each do |interaction| %>
                   <span class='warning-headline'>Interacts with <%= interaction[:drug_name] %></span><br>
                   <%= interaction[:interaction] %>
@@ -36,7 +36,7 @@
           <% if drug[:interactions].length > 0 %>
             <div class='warning-icon-container'>
               <%= image_tag 'warning.png', class: 'warning-icon' %>
-              <div class='warning-message'>
+              <div class='warning-message afternoon-warning-message'>
                 <% drug[:interactions].each do |interaction| %>
                   <span class='warning-headline'>Interacts with <%= interaction[:drug_name] %></span><br>
                   <%= interaction[:interaction] %>
@@ -56,7 +56,7 @@
           <% if drug[:interactions].length > 0 %>
             <div class='warning-icon-container'>
               <%= image_tag 'warning.png', class: 'warning-icon' %>
-              <div class='warning-message'>
+              <div class='warning-message evening-warning-message'>
                 <% drug[:interactions].each do |interaction| %>
                   <span class='warning-headline'>Interacts with <%= interaction[:drug_name] %></span><br>
                   <%= interaction[:interaction] %>
@@ -76,7 +76,7 @@
           <% if drug[:interactions].length > 0 %>
             <div class='warning-icon-container'>
               <%= image_tag 'warning.png', class: 'warning-icon' %>
-              <div class='warning-message'>
+              <div class='warning-message bedtime-warning-message'>
                 <% drug[:interactions].each do |interaction| %>
                   <span class='warning-headline'>Interacts with <%= interaction[:drug_name] %></span><br>
                   <%= interaction[:interaction] %>
