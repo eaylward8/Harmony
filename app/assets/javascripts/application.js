@@ -58,9 +58,9 @@ $(function() {
       var drug = new app.drug.model.new(data.prescriptions[i].drug.name, data.prescriptions[i].drug.rxcui, data.prescriptions[i].drug.id)
 
       // use the four objects to make a prescription
-      var prescription = new app.prescription.model.new(data.prescriptions[i].fill_duration, data.prescriptions[i].refills, data.prescriptions[i].start_date, data.prescriptions[i].dose_size, drug, doctor, pharmacy, user, data.prescriptions[i].id);
+      var prescription = new app.prescription.model.new(data.prescriptions[i].fill_duration, data.prescriptions[i].refills, data.prescriptions[i].start_date, data.prescriptions[i].dose_size, drug, doctor, pharmacy, user, data.prescriptions[i].id, data.prescriptions[i].end_date);
       // make a build function for adding new scripts
-      
+      debugger;
       prescription.build();
       }
     };

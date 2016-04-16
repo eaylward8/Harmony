@@ -21,7 +21,7 @@ app.prescription = {
   model: {
     all: [],
     new: (function () {
-      var prescription = function Prescription(fill_duration, refills, start_date, end_date, dose_size, drug, doctor, pharmacy, user, id){
+      var prescription = function Prescription(fill_duration, refills, start_date, dose_size, drug, doctor, pharmacy, user, id, end_date){
         this.drug = drug;
         this.fill_duration = fill_duration;
         this. refills = refills;

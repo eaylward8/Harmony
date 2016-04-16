@@ -5,6 +5,7 @@ class PrescriptionsController < ApplicationController
     @user = current_user
     @prescriptions = current_user.prescriptions.all
     @prescription = Prescription.new
+    
     # View of all prescriptions for a user
     # - includes complete details about prescriptions
     # and (in JS) the option to view old prescriptions
