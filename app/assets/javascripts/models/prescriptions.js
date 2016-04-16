@@ -35,8 +35,13 @@ app.prescription = {
         app.prescription.model.all.push(this);
       };
       prescription.prototype.prescriptionEl = function() {
-        return '<div class="row drug-row"><div class="col-md-2"></div><a href="/prescriptions/'+this.id+'"><div class="prescription col-md-8"><h2>'+this.drug.name+' <small id="prescription-'+this.id+'" drug-id="'+this.drug.id+'"> '+this.start_date+' </small></h2></div></a><div class="col-md-2"></div>'
-      };      
+        return '<div class="row drug-row"><a data-toggle="collapse" href="#collapsed-details-'+this.id+'" aria-expanded="false" aria-control="collapsed-details-'+this.id+'"><div class="prescription col-md-8 col-md-offset-2"><h2>'+this.drug.name+' <small id="prescription-'+this.id+'" drug-id="'+this.drug.id+'"> '+this.start_date+' </small></h2>'+this.detailsDiv()+'</div></a>'
+      };  
+
+      prescription.prototype.detailsDiv = function(){
+        return '<div class="collapse" id="collapsed-details-'+this.id+'"><p>Dose Size: '+this.dose_size+'</p><p>Refills: '+this.refills+'</p><p>Fill Duration: '+this.fill_duration+'</p><p>Start date: '+this.start_date+'</p><p>End date: '+this.end_date+'</p><p>Dr. '+this.doctor.first_name+ " "+this.doctor.last_name+'</p><p>Pharmacy: '+this.pharmacy.name+ " - " +this.pharmacy.location+'</p></div>'
+      }
+
       prescription.prototype.build = function() {
          $('#prescriptions').append(this.prescriptionEl());
          // $('#task_prescription_id').append(this.optionEl());
@@ -71,7 +76,7 @@ app.prescription.controller.new.prototype.init = function() {
       var pharmacy = new app.pharmacy.model.new(data.prescription.pharmacy.name, data.prescription.pharmacy.location, data.prescription.pharmacy.id)
       var drug = new app.drug.model.new(data.prescription.drug.name, data.prescription.drug.rxcui, data.prescription.drug.id)
 
-      var prescription = new app.prescription.model.new(data.prescription.fill_duration, data.prescription.refills, data.prescription.start_date, data.prescription.end_date, data.prescription.dose_size, drug, doctor, pharmacy, user, data.prescription.id);
+      var prescription = new app.prescription.model.new(data.prescription.fill_duration, data.prescription.refills, data.prescription.start_date, data.prescription.dose_size, drug, doctor, pharmacy, user, data.prescription.id, data.prescription.end_date);
       prescription.build_first();
       $("#close").click();
   })
