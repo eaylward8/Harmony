@@ -102,7 +102,7 @@
             <td><%= rx.drug.name %></td>
             <td><%= rx.format_date(rx.end_date) %>
             <td><%= rx.refills %></td>
-            <td><%= button_to "Refilled", prescription_path(rx.id), method: 'POST' %></td>
+            <td><%= button_to "Refilled", prescription_path(rx.id), method: 'patch', params: {refill: true}, class: "btn btn-primary-outline"%></td>
           <% end %></tr>
       </table>
       
