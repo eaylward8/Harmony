@@ -4,11 +4,12 @@
 
  
   
-  <div class="container container-lg parent-prescription">
-  <% @prescriptions.reverse.each do |p| %>
+  <div class="parent-prescription">
+
+    <% @prescriptions.reverse.each do |p| %>
       <div class='prescription'>
         <ul>
-          
+          <% binding.pry %>
           <div class="btn btn-lg drugs-div"><%= link_to p.drug.name, prescription_path(p), class: "drugs-link" %></div>
          
         </ul>
@@ -16,27 +17,4 @@
     <% end %>
 
   </div>
-
-  
-
-  <% if false #-----\ THIS BLOCK IS COMMENTED OUT/----\/---- %>
-    <% @prescriptions.each do |p| %>
-      <div class='prescription'>
-        <ul>
-          <p class='ul-header'>Drug:</p>
-          <li>Name: <%= p.drug.name %></li>
-          <li>Refills: <%= p.refills %></li>
-          <li>Fill Duration: <%= p.fill_duration %></li>
-          <li>Start date: <%= p.start_date %></li>
-          <li>End date: <%= p.end_date %></li>
-          <p class='ul-header'>Doctor:</p>
-          <li>Dr. <%= p.doctor.first_name %> <%= p.doctor.last_name %>, <%= p.doctor.specialty %></li>
-          <li><%= p.doctor.location %></li>
-          <p class='ul-header'>Pharmacy:</p>
-          <li><%= p.pharmacy.name %></li>
-          <li><%= p.pharmacy.location %></li>
-        </ul>
-      </div>
-    <% end %>
-  <% end #____/THIS BLOCK IS COMMENTED OUT\____/\____%>
 </div>

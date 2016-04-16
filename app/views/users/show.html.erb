@@ -88,4 +88,37 @@
       </div>
     </div>
   </div>
+  <div class="row pillbox-row" id="refill-msgs">
+    <div class="col-xs-12" id="exp-soon-div">
+      <h3 id="exp-soon-header">Prescriptions Expiring Soon</h3>
+      <table class="table" id="exp-soon-table">
+        <tr>
+          <th>Medication</th>
+          <th>Expiration</th>
+          <th>Refills Remaining</th>
+        </tr>
+        <% @user.upcoming_refills.each do |rx| %>
+          <tr>
+            <td><%= rx.drug.name %></td>
+            <td><%= rx.format_date(rx.end_date) %>
+            <td><%= rx.refills %></td>
+            <td><%= button_to "Refilled", prescription_path(rx.id), method: 'POST' %></td>
+          <% end %></tr>
+      </table>
+      
+      <ul>
+        
+      </ul>
+    </div>
+    <!-- <div class="col-xs-2"></div> -->
+  </div>
 </div>
+
+
+
+
+
+
+
+
+

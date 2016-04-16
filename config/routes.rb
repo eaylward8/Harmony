@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   resources :users
   root 'welcome#index'
   get '/prescriptionsjson' => 'prescriptions#json', as: :prescriptionsJSON 
+  get '/userrefillsjson' => 'users#refill_json', as: :refillJSON
 end

@@ -5,6 +5,7 @@ class PrescriptionsController < ApplicationController
     @user = current_user
     @prescriptions = current_user.prescriptions.all
     @prescription = Prescription.new
+    
     # View of all prescriptions for a user
     # - includes complete details about prescriptions
     # and (in JS) the option to view old prescriptions
@@ -92,10 +93,8 @@ class PrescriptionsController < ApplicationController
   end
 
   def json
-    @prescriptions = current_user.prescriptions
+    @prescriptions = current_user.prescriptions.sort_by { |p| p.end_date }
     render(json: {prescriptions: @prescriptions}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
-
-  
   end
 
   private

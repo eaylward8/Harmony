@@ -21,7 +21,7 @@ app.prescription = {
   model: {
     all: [],
     new: (function () {
-      var prescription = function Prescription(fill_duration, refills, start_date, dose_size, drug, doctor, pharmacy, user, id){
+      var prescription = function Prescription(fill_duration, refills, start_date, dose_size, drug, doctor, pharmacy, user, id, end_date){
         this.drug = drug;
         this.fill_duration = fill_duration;
         this. refills = refills;
@@ -31,13 +31,11 @@ app.prescription = {
         this.doctor = doctor;
         this.pharmacy = pharmacy;
         this.user = user;
-        this.end_date = start_date + fill_duration;
+        this.end_date = end_date
         app.prescription.model.all.push(this);
       };
       prescription.prototype.prescriptionEl = function() {
-        // return '<div class="prescription"><h2><button class="destroy-prescription">x</button><a href="/prescriptions/'+this.id+'">'+this.name+'</a></h2><ul id="prescription-'+this.id+'" data-id="'+this.id+'"></ul></div>';
-        // return '<div class="prescription"><h2><a href="/prescriptions/'+this.drug.name+'">'+this.user.first_name+'</a></h2><ul id="prescription-'+this.id+'" data-id="'+this.id+'"></ul></div>';
-        return '<div class="prescription"><h2><a href="/prescriptions/'+this.id+'">'+this.drug.name+'</a></h2><ul id="prescription-'+this.id+'" drug-id="'+this.drug.id+'"><li>Dr. '+this.doctor.first_name+' '+this.doctor.last_name+'</li></ul></div>';
+        return '<div class="row drug-row"><div class="col-md-2"></div><a href="/prescriptions/'+this.id+'"><div class="prescription col-md-8"><h2>'+this.drug.name+' <small id="prescription-'+this.id+'" drug-id="'+this.drug.id+'"> '+this.start_date+' </small></h2></div></a><div class="col-md-2"></div>'
       };      
       prescription.prototype.build = function() {
          $('#prescriptions').append(this.prescriptionEl());
@@ -73,9 +71,10 @@ app.prescription.controller.new.prototype.init = function() {
       var pharmacy = new app.pharmacy.model.new(data.prescription.pharmacy.name, data.prescription.pharmacy.location, data.prescription.pharmacy.id)
       var drug = new app.drug.model.new(data.prescription.drug.name, data.prescription.drug.rxcui, data.prescription.drug.id)
 
-      var prescription = new app.prescription.model.new(data.prescription.fill_duration, data.prescription.refills, data.prescription.start_date, data.prescription.dose_size, drug, doctor, pharmacy, user, data.prescription.id);
+      var prescription = new app.prescription.model.new(data.prescription.fill_duration, data.prescription.refills, data.prescription.start_date, data.prescription.end_date, data.prescription.dose_size, drug, doctor, pharmacy, user, data.prescription.id);
       prescription.build_first();
       $("#close").click();
   })
 });
 }
+
