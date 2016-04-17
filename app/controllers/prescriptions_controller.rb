@@ -18,9 +18,14 @@ class PrescriptionsController < ApplicationController
 
   def new
     # Form to enter a new prescription
-    @user = current_user
     @prescription = Prescription.new
-
+    # binding.pry
+    # respond_to do |format|
+    #   format.html {
+    #     render_to_string(partial: 'new_presciption_form')
+    #   }
+    # end
+    render :partial => "/prescriptions/new_prescription_form", :locals => { :prescription => @prescription }
   end
 
   def edit
@@ -60,8 +65,10 @@ class PrescriptionsController < ApplicationController
     end
     
     @prescription.calculate_end_date
-
-    render(json: {prescription: @prescription}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
+    redirect_to :root
+    # @user = current_user
+    # render :partial => "/users/pillbox_cells", :locals => { :user => @user }
+    # render(json: {prescription: @prescription}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
     # render json: {prescription: @prescription}
     # redirect_to user_path(current_user)
     # Creates a new prescription

@@ -24,8 +24,8 @@ $(function() {
   var drugsController = new app.drugs.controller.new();
   drugsController.init();
   // document ready
-  var prescriptionController = new app.prescription.controller.new();
-  prescriptionController.init();
+  var prescriptionsController = new app.prescriptions.controller.new();
+  prescriptionsController.init();
   // creating new  prescription controller
   // prescriptionController = new app.prescription.controller.new();
 
@@ -60,7 +60,6 @@ $(function() {
       // use the four objects to make a prescription
       var prescription = new app.prescription.model.new(data.prescriptions[i].fill_duration, data.prescriptions[i].refills, data.prescriptions[i].start_date, data.prescriptions[i].dose_size, drug, doctor, pharmacy, user, data.prescriptions[i].id, data.prescriptions[i].end_date);
       // make a build function for adding new scripts
-      debugger;
       prescription.build();
       }
     };
