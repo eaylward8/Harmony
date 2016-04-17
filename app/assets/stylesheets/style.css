@@ -196,9 +196,15 @@ a {
   /*top: -5px;*/
   /*bottom: 165px;*/
   /*left: 129px;*/
+  /*opacity: 0;*/
   display: none;
   z-index: 100;
 }
+
+/*.hidden {
+  display: none;
+}
+*/
 #new-prescription-btn {
   margin-top: 100px;
 }
