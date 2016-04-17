@@ -1,0 +1,59 @@
+<%= form_for(@prescription, remote: true) do |f| %>
+
+    <%=fields_for :drug do |drug_form| %>
+      <p>Drug name&nbsp&nbsp<%= drug_form.text_field :name %></p>
+    <% end %>
+    <p>Choose a doctor or enter a new one:</p>
+    <%=fields_for :doctor do |doctor_form| %>
+    <% if current_user.doctors.length < 1 %>
+    <p><%= radio_button_tag(:doc_type, "new", checked: 'checked') %>New doctor:</p>
+      <p>First name&nbsp&nbsp<%= doctor_form.text_field :first_name %></p>
+      <p>Last name&nbsp&nbsp<%= doctor_form.text_field :last_name %></p>
+      <p>Location&nbsp&nbsp<%= doctor_form.text_field :location %></p>
+    <% else %>
+    <p><%= radio_button_tag(:doc_type, "existing", checked: 'checked') %> My doctors:
+      <%= doctor_form.select :doctor, current_user.doctors_names, prompt: "select" %></p>
+    <p><%= radio_button_tag(:doc_type, "new") %> New Doctor:</p>
+        <p>First name&nbsp&nbsp<%= doctor_form.text_field :first_name %></p>
+        <p>Last name&nbsp&nbsp<%= doctor_form.text_field :last_name %></p>
+        <p>Location&nbsp&nbsp<%= doctor_form.text_field :location %></p>
+      <% end %>
+    <% end %>
+    <p>Choose a pharmacy or enter a new one:</p>
+    <%=fields_for :pharmacy do |pharmacy_form| %>
+    <% if current_user.pharmacies.length < 1  %>
+      <p> <%= radio_button_tag(:pharm_type, "new", checked: 'checked') %> New pharmacy:</p>
+      <p>Name<%= pharmacy_form.text_field :name %></p>
+      <p>Location<%= pharmacy_form.text_field :location %></p>
+    <% else %>
+        <p><%= radio_button_tag(:pharm_type, "existing", checked: 'checked') %> My pharmacies:
+      <%= pharmacy_form.select :pharmacy, current_user.pharmacy_names, prompt: "select" %><br>
+    <p><%= radio_button_tag(:pharm_type, "new") %> New pharmacy:</p>
+        <p>Name&nbsp&nbsp<%= pharmacy_form.text_field :name %></p>
+        <p>Location&nbsp&nbsp<%= pharmacy_form.text_field :location %></p>
+    <% end %>
+
+      <% end %>
+    <p>Prescription length (in days):&nbsp&nbsp<%= f.number_field :fill_duration, min: 0 %></p>
+    <p>Number of refills&nbsp&nbsp<%= f.number_field :refills, min: 0 %></p>
+    <p>Start date&nbsp&nbsp<%= f.date_field :start_date, :value => Date.today %></p>
+    <p>Dose size&nbsp&nbsp<%= f.text_field :dose_size, placeholder: "e.g., 40 mg"%></p>
+    <p>How many doses will you take at these times?</p>
+    <p>Morning: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
+
+      <%= scheduled_dose_form.select :morning, [0, 1, 2, 3, 4, 5, 6, 7] %>
+    <% end %>
+    &nbsp&nbspAfternoon: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
+      <%= scheduled_dose_form.select :afternoon, [0, 1, 2, 3, 4, 5, 6, 7] %>
+    <% end %>
+    &nbsp&nbspEvening: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
+      <%= scheduled_dose_form.select :evening, [0, 1, 2, 3, 4, 5, 6, 7] %>
+    <% end %>
+    &nbsp&nbspBedtime: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
+      <%= scheduled_dose_form.select :bedtime, [0, 1, 2, 3, 4, 5, 6, 7] %>
+    <% end %></p><br>
+    <!-- <input type='submit' id='form-submit' data-dismiss='modal'>Submit</input> -->
+
+    <p><%= f.submit "Edit Prescription", :class => "btn btn-primary btn-lg", 'id' => "form-submit" %></p><br>
+  <% end %>
+

@@ -31,6 +31,7 @@ class PrescriptionsController < ApplicationController
   def edit
     # Form to edit a prescription
     @prescription = Prescription.find(params[:id])
+    
 
   end
 
