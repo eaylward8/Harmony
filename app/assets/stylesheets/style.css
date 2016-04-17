@@ -89,6 +89,13 @@ body {
   color: #FFFFFF;
 }
 
+.logo {
+  margin-left: -80px;
+  padding-right: 50px;
+  padding-top: 40px;
+  zoom: 30%;
+}
+
 input.btn.btn-primary-outline {
   background-color: #406f97;
   font-size: 1em;

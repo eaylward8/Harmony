@@ -24,7 +24,7 @@
           <span class="icon-bar"></span>
         </button>
         <% if current_user %>
-          <%= link_to 'Harmony', user_path(current_user), class: "navbar-brand" %>
+          <%= image_tag 'logo.png', class: 'logo' %>
         <% else %>
           <%= link_to 'Harmony', root_path, class: "navbar-brand" %>
         <% end %>
