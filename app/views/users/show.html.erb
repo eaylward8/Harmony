@@ -17,13 +17,14 @@
           <th>Medication</th>
           <th>Expiration</th>
           <th>Refills Remaining</th>
+          <th></th>
         </tr>
         <% @user.upcoming_refills.each do |rx| %>
           <tr>
-            <td><%= rx.drug.name %></td>
-            <td><%= rx.format_date(rx.end_date) %>
-            <td><%= rx.refills %></td>
-            <td><%= button_to "Refilled", prescription_path(rx.id), method: 'patch', params: {refill: true}, class: "btn btn-primary-outline"%></td>
+            <td class='table-data'><%= rx.drug.name %></td>
+            <td class='table-data'><%= rx.format_date(rx.end_date) %>
+            <td class='table-data'><%= rx.refills %></td>
+            <td><%= button_to "Add Refill", prescription_path(rx.id), method: 'patch', params: {refill: true}, class: "btn btn-primary-outline"%></td>
           <% end %></tr>
       </table>
       
