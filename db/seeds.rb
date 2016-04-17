@@ -82,8 +82,8 @@ Prescription.create(refills: 3, fill_duration: 2, start_date: Date.today, end_da
 Prescription.create(refills: 0, fill_duration: 9, start_date: Date.today, end_date: ((Date.today + 9) - 1), doctor_id: 3, pharmacy_id: 1, user_id: 1, drug_id: 3, dose_size: '500mg')
 Prescription.create(refills: 0, fill_duration: 7, start_date: Date.today, end_date: ((Date.today + 7) - 1), doctor_id: 4, pharmacy_id: 2, user_id: 1, drug_id: 4, dose_size: '200mg')
 Prescription.create(refills: 0, fill_duration: 1, start_date: Date.today, end_date: ((Date.today + 1) - 1), doctor_id: 5, pharmacy_id: 1, user_id: 1, drug_id: 5, dose_size: '75mg')
-Prescription.create(refills: 0, fill_duration: 1, start_date: Date.today, end_date: ((Date.today + 1) - 1), doctor_id: 1, pharmacy_id: 2, user_id: 1, drug_id: 6, dose_size: '300mg')
-Prescription.create(refills: 0, fill_duration: 1, start_date: Date.today, end_date: ((Date.today + 1) - 1), doctor_id: 2, pharmacy_id: 1, user_id: 1, drug_id: 7, dose_size: '10mg')
+Prescription.create(refills: 3, fill_duration: 1, start_date: Date.today, end_date: ((Date.today + 1) - 1), doctor_id: 1, pharmacy_id: 2, user_id: 1, drug_id: 6, dose_size: '300mg')
+Prescription.create(refills: 3, fill_duration: 1, start_date: Date.today, end_date: ((Date.today + 1) - 1), doctor_id: 2, pharmacy_id: 1, user_id: 1, drug_id: 7, dose_size: '10mg')
 Prescription.create(refills: 0, fill_duration: 1, start_date: Date.today, end_date: ((Date.today + 1) - 1), doctor_id: 3, pharmacy_id: 2, user_id: 1, drug_id: 8, dose_size: '900mg')
 
 ScheduledDose.create(time_of_day: 'morning', prescription_id: 1)
