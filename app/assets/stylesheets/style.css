@@ -242,3 +242,14 @@ a {
   font-size: 1.4em;
 }
 
+.prescription h2 {
+  color: #406f97;
+}
+
+.prescription small {
+  color: 616161;
+}
+
+.prescription p {
+  color: #616161;
+}
