@@ -5,17 +5,16 @@ app.prescriptions = {
 };
 
 app.prescriptions.controller.new.prototype.init = function() {
-  $('#newPrescriptionButton').click(function(event) {
+  $(document).on('click', '#newPrescriptionButton', function(event) {
     event.preventDefault();
     $.ajax({
       url: '/prescriptions/new',
       method: 'GET'
     }).success(function(data) {
       $('#form-container').append(data);
-      $('#form-submit').click(function(data) {
+      $(document).on('click', '#form-submit', function(data) {
         $("#newPrescriptionModal").modal("hide");
         // $('#form-container').children().remove();
-        // $('.pillbox-cell').remove();
       });
     });
   });

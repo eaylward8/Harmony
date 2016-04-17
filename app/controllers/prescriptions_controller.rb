@@ -39,7 +39,6 @@ class PrescriptionsController < ApplicationController
     @prescription.user = current_user
     new_drug = Adapters::DrugClient.find_by_name(drug_params[:name])
     new_drug_params = {name: new_drug.name, rxcui: new_drug.rxcui}
-    binding.pry
     @prescription.drug = Drug.find_or_create_by(new_drug_params)
     @prescription.drug.persist_interactions(current_user)
     # logic for doctor creation or associaton
@@ -66,9 +65,15 @@ class PrescriptionsController < ApplicationController
     end
     
     @prescription.calculate_end_date
-    redirect_to :root
+    # redirect_to prescription_path(@prescription)
     # @user = current_user
     # render :partial => "/users/pillbox_cells", :locals => { :user => @user }
+    @user = current_user
+    respond_to do |format|
+      format.html { redirect_to @user, notice: 'User was successfully created.' }
+      format.js {}
+      format.json { render json: @user, status: :created, location: @user }
+    end
     # render(json: {prescription: @prescription}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
     # render json: {prescription: @prescription}
     # redirect_to user_path(current_user)

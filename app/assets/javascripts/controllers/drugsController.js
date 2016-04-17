@@ -5,10 +5,10 @@ app.drugs = {
 };
 
 app.drugs.controller.new.prototype.init = function() {
-  $('.warning-icon').mouseenter(function() {
+  $(document).on('mouseenter', '.warning-icon', function() {
     $(this).parent().find('.warning-message').fadeIn(100);
   });
-  $('.warning-icon').mouseleave(function() {
+  $(document).on('mouseleave', '.warning-icon', function() {
     $(this).parent().find('.warning-message').fadeOut(100);
   });
 };
