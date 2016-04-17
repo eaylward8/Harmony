@@ -10,28 +10,9 @@
     </div>
   </div>
   <div class="row pillbox-row" id="refill-msgs">
-    <div class="col-xs-12" id="exp-soon-div">
-      <h3 id="exp-soon-header">Prescriptions Expiring Soon</h3>
-      <table class="table" id="exp-soon-table">
-        <tr>
-          <th>Medication</th>
-          <th>Expiration</th>
-          <th>Refills Remaining</th>
-          <th></th>
-        </tr>
-        <% @user.upcoming_refills.each do |rx| %>
-          <tr>
-            <td class='table-data'><%= rx.drug.name %></td>
-            <td class='table-data'><%= rx.format_date(rx.end_date) %>
-            <td class='table-data'><%= rx.refills %></td>
-            <td><%= button_to "Add Refill", prescription_path(rx.id), method: 'patch', params: {refill: true}, class: "btn btn-primary-outline"%></td>
-          <% end %></tr>
-      </table>
-      
-      <ul>
-        
-      </ul>
-    </div>
+    <% if !@user.upcoming_refills.empty? %>
+      <%= render partial: 'expiring_soon' %>
+    <% end %>
     <!-- <div class="col-xs-2"></div> -->
   </div>
 </div>

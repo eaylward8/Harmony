@@ -57,5 +57,9 @@ class Prescription < ActiveRecord::Base
     date.strftime('%A, %B %d')
   end
 
+  def ending_within_week?
+    self.end_date - Date.today < 7 ? true : false
+  end
+
 
 end

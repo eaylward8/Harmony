@@ -1,0 +1,18 @@
+<div class="col-xs-12" id="exp-soon-div">
+  <h3 id="exp-soon-header">Prescriptions Expiring Soon</h3>
+  <table class="table" id="exp-soon-table">
+    <tr>
+      <th>Medication</th>
+      <th>Expiration</th>
+      <th>Refills Remaining</th>
+      <th></th>
+    </tr>
+    <% @user.upcoming_refills.each do |rx| %>
+      <tr data-rxid='<%= rx.id %>'>
+        <td class='table-data'><%= rx.drug.name %></td>
+        <td class='table-data'><span><%= rx.format_date(rx.end_date) %></span></td>
+        <td class='table-data'><span><%= rx.refills %></span></td>
+        <td><%= button_to 'Add Refill', prescription_path(rx.id), method: 'patch', params: {refill: true}, class: 'btn btn-primary-outline', 'data-rxid': rx.id.to_s %></td>
+      <% end %></tr>
+  </table>
+</div>
