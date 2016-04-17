@@ -1,4 +1,5 @@
   <%= form_for(@prescription, remote: true) do |f| %>
+
     <%=fields_for :drug do |drug_form| %>
       <p>Drug name&nbsp&nbsp<%= drug_form.text_field :name %></p>
     <% end %>
@@ -39,6 +40,7 @@
     <p>Dose size&nbsp&nbsp<%= f.text_field :dose_size, placeholder: "e.g., 40 mg"%></p>
     <p>How many doses will you take at these times?</p>
     <p>Morning: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
+
       <%= scheduled_dose_form.select :morning, [0, 1, 2, 3, 4, 5, 6, 7] %>
     <% end %>
     &nbsp&nbspAfternoon: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
@@ -51,5 +53,7 @@
       <%= scheduled_dose_form.select :bedtime, [0, 1, 2, 3, 4, 5, 6, 7] %>
     <% end %></p><br>
     <!-- <input type='submit' id='form-submit' data-dismiss='modal'>Submit</input> -->
-    <p><%= f.submit "Add Prescription", 'id' => "form-submit" %></p><br>
+
+    <p><%= f.submit "Add Prescription", :class => "btn btn-primary btn-lg", 'id' => "form-submit" %></p><br>
   <% end %>
+
