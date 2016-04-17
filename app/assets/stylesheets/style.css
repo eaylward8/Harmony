@@ -202,12 +202,15 @@ background-color: #fd9bab;
   display: none;
   z-index: 100;
 }
+#new-prescription-btn {
+  margin-top: 100px;
+}
 
 .prescription {
   background-color: white;
 }
 #prescriptions {
-  /*background-color: yellow;*/
+  margin-top: 90px;
 }
 
 .drug-row {

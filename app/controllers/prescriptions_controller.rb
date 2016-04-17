@@ -39,6 +39,7 @@ class PrescriptionsController < ApplicationController
     @prescription.user = current_user
     new_drug = Adapters::DrugClient.find_by_name(drug_params[:name])
     new_drug_params = {name: new_drug.name, rxcui: new_drug.rxcui}
+    binding.pry
     @prescription.drug = Drug.find_or_create_by(new_drug_params)
     @prescription.drug.persist_interactions(current_user)
     # logic for doctor creation or associaton
@@ -77,18 +78,26 @@ class PrescriptionsController < ApplicationController
   def update
     # Updates a prescription
     @prescription = Prescription.find(params[:id])
-    new_drug = Drug.new.find_by(drug_params[:name])
-    new_drug_params = {name: new_drug.name, rxcui: new_drug.rxcui}
-    @prescription.drug = Drug.find_or_create_by(new_drug_params)
-    @prescription.doctor = Doctor.find_or_create_by(doctor_params)
-    @prescription.pharmacy = Pharmacy.find_or_create_by(pharmacy_params)
-    @prescription.scheduled_doses.clear
-    scheduled_doses_params.each do |time_of_day, count|
-      count.to_i.times do
-        ScheduledDose.create(time_of_day: time_of_day, prescription_id: @prescription.id)
+
+    if params[:refill]
+      @prescription.refills -= 1
+      @prescription.end_date += @prescription.fill_duration
+      @prescription.save
+      redirect_to current_user
+    else
+      new_drug = Drug.new.find_by(drug_params[:name])
+      new_drug_params = {name: new_drug.name, rxcui: new_drug.rxcui}
+      @prescription.drug = Drug.find_or_create_by(new_drug_params)
+      @prescription.doctor = Doctor.find_or_create_by(doctor_params)
+      @prescription.pharmacy = Pharmacy.find_or_create_by(pharmacy_params)
+      @prescription.scheduled_doses.clear
+      scheduled_doses_params.each do |time_of_day, count|
+        count.to_i.times do
+          ScheduledDose.create(time_of_day: time_of_day, prescription_id: @prescription.id)
+        end
       end
+      redirect_to @prescription
     end
-    redirect_to @prescription
   end
 
   def destroy
