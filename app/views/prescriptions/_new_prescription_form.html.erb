@@ -1,51 +1,61 @@
   <%= form_for(@prescription, remote: true) do |f| %>
-    Drug name? <%=fields_for :drug do |drug_form| %><br>
-        <%= drug_form.text_field :name %>
-      <% end %><br>
-    Doctor <%=fields_for :doctor do |doctor_form| %><br>
+    <h5>Drug name:</h5> <%=fields_for :drug do |drug_form| %>
+        <%= drug_form.text_field :name %><br>
+      <% end %>
+    <h5>Doctor:</h5> <%=fields_for :doctor do |doctor_form| %>
     <% if current_user.doctors.length < 1 %>
     <%= radio_button_tag(:doc_type, "new", checked: 'checked') %> New Doctor: 
         First Name<%= doctor_form.text_field :first_name %>
         Last Name<%= doctor_form.text_field :last_name %>
-        Location<%= doctor_form.text_field :location %> <br>
+        Location<%= doctor_form.text_field :location %>
     <% else %>
-    <%= radio_button_tag(:doc_type, "existing", checked: 'checked') %> My Doctors: 
-      <%= doctor_form.select :doctor, current_user.doctors_names, prompt: "select" %><br>
-    <%= radio_button_tag(:doc_type, "new") %> New Doctor: <br> 
-        First Name<%= doctor_form.text_field :first_name %><br>
-        Last Name<%= doctor_form.text_field :last_name %><br>
-        Location<%= doctor_form.text_field :location %> <br>
-      <% end %><br>
+  
+    <%= radio_button_tag(:doc_type, "existing", checked: 'checked') %> My Doctors:
+      <%= doctor_form.select :doctor, current_user.doctors_names, prompt: "select" %>
+      <br>
+      <br>
+    <%= radio_button_tag(:doc_type, "new") %> New Doctor: <br><br> 
+        First Name:<br>
+        <%= doctor_form.text_field :first_name %><br>
+        Last Name:<br>
+        <%= doctor_form.text_field :last_name %><br>
+        Location:<br>
+        <%= doctor_form.text_field :location %> <br>
+      <% end %>
     <% end %>  
-    Pharmacy name? <%=fields_for :pharmacy do |pharmacy_form| %><br>
+    <h5>Pharmacy name:</h5> <%=fields_for :pharmacy do |pharmacy_form| %>
     <% if current_user.pharmacies.length < 1  %>  
         <%= radio_button_tag(:pharm_type, "new", checked: 'checked') %> New pharmacy: 
         Name<%= pharmacy_form.text_field :name %>
         Location<%= pharmacy_form.text_field :location %> <br>  
     <% else %>
           <%= radio_button_tag(:pharm_type, "existing", checked: 'checked') %> My Pharmacies: 
-      <%= pharmacy_form.select :pharmacy, current_user.pharmacy_names, prompt: "select" %><br>
-    <%= radio_button_tag(:pharm_type, "new") %> New pharmacy: 
-        Name<%= pharmacy_form.text_field :name %>
-        Location<%= pharmacy_form.text_field :location %> <br>  
+      <%= pharmacy_form.select :pharmacy, current_user.pharmacy_names, prompt: "select" %>
+      <br>
+      <br>
+    <%= radio_button_tag(:pharm_type, "new") %> New pharmacy:<br><br> 
+        Name:<br>
+        <%= pharmacy_form.text_field :name %><br>
+        Location:<br>
+        <%= pharmacy_form.text_field :location %> <br>  
     <% end %>  
 
-      <% end %><br>
+      <% end %>
 
 
-    Prescription Length (in days): <br>
+    <h5>Prescription Length (in days):</h5>
     <%= f.number_field :fill_duration, min: 0 %> <br>
 
-    How many refills? <br>
+    <h5>How many refills?</h5> 
     <%= f.number_field :refills, min: 0 %><br>
 
-    Start date? <br>
+    <h5>Start date?</h5>
     <%= f.date_field :start_date, :value => Date.today %><br>
 
-    Dose size?<br>
+    <h5>Dose size?</h5>
      <%= f.text_field :dose_size, placeholder: "ex. 2 pills, 40 mg"%><br>
 
-    How many doses will you be taking at the following times? <br>
+    <h5>How many doses will you be taking at the following times?</h5>
     Morning: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
       <%= scheduled_dose_form.select :morning, [0, 1, 2, 3, 4, 5, 6, 7] %>
     <% end %><br>
@@ -62,6 +72,6 @@
       <%= scheduled_dose_form.select :bedtime, [0, 1, 2, 3, 4, 5, 6, 7] %>
     <% end %><br><br>
     <!-- <input type='submit' id='form-submit' data-dismiss='modal'>Submit</input> -->
-    <%= f.submit "Add New Prescription!", 'id' => "form-submit" %><br><br>
+    <%= f.submit "Add New Prescription!", :class => "btn btn-primary btn-lg", 'id' => "form-submit" %>
   <% end %>
 
