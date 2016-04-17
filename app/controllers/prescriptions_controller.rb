@@ -70,9 +70,7 @@ class PrescriptionsController < ApplicationController
     # render :partial => "/users/pillbox_cells", :locals => { :user => @user }
     @user = current_user
     respond_to do |format|
-      format.html { redirect_to @user, notice: 'User was successfully created.' }
       format.js {}
-      format.json { render json: @user, status: :created, location: @user }
     end
     # render(json: {prescription: @prescription}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
     # render json: {prescription: @prescription}
