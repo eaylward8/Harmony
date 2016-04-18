@@ -13,6 +13,17 @@ app.users.controller.new.prototype.init = function() {
       method: 'GET'
     }).success(function(data) {
       $('#user-modal').append(data);
+      $(document).on('click', '#form-submit', function(event) {
+        $("#editUserProfileModal").modal("hide");
+        event.preventDefault();
+        data = $('form').serialize();
+        $.ajax({
+          url: '/users/' + userId,
+          method: 'PATCH',
+          data: data
+        }).success(function() {
+        });
+      });
     });
   });
 };

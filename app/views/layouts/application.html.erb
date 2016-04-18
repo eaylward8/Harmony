@@ -27,7 +27,7 @@
         <% if current_user %>
           <%= link_to image_tag('logo.png', class: 'logo'), user_path(current_user) %>
         <% else %>
-          <%= link_to 'Harmony', root_path, class: "navbar-brand" %>
+          <%= link_to image_tag('logo.png', class: 'logo'), root_path %>
         <% end %>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
