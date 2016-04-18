@@ -138,6 +138,7 @@ class PrescriptionsController < ApplicationController
         end
       end
       @prescription.save
+       render(json: {prescription: @prescription}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
     end
   end
 
