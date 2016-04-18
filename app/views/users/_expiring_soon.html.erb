@@ -5,14 +5,20 @@
       <th>Medication</th>
       <th>Expiration</th>
       <th>Refills Remaining</th>
-      <th></th>
+      <th>Got Your Refill?</th>
     </tr>
     <% @user.upcoming_refills.each do |rx| %>
       <tr data-rxid='<%= rx.id %>'>
         <td class='table-data'><%= rx.drug.name %></td>
         <td class='table-data'><span><%= rx.format_date(rx.end_date) %></span></td>
         <td class='table-data'><span><%= rx.refills %></span></td>
-        <td><%= button_to 'Add Refill', prescription_path(rx.id), method: 'patch', params: {refill: true}, class: 'btn btn-primary-outline', 'data-rxid': rx.id.to_s %></td>
+        <td>
+          <% if rx.refills > 0 %>
+            <%= button_to 'Update Rx', prescription_path(rx.id), method: 'patch', params: {refill: true}, class: 'btn btn-primary-outline active', 'data-rxid': rx.id.to_s %>
+          <% else %>
+            <button class='btn btn-primary-outline no-refills' disabled=true><span>No Refills</span></button>
+          <% end %>
+        </td>
       <% end %></tr>
   </table>
 </div>

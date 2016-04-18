@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
     # {script: refill date}
     # 7 days
     refills = active_prescriptions.select do |p|
-      (p.end_date < Date.today + 7) && (p.refills > 0 )
+      (p.end_date < Date.today + 7)
     end
     # sort by earliest end_date
     refills.sort_by { |p| p.end_date }
