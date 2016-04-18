@@ -1,14 +1,8 @@
 <div class="container-fluid" id="my-rx-container">
   <div class="row">
+
     <div class="prescriptions-div" id="active-prescriptions">
       <div class="col-md-8 col-md-offset-2">
-        
-
-
-     
-
-
-
         <h1 class="my-rx-header">Active Prescriptions</h1>
           <%=  %>
           <%  %>
@@ -16,7 +10,7 @@
             
             <%= render "edit_prescription_modal", :rx => rx %>
             <% if rx.end_date > Date.today%>
-              <div class="row drug-row">
+              <div class="row drug-row active-p">
                 <a data-toggle="collapse" href="#collapsed-details-<%= rx.id %>" aria-expanded="false" aria-control="collapsed-details-<%= rx.id %>">
                 <div class="prescription col-md-8 col-md-offset-2">
                   <h2><%= rx.drug.name %> 
@@ -31,18 +25,19 @@
                     <p>End date: <%= rx.end_date %></p>
                     <p><%= rx.doctor.professional_name %></p>
                     <p>Pharmacy: <%= rx.pharmacy.name %> - <%= rx.pharmacy.location %></p>
-                  </a> 
+                   
+                </a>
                      <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#editPrescriptionModal-<%=rx.id%>">
                 Edit
                      </button>
                   </div>
                 </div>
-              </div>  
-              
+               </div>
               <% end %>
           <% end %>
       </div>
     </div>
+
     <div class="prescriptions-div" id="inactive-prescriptions">
       <div class="col-md-8 col-md-offset-2">
         <h1 class="my-rx-header">Inactive Prescriptions</h1>
