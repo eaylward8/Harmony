@@ -97,7 +97,7 @@ class PrescriptionsController < ApplicationController
 
   def update
     # Updates a prescription
-    # debugger
+   
     @prescription = Prescription.find(params[:id])
 
     if params[:refill]
@@ -138,7 +138,7 @@ class PrescriptionsController < ApplicationController
         end
       end
       @prescription.save
-      redirect_to '/prescriptions'
+       render(json: {prescription: @prescription}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
     end
   end
 

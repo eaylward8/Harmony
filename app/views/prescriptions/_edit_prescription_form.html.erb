@@ -1,4 +1,5 @@
- <%= form_for @prescription do |f| %>
+<div class='form-class-'<%= @prescription.id %>> 
+  <%= form_for @prescription do |f| %>
     Drug name? <%=fields_for :drug do |drug_form| %><br>
         <%= drug_form.text_field :name, value: @prescription.drug.name %>
       <% end %><br>
@@ -54,5 +55,6 @@
       <%= scheduled_dose_form.select :bedtime, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.daily_schedule[:bedtime] %>
     <% end %><br>
 
-    <%= f.submit "Edit Prescription!", class: "btn btn-default navbar-btn" %>
+    <%= f.submit "Edit Prescription!", id: "prescription-#{@prescription.id}", class: "btn btn-default navbar-btn editPrescriptionButton" %>
   <% end %>
+  </div>
