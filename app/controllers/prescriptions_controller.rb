@@ -80,6 +80,7 @@ class PrescriptionsController < ApplicationController
 
   def update
     # Updates a prescription
+    # debugger
     @prescription = Prescription.find(params[:id])
 
     if params[:refill]
@@ -91,18 +92,33 @@ class PrescriptionsController < ApplicationController
         render(json: {prescription: @prescription}, include: [:drug])
       end
     else
-      new_drug = Drug.new.find_by(drug_params[:name])
+
+      
+      new_drug = Adapters::DrugClient.find_by_name(drug_params[:name])
       new_drug_params = {name: new_drug.name, rxcui: new_drug.rxcui}
-      @prescription.drug = Drug.find_or_create_by(new_drug_params)
+      new_drug.save
+      @prescription.drug = new_drug
+    if params[:doc_type] == "new"
       @prescription.doctor = Doctor.find_or_create_by(doctor_params)
+    else
+      @prescription.doctor = Doctor.find(params[:doctor][:doctor].split(" ").first.to_i)
+    end
+
+    if params[:pharm_type] == "new"
+
       @prescription.pharmacy = Pharmacy.find_or_create_by(pharmacy_params)
+    else
+      @prescription.pharmacy = Pharmacy.find(params[:pharmacy][:pharmacy].split(" ").first.to_i)
+    end
+      
       @prescription.scheduled_doses.clear
       scheduled_doses_params.each do |time_of_day, count|
         count.to_i.times do
           ScheduledDose.create(time_of_day: time_of_day, prescription_id: @prescription.id)
         end
       end
-      redirect_to @prescription
+      @prescription.save
+      redirect_to '/prescriptions'
     end
   end
 
