@@ -7,6 +7,7 @@ app.users = {
 app.users.controller.new.prototype.init = function() {
   $(document).on('click', '#editUserProfileButton', function(event) {
     $('#user-modal').children().remove();
+    debugger
     event.preventDefault();
     $.ajax({
       url: '/users/' + userId + '/edit',

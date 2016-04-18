@@ -37,13 +37,13 @@ class PrescriptionsController < ApplicationController
   def create
     @prescription = Prescription.new(prescription_params)
     @prescription.user = current_user
-    binding.pry
+    
     if Drug.find_by_name(drug_params[:name])
       # check db to see if drug is already there
       @prescription.drug = Drug.find_by_name(drug_params[:name])
     else
       # otherwise make API call
-      binding.pry
+      
       new_drug = Adapters::DrugClient.find_by_name(drug_params[:name])
       new_drug_params = {name: new_drug.name, rxcui: new_drug.rxcui} 
       if !new_drug_params[:rxcui]
@@ -97,7 +97,7 @@ class PrescriptionsController < ApplicationController
 
   def update
     # Updates a prescription
-    # debugger
+   
     @prescription = Prescription.find(params[:id])
 
     if params[:refill]
@@ -138,7 +138,7 @@ class PrescriptionsController < ApplicationController
         end
       end
       @prescription.save
-      redirect_to '/prescriptions'
+       render(json: {prescription: @prescription}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
     end
   end
 
