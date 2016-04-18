@@ -19,6 +19,25 @@ app.prescriptions.controller.new.prototype.init = function() {
     });
   });
 
+
+$(document).on('click', '.editPrescriptionButton', function(event) {
+  
+  var prescriptionId = parseInt(this.id.split("-")[1]);
+    // $('#form').children().remove();
+    // event.preventDefault();
+    
+    // $.ajax({
+    //   url: '/prescription/'+prescriptionId,
+    //   method: 'PATCH'
+    // }).success(function(data) {
+    //   $('#form').append(data);
+    //   $(document).on('click', '#form-submit', function(data) {
+    //     $("#newPrescriptionModal").modal("hide");
+    //   });
+    // });
+  });
+
+
   $('#exp-soon-table form').click(function(event) {
     event.preventDefault();
     var rxId = $(this).children('.btn').attr('data-rxid')

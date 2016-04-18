@@ -37,7 +37,7 @@ class PrescriptionsController < ApplicationController
   def create
     @prescription = Prescription.new(prescription_params)
     @prescription.user = current_user
-    binding.pry
+    
     if Drug.find_by_name(drug_params[:name])
       # check db to see if drug is already there
       @prescription.drug = Drug.find_by_name(drug_params[:name])
@@ -97,7 +97,7 @@ class PrescriptionsController < ApplicationController
 
   def update
     # Updates a prescription
-    # debugger
+   
     @prescription = Prescription.find(params[:id])
 
     if params[:refill]
@@ -138,7 +138,6 @@ class PrescriptionsController < ApplicationController
         end
       end
       @prescription.save
-      redirect_to '/prescriptions'
     end
   end
 

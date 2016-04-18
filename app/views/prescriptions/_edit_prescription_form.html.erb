@@ -54,5 +54,5 @@
       <%= scheduled_dose_form.select :bedtime, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.daily_schedule[:bedtime] %>
     <% end %><br>
 
-    <%= f.submit "Edit Prescription!", class: "btn btn-default navbar-btn" %>
+    <%= f.submit "Edit Prescription!", id: "prescription-#{@prescription.id}", class: "btn btn-default navbar-btn editPrescriptionButton" %>
   <% end %>
