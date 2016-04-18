@@ -110,7 +110,6 @@ class PrescriptionsController < ApplicationController
     else
       @prescription.pharmacy = Pharmacy.find(params[:pharmacy][:pharmacy].split(" ").first.to_i)
     end
-    debugger
       @prescription.refills =  prescription_params[:refills].to_i
       @prescription.fill_duration =  prescription_params[:fill_duration].to_i
       @prescription.start_date =  prescription_params[:start_date]
