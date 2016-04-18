@@ -45,6 +45,13 @@ app.prescription = {
         $('#prescriptions').prepend(this.prescriptionEl());
       };
       return prescription;
-    }())
+    }()),
+
+    createDate: function(dateStr) {
+      var year = Number(dateStr.split('-')[0]);
+      var month = Number(dateStr.split('-')[1]) - 1;
+      var day = Number(dateStr.split('-')[2]);
+      return new Date(year, month, day);
+    }
   },
 };

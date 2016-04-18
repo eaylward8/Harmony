@@ -248,6 +248,22 @@ a {
   font-size: 1.4em;
 }
 
+#exp-soon-table form {
+  width: 110px;
+}
+
+#exp-soon-table .btn {
+  background-color: transparent;
+  border: 1px solid #fff;
+}
+
+#exp-soon-table .btn:hover {
+  background-color: #fff;
+  color: #525252;
+}
+
+/* end exp prescription table */
+
 .prescription h2 {
   color: #406f97;
 }
