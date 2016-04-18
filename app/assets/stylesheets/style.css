@@ -3,6 +3,18 @@ body {
   background-color: #525252 !important;
 }
 
+h1 {
+  text-shadow: 0px 0px 15px rgba(0, 0, 0, 15);
+}
+
+h3 {
+  text-shadow: 0px 0px 15px rgba(0, 0, 0, 15);
+}
+
+#welcome-screen {
+  padding-top: 130px;
+}
+
 .pillbox-container {
   padding-top: 90px;
   padding-bottom: 60px;
@@ -14,7 +26,6 @@ body {
 }
 
 .warning-headline {
-  
   color: #616161;
 }
 
@@ -99,9 +110,7 @@ body {
 input.btn.btn-primary-outline {
   background-color: #406f97;
   font-size: 1em;
-}
-
-input {
+  width: 120px;
 }
 
 a {
@@ -113,15 +122,12 @@ a {
 }
 
 .pillbox-cell {
-  
 height: 320px;
   color: #FFFFFF;
   padding: 10px;
   font-size: 1.4em;
-  /*border: 2px #e6e9ee solid;*/
   border: 2px #525252 solid;
   padding-left: 50px;
-  /*text-shadow: 1px 1px rgba(90, 90, 90, .5);*/
 }
 
 .navbar {
@@ -285,6 +291,11 @@ height: 320px;
 
 #exp-soon-table input.active:hover {
   background-color: #F67280;
+  -webkit-transition: background-color 150ms linear, border 150ms linear;
+  -moz-transition: background-color 150ms linear, border 150ms linear;
+  -o-transition: background-color 150ms linear, border 150ms linear;
+  -ms-transition: background-color 150ms linear, border 150ms linear;
+  transition: background-color 150ms linear, border 150ms linear;
   border: 1px solid #F67280;
   text-shadow: none;
 }
@@ -294,8 +305,8 @@ height: 320px;
   color: #fff;
   background-color: transparent;
   border: 1px solid #fff;
+  width: 120px;
 }
-
 
 /* end exp prescription table */
 
