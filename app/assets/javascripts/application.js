@@ -64,6 +64,5 @@ $(function() {
   //     // prescription.build();
   //     }
   //   };
-    
   // })
-})
+  });
