@@ -38,9 +38,9 @@ $(document).on('click', '.editPrescriptionButton', function(event) {
       
       $('.modal').modal('hide');
       $('.prescription-div-'+prescription.id).empty()
-      $('.prescription-div-'+prescription.id).append(prescription.prescriptionEl())
+      $('.prescription-div-'+prescription.id).html(prescription.prescriptionEl())
 
-      
+      // debugger
     });
 event.preventDefault();
   });
