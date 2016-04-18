@@ -39,7 +39,11 @@ app.prescription = {
         return '<div class="collapse" id="collapsed-details-'+this.id+'"><p>Dose Size: '+this.dose_size+'</p><p>Refills: '+this.refills+'</p><p>Fill Duration: '+this.fill_duration+'</p><p>Start date: '+this.start_date+'</p><p>End date: '+this.end_date+'</p><p>Dr. '+this.doctor.first_name+ " "+this.doctor.last_name+'</p><p>Pharmacy: '+this.pharmacy.name+ " - " +this.pharmacy.location+'</p></div>';
       };
       prescription.prototype.build = function() {
-        $('#prescriptions').append(this.prescriptionEl());
+        if (app.prescription.model.createDate(this.end_date) > Date.now()) {
+          $('#active-prescriptions').append(this.prescriptionEl());  
+        } else {
+          $('#inactive-prescriptions').append(this.prescriptionEl());
+        }        
       };
       prescription.prototype.build_first = function() {
         $('#prescriptions').prepend(this.prescriptionEl());

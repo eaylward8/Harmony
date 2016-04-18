@@ -83,9 +83,7 @@ class PrescriptionsController < ApplicationController
     @prescription = Prescription.find(params[:id])
 
     if params[:refill]
-      @prescription.refills -= 1
-      @prescription.end_date += @prescription.fill_duration
-      @prescription.save
+      @prescription.refill
       if @prescription.ending_within_week?
         @formatted_date = @prescription.format_date(@prescription.end_date)
         render(json: {prescription: @prescription, expSoon: true, expDate: @formatted_date}, include: [:drug])
