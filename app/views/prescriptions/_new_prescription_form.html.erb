@@ -8,14 +8,14 @@
     <% if current_user.doctors.length < 1 %>
     <p><%= radio_button_tag(:doc_type, "new", checked: 'checked') %>New doctor:</p>
       <p>First name&nbsp&nbsp<%= doctor_form.text_field :first_name %></p>
-      <p>Last name&nbsp&nbsp<%= doctor_form.text_field :last_name %></p>
+      &nbsp&nbspLast name&nbsp&nbsp<%= doctor_form.text_field :last_name %>
       <p>Location&nbsp&nbsp<%= doctor_form.text_field :location %></p>
     <% else %>
     <p><%= radio_button_tag(:doc_type, "existing", checked: 'checked') %> My doctors:
       <%= doctor_form.select :doctor, current_user.doctors_names, prompt: "select" %></p>
     <p><%= radio_button_tag(:doc_type, "new") %> New Doctor:</p>
-        <p>First name&nbsp&nbsp<%= doctor_form.text_field :first_name %></p>
-        <p>Last name&nbsp&nbsp<%= doctor_form.text_field :last_name %></p>
+        <p>First name&nbsp&nbsp<%= doctor_form.text_field :first_name %>
+        &nbsp&nbspLast name&nbsp&nbsp<%= doctor_form.text_field :last_name %></p>
         <p>Location&nbsp&nbsp<%= doctor_form.text_field :location %></p>
       <% end %>
     <% end %>
@@ -23,14 +23,14 @@
     <%=fields_for :pharmacy do |pharmacy_form| %>
     <% if current_user.pharmacies.length < 1  %>
       <p> <%= radio_button_tag(:pharm_type, "new", checked: 'checked') %> New pharmacy:</p>
-      <p>Name<%= pharmacy_form.text_field :name %></p>
-      <p>Location<%= pharmacy_form.text_field :location %></p>
+      <p>Name<%= pharmacy_form.text_field :name %>
+      &nbsp&nbspLocation<%= pharmacy_form.text_field :location %></p>
     <% else %>
         <p><%= radio_button_tag(:pharm_type, "existing", checked: 'checked') %> My pharmacies:
       <%= pharmacy_form.select :pharmacy, current_user.pharmacy_names, prompt: "select" %><br>
     <p><%= radio_button_tag(:pharm_type, "new") %> New pharmacy:</p>
-        <p>Name&nbsp&nbsp<%= pharmacy_form.text_field :name %></p>
-        <p>Location&nbsp&nbsp<%= pharmacy_form.text_field :location %></p>
+        <p>Name&nbsp&nbsp<%= pharmacy_form.text_field :name %>
+        &nbsp&nbspLocation&nbsp&nbsp<%= pharmacy_form.text_field :location %></p>
     <% end %>
 
       <% end %>
