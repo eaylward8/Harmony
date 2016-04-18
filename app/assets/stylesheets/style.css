@@ -243,12 +243,12 @@ a {
   padding-top: 0;
   padding-bottom: 5px;
   color: #F67280;
-  text-shadow: 2px 2px rgba(60, 60, 60, 0.8);
+  text-shadow: 1.5px 1.5px rgba(60, 60, 60, 0.6);
 }
 
 #exp-soon-table {
   font-size: 1.4em;
-  text-shadow: 2px 2px rgba(60, 60, 60, 0.8);
+  text-shadow: 1.5px 1.5px rgba(60, 60, 60, 0.6);
 }
 
 #exp-soon-table td:nth-child(3) span {
@@ -264,7 +264,7 @@ a {
   color: #fff;
   background-color: transparent;
   border: 1px solid #fff;
-  text-shadow: 2px 2px rgba(60, 60, 60, 0.8);
+  text-shadow: 1.5px 1.5px rgba(60, 60, 60, 0.6);
 }
 
 #exp-soon-table input.active:hover {
@@ -278,7 +278,6 @@ a {
   color: #fff;
   background-color: transparent;
   border: 1px solid #fff;
-  /*text-shadow: 2px 2px rgba(60, 60, 60, 0.8);*/
 }
 
 
