@@ -1,13 +1,68 @@
 <div class="container-fluid" id="my-rx-container">
   <div class="row">
+
     <div class="prescriptions-div" id="active-prescriptions">
       <div class="col-md-8 col-md-offset-2">
         <h1 class="my-rx-header">Active Prescriptions</h1>
+          <%=  %>
+          <%  %>
+          <% @prescriptions.each do |rx| %>
+            
+            <%= render "edit_prescription_modal", :rx => rx %>
+            <% if rx.end_date > Date.today%>
+              <div class="row drug-row active-p">
+                <a data-toggle="collapse" href="#collapsed-details-<%= rx.id %>" aria-expanded="false" aria-control="collapsed-details-<%= rx.id %>">
+                <div class="prescription col-md-8 col-md-offset-2">
+                  <h2><%= rx.drug.name %> 
+                    <small id="prescription-<%= rx.id %> " drug-id="<%= rx.drug.name %> "> <%= rx.start_date %>  </small>
+                  </h2>   
+                               
+                  <div class="collapse" id="collapsed-details-<%= rx.id %>">
+                    <p>Dose Size: <%= rx.dose_size %></p>
+                    <p>Refills: <%= rx.refills %></p>
+                    <p>Fill Duration: <%= rx.fill_duration %></p>
+                    <p>Start date: <%= rx.start_date %></p>
+                    <p>End date: <%= rx.end_date %></p>
+                    <p><%= rx.doctor.professional_name %></p>
+                    <p>Pharmacy: <%= rx.pharmacy.name %> - <%= rx.pharmacy.location %></p>
+                   
+                </a>
+                     <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#editPrescriptionModal-<%=rx.id%>">
+                Edit
+                     </button>
+                  </div>
+                </div>
+               </div>
+              <% end %>
+          <% end %>
       </div>
     </div>
+
     <div class="prescriptions-div" id="inactive-prescriptions">
       <div class="col-md-8 col-md-offset-2">
         <h1 class="my-rx-header">Inactive Prescriptions</h1>
+           <% @prescriptions.each do |rx| %>
+            <% if rx.end_date < Date.today%>
+              <div class="row drug-row">
+                <a data-toggle="collapse" href="#collapsed-details-<%= rx.id %>" aria-expanded="false" aria-control="collapsed-details-<%= rx.id %>">
+                <div class="prescription col-md-8 col-md-offset-2">
+                  <h2><%= rx.drug.name %> 
+                    <small id="prescription-<%= rx.id %> " drug-id="<%= rx.drug.name %> "> <%= rx.start_date %>  </small>
+                  </h2>                
+                  <div class="collapse" id="collapsed-details-<%= rx.id %>">
+                    <p>Dose Size: <%= rx.dose_size %></p>
+                    <p>Refills: <%= rx.refills %></p>
+                    <p>Fill Duration: <%= rx.fill_duration %></p>
+                    <p>Start date: <%= rx.start_date %></p>
+                    <p>End date: <%= rx.end_date %></p>
+                    <p><%= rx.doctor.professional_name %></p>
+                    <p>Pharmacy: <%= rx.pharmacy.name %> - <%= rx.pharmacy.location %></p>
+                  </div>
+                </div>
+              </div>  
+              </a> 
+              <% end %>
+          <% end %>
       </div>
     </div>
   </div>

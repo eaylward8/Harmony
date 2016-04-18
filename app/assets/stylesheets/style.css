@@ -113,7 +113,8 @@ a {
 }
 
 .pillbox-cell {
-  height: 320px;
+  
+height: 320px;
   color: #FFFFFF;
   padding: 10px;
   font-size: 1.4em;
@@ -242,6 +243,9 @@ a {
   background-color: red;
 }
 
+.active-p a {
+  text-decoration: none !important;
+}
 /*********************************/
 /* expiring prescriptions table */
 /********************************/
@@ -291,7 +295,6 @@ a {
   background-color: transparent;
   border: 1px solid #fff;
 }
-
 
 
 /* end exp prescription table */
