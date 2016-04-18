@@ -27,11 +27,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    # Updates user profile
     @user = current_user
     @user.update(user_params)
     @user.save
-    redirect_to user_path
+    render :nothing => true
   end
 
   def destroy
