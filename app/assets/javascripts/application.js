@@ -23,9 +23,10 @@
 $(function() {
   var drugsController = new app.drugs.controller.new();
   drugsController.init();
-  // document ready
   var prescriptionsController = new app.prescriptions.controller.new();
   prescriptionsController.init();
+  var usersController = new app.users.controller.new();
+  usersController.init();
   // creating new  prescription controller
   // prescriptionController = new app.prescription.controller.new();
 

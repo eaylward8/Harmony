@@ -12,8 +12,8 @@ class UsersController < ApplicationController
   # end
 
   def edit
-    # Form to edit user profile
     @user = current_user
+    render :partial => "/layouts/user_form", :locals => { :user => @user }
   end
 
   def create
