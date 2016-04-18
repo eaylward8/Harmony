@@ -110,7 +110,11 @@ class PrescriptionsController < ApplicationController
     else
       @prescription.pharmacy = Pharmacy.find(params[:pharmacy][:pharmacy].split(" ").first.to_i)
     end
-      
+    debugger
+      @prescription.refills =  prescription_params[:refills].to_i
+      @prescription.fill_duration =  prescription_params[:fill_duration].to_i
+      @prescription.start_date =  prescription_params[:start_date]
+      @prescription.dose_size =  prescription_params[:dose_size]
       @prescription.scheduled_doses.clear
       scheduled_doses_params.each do |time_of_day, count|
         count.to_i.times do
