@@ -26,6 +26,15 @@ class Drug < ActiveRecord::Base
     self.pluck('name')
   end
 
+  def self.is_valid_drug?(drug_name)
+    return true if Drug.find_by_name(drug_name)
+    
+    if !Drug.find_by_name(drug_name)
+      new_drug = Adapters::DrugClient.find_by_name(drug_name)
+      !!new_drug.rxcui
+    end
+  end
+
   def interactions
     interactions = Interaction.joins(:drug_interactions).where("drug_id = ?", self.id)
     interactions.reject {|interaction| interaction.description == "No interactions."}

@@ -13,39 +13,67 @@ app.prescriptions.controller.new.prototype.init = function() {
       method: 'GET'
     }).success(function(data) {
       $('#form').append(data);
-      $(document).on('click', '#form-submit', function(data) {
+      $('#drug_name').focusout(function(){
+        if ($('#drug_name').val().length > 0) {
+          var drugName = $('#drug_name').val();
+          $.ajax({
+            url: '/prescriptions',
+            method: 'POST',
+            data: {drug_name: drugName}
+          }).success(function(data) {
+            var $submitBtn = $('#form-submit')
+            if (data["validity"]) {
+              $('#drug-valid-message').css('color', 'green').text('\u2714');
+              $submitBtn.prop('disabled', false);
+            } else {
+              $('#drug-valid-message').css('color', 'red').text('Invalid drug name!');
+              $submitBtn.prop('disabled', true);
+            }
+          });
+        }
+      });
+      $('#new_prescription').on('submit', function(event) {
+        event.preventDefault();
+        var formData = ($(this).serialize());
+        $.ajax({
+          url: '/prescriptions',
+          method: 'POST',
+          data: formData
+        }).success(function(data) {
+
+        });
         $("#newPrescriptionModal").modal("hide");
       });
     });
   });
 
 
-$(document).on('click', '.editPrescriptionButton', function(event) {
-  var prescriptionId = parseInt(this.id.split("-")[1]);
-    // event.stopPropagation();
-    var formData = $('#edit_prescription_'+prescriptionId).serializeArray();
-    $.ajax({
-      url: '/prescriptions/'+prescriptionId,
-      method: 'PATCH',
-      data: formData
-    }).success(function(data) {
-      event.preventDefault();
-      var doctor = new app.doctor.model.new(data.prescription.doctor.first_name, data.prescription.doctor.last_name, data.prescription.doctor.location, data.prescription.doctor.specialty, data.prescription.doctor.id)
-      var user = new app.user.model.new(data.prescription.user.first_name, data.prescription.user.last_name, data.prescription.user.id)
-      var pharmacy = new app.pharmacy.model.new(data.prescription.pharmacy.name, data.prescription.pharmacy.location, data.prescription.pharmacy.id)
-      var drug = new app.drug.model.new(data.prescription.drug.name, data.prescription.drug.rxcui, data.prescription.drug.id)
-      var prescription = new app.prescription.model.new(data.prescription.fill_duration, data.prescription.refills, data.prescription.start_date, data.prescription.dose_size, drug, doctor, pharmacy, user, data.prescription.id, data.prescription.end_date);
-      
-      $('.modal').modal('hide');
-      $('.prescription-div-'+prescription.id).empty()
-      $('.prescription-div-'+prescription.id).html(prescription.prescriptionEl())
+  $(document).on('click', '.editPrescriptionButton', function(event) {
+    var prescriptionId = parseInt(this.id.split("-")[1]);
+      // event.stopPropagation();
+      var formData = $('#edit_prescription_'+prescriptionId).serializeArray();
+      $.ajax({
+        url: '/prescriptions/'+prescriptionId,
+        method: 'PATCH',
+        data: formData
+      }).success(function(data) {
+        event.preventDefault();
+        var doctor = new app.doctor.model.new(data.prescription.doctor.first_name, data.prescription.doctor.last_name, data.prescription.doctor.location, data.prescription.doctor.specialty, data.prescription.doctor.id)
+        var user = new app.user.model.new(data.prescription.user.first_name, data.prescription.user.last_name, data.prescription.user.id)
+        var pharmacy = new app.pharmacy.model.new(data.prescription.pharmacy.name, data.prescription.pharmacy.location, data.prescription.pharmacy.id)
+        var drug = new app.drug.model.new(data.prescription.drug.name, data.prescription.drug.rxcui, data.prescription.drug.id)
+        var prescription = new app.prescription.model.new(data.prescription.fill_duration, data.prescription.refills, data.prescription.start_date, data.prescription.dose_size, drug, doctor, pharmacy, user, data.prescription.id, data.prescription.end_date);
+        
+        $('.modal').modal('hide');
+        $('.prescription-div-'+prescription.id).empty()
+        $('.prescription-div-'+prescription.id).html(prescription.prescriptionEl())
 
-      // debugger
-    });
-event.preventDefault();
+        // debugger
+      });
+    event.preventDefault();
   });
-
-
+  
+  // event handling for refill buttons
   $('#exp-soon-table form').click(function(event) {
     event.preventDefault();
     var rxId = $(this).children('.btn').attr('data-rxid')

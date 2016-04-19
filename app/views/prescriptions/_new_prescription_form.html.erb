@@ -1,7 +1,7 @@
   <%= form_for(@prescription, remote: true) do |f| %>
 
     <%=fields_for :drug do |drug_form| %>
-      <p>Drug name&nbsp&nbsp<%= drug_form.text_field :name %></p>
+      <p>Drug name&nbsp&nbsp<%= drug_form.text_field :name %><span id='drug-valid-message'></span></p>
     <% end %>
     <p>Choose a doctor or enter a new one:</p>
     <%=fields_for :doctor do |doctor_form| %>

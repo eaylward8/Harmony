@@ -65,4 +65,6 @@ $(function() {
   //     }
   //   };
   // })
-  });
+
+
+  }); // ends document ready
