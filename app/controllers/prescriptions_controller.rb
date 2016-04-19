@@ -35,15 +35,19 @@ class PrescriptionsController < ApplicationController
   end
 
   def create
+    if params[:drug_name]
+      drug_validity = Drug.is_valid_drug?(params[:drug_name])
+      render json: {validity: drug_validity}
+      return
+    end
+
     @prescription = Prescription.new(prescription_params)
     @prescription.user = current_user
-    binding.pry
     if Drug.find_by_name(drug_params[:name])
       # check db to see if drug is already there
       @prescription.drug = Drug.find_by_name(drug_params[:name])
     else
       # otherwise make API call
-      binding.pry
       new_drug = Adapters::DrugClient.find_by_name(drug_params[:name])
       new_drug_params = {name: new_drug.name, rxcui: new_drug.rxcui} 
       if !new_drug_params[:rxcui]
@@ -52,7 +56,7 @@ class PrescriptionsController < ApplicationController
         @doctor_info = doctor_params
         @pharmacy_info = pharmacy_params
         @drug_info = drug_params
-        render js: "alert('ENHANCE!');", partial: "/prescriptions/new_prescription_form", :locals => { prescription: @prescription, doctor: @doctor_info, pharmacy: @pharmacy_info, drug: @drug_info }
+        render js: "alert('Invalid drug');", partial: "/prescriptions/new_prescription_form", :locals => { prescription: @prescription, doctor: @doctor_info, pharmacy: @pharmacy_info, drug: @drug_info }
         return
       end 
       @prescription.drug = Drug.find_or_create_by(new_drug_params)
@@ -109,8 +113,6 @@ class PrescriptionsController < ApplicationController
         render(json: {prescription: @prescription}, include: [:drug])
       end
     else
-
-      
       new_drug = Adapters::DrugClient.find_by_name(drug_params[:name])
       new_drug_params = {name: new_drug.name, rxcui: new_drug.rxcui}
       new_drug.save

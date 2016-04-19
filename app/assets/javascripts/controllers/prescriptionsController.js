@@ -13,12 +13,41 @@ app.prescriptions.controller.new.prototype.init = function() {
       method: 'GET'
     }).success(function(data) {
       $('#form').append(data);
-      $(document).on('click', '#form-submit', function(data) {
+      $('#drug_name').focusout(function(){
+        if ($('#drug_name').val().length > 0) {
+          var drugName = $('#drug_name').val();
+          $.ajax({
+            url: '/prescriptions',
+            method: 'POST',
+            data: {drug_name: drugName}
+          }).success(function(data) {
+            var $submitBtn = $('#form-submit')
+            if (data["validity"]) {
+              $('#drug-valid-message').css('color', 'green').text('\u2714');
+              $submitBtn.prop('disabled', false);
+            } else {
+              $('#drug-valid-message').css('color', 'red').text('Invalid drug name!');
+              $submitBtn.prop('disabled', true);
+            }
+          });
+        }
+      });
+      $('#new_prescription').on('submit', function(event) {
+        event.preventDefault();
+        var formData = ($(this).serialize());
+        $.ajax({
+          url: '/prescriptions',
+          method: 'POST',
+          data: formData
+        }).success(function(data) {
+
+        });
         $("#newPrescriptionModal").modal("hide");
       });
     });
   });
-
+  
+  // event handling for refill buttons
   $('#exp-soon-table form').click(function(event) {
     event.preventDefault();
     var rxId = $(this).children('.btn').attr('data-rxid')

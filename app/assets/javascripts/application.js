@@ -30,6 +30,17 @@ $(function() {
   // creating new  prescription controller
   // prescriptionController = new app.prescription.controller.new();
 
+  // mutation observer
+  // 
+  var target = document.querySelector('#invalid-drug');
+  var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      $("#newPrescriptionModal").modal("show");
+    });    
+  });
+  var config = { attributes: true, childList: true, characterData: true };
+  observer.observe(target, config);
+
   // setting up listeners
   // prescriptionController.init();
 
@@ -65,4 +76,6 @@ $(function() {
   //     }
   //   };
   // })
-  });
+
+
+  }); // ends document ready

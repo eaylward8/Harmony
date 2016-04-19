@@ -292,8 +292,6 @@ a {
   border: 1px solid #fff;
 }
 
-
-
 /* end exp prescription table */
 
 .prescription h2 {
@@ -307,3 +305,14 @@ a {
 .prescription p {
   color: #616161;
 }
+
+/*********************************/
+/* new prescription form/modal */
+/********************************/
+
+#drug-valid-message {
+  padding-left: 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
