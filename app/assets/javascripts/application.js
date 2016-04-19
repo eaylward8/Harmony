@@ -27,7 +27,20 @@ $(function() {
   prescriptionsController.init();
   var usersController = new app.users.controller.new();
   usersController.init();
-  // creating new  prescription controller
-  // prescriptionController = new app.prescription.controller.new();
 
-  }); // ends document ready
+  // shows time of day indicator on dashboard view
+  (function showTimeIndicator() {
+    today = new Date;
+    hour = today.getHours();
+    if (hour >= 5 && hour < 12) {
+      $('#morning-time').text('\u25b2');
+    } else if (hour >= 12 && hour < 17) {
+      $('#afternoon-time').text('\u25b2');
+    } else if (hour >= 17 && hour < 21) {
+      $('#evening-time').text('\u25b2');
+    } else if (hour >= 21 || hour < 5) {
+      $('#night-time').text('\u25b2');
+    }
+  }())
+
+}); // ends document ready

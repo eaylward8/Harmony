@@ -17,7 +17,7 @@ h3 {
 
 .pillbox-container {
   padding-top: 90px;
-  padding-bottom: 60px;
+  padding-bottom: 6px;
 }
 
 .row {
@@ -62,6 +62,16 @@ h3 {
 
 .pillbox-cell-icon-container {
   height: 20px;
+}
+
+#time-arrow-row {
+  margin-bottom: 30px;
+}
+
+.time-indicator {
+  text-align: center;
+  color: #fff;
+  font-size: 1.5em;
 }
 
 .background {
@@ -122,7 +132,7 @@ a {
 }
 
 .pillbox-cell {
-height: 320px;
+  height: 320px;
   color: #FFFFFF;
   padding: 10px;
   font-size: 1.4em;
