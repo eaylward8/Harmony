@@ -32,16 +32,7 @@ app.prescriptions.controller.new.prototype.init = function() {
           });
         }
       });
-      $('#new_prescription').on('submit', function(event) {
-        event.preventDefault();
-        var formData = ($(this).serialize());
-        $.ajax({
-          url: '/prescriptions',
-          method: 'POST',
-          data: formData
-        }).success(function(data) {
-
-        });
+      $(document).on('click', '#form-submit', function() {
         $("#newPrescriptionModal").modal("hide");
       });
     });
