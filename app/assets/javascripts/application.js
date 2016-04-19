@@ -42,6 +42,6 @@ $(function() {
   //   } else if (hour >= 21 || hour < 5) {
   //     $('#night-time').text('\u25b2');
   //   }
-  // }())
+  }())
 
 }); // ends document ready
