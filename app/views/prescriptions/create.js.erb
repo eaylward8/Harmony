@@ -1,2 +1,14 @@
 $('#times-of-day').children().remove()
 $("#times-of-day").html("<%= escape_javascript(render(:partial => 'users/pillbox_cells')) %>");
+var doctor = new app.doctor.model.new('<%= @prescription.doctor.first_name %>', '<%= @prescription.doctor.last_name %>', '<%= @prescription.doctor.location %>', '<%= @prescription.doctor.specialty %>', '<%= @prescription.doctor.id %>')
+var user = new app.user.model.new('<%= @prescription.user.first_name %>', '<%= @prescription.user.last_name %>', '<%= @prescription.user.id %>')
+var pharmacy = new app.pharmacy.model.new('<%= @prescription.pharmacy.name %>', '<%= @prescription.pharmacy.location %>', '<%= @prescription.pharmacy.id %>')
+var drug = new app.drug.model.new('<%= @prescription.drug.name %>', '<%= @prescription.drug.rxcui %>', '<%= @prescription.drug.id %>')
+var prescription = new app.prescription.model.new('<%= @prescription.fill_duration %>', '<%= @prescription.refills %>', '<%= @prescription.start_date %>', '<%= @prescription.dose_size %>', drug, doctor, pharmacy, user, '<%= @prescription.id %>', '<%= @prescription.end_date %>');
+debugger
+if ('<%= @prescription.end_date > Date.today %>') {
+  // append to active
+  $('.new-prescription-active').prepend(prescription.prescriptionEl())
+} else{
+  $('.new-prescription-active').prepend(prescription.prescriptionEl())
+};

@@ -6,6 +6,8 @@
         <h1 class="my-rx-header">Active Prescriptions</h1>
           <%=  %>
           <%  %>
+           <div class="row drug-row active-p new-prescription-active">
+           </div>
           <% @prescriptions.each do |rx| %>
             
             <%= render "edit_prescription_modal", :rx => rx %>
@@ -42,7 +44,10 @@
 
     <div class="prescriptions-div" id="inactive-prescriptions">
       <div class="col-md-8 col-md-offset-2">
+
         <h1 class="my-rx-header">Inactive Prescriptions</h1>
+                   <div class="row drug-row active-p new-prescription-inactive">
+           </div>
            <% @prescriptions.each do |rx| %>
             <% if rx.end_date < Date.today%>
               <div class="row drug-row">
