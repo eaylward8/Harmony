@@ -33,15 +33,15 @@ $(function() {
     var today = new Date;
     var hour = today.getHours();
 
-    if (hour >= 5 && hour < 12) {
-      $('#morning-time').text('\u25b2');
-    } else if (hour >= 12 && hour < 17) {
-      $('#afternoon-time').text('\u25b2');
-    } else if (hour >= 17 && hour < 21) {
-      $('#evening-time').text('\u25b2');
-    } else if (hour >= 21 || hour < 5) {
-      $('#night-time').text('\u25b2');
-    }
-  }())
+  //   if (hour >= 5 && hour < 12) {
+  //     $('#morning-time').text('\u25b2');
+  //   } else if (hour >= 12 && hour < 17) {
+  //     $('#afternoon-time').text('\u25b2');
+  //   } else if (hour >= 17 && hour < 21) {
+  //     $('#evening-time').text('\u25b2');
+  //   } else if (hour >= 21 || hour < 5) {
+  //     $('#night-time').text('\u25b2');
+  //   }
+  // }())
 
 }); // ends document ready
