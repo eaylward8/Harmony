@@ -7,10 +7,6 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
-  # def new
-  #   @user = User.new
-  # end
-
   def edit
     @user = current_user
     render :partial => "/layouts/user_form", :locals => { :user => @user }

@@ -5,11 +5,6 @@ class PrescriptionsController < ApplicationController
     @user = current_user
     @prescriptions = current_user.prescriptions.all
     @prescription = Prescription.new
-    
-    # View of all prescriptions for a user
-    # - includes complete details about prescriptions
-    # and (in JS) the option to view old prescriptions
-
   end
 
   def show
@@ -19,11 +14,6 @@ class PrescriptionsController < ApplicationController
   def new
     # Form to enter a new prescription
     @prescription = Prescription.new
-    # respond_to do |format|
-    #   format.html {
-    #     render_to_string(partial: 'new_presciption_form')
-    #   }
-    # end
     render :partial => "/prescriptions/new_prescription_form", :locals => { :prescription => @prescription }
   end
 
@@ -78,17 +68,10 @@ class PrescriptionsController < ApplicationController
     end
     
     @prescription.calculate_end_date
-    # redirect_to prescription_path(@prescription)
-    # @user = current_user
-    # render :partial => "/users/pillbox_cells", :locals => { :user => @user }
     @user = current_user
     respond_to do |format|
       format.js {}
     end
-    # render(json: {prescription: @prescription}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
-    # render json: {prescription: @prescription}
-    # redirect_to user_path(current_user)
-    # Creates a new prescription
   end
 
   def update
