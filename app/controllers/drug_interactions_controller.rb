@@ -1,2 +1,0 @@
-class DrugInteractionsController < ApplicationController
-end

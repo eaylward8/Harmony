@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   # allows new user signup 
-  skip_before_action :authorized?, only: [:new, :create]
+  skip_before_action :authorized?, only: [:create]
 
   def show
     # Main user dashboard for prescription info / schedule
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to user_path(@user), notice: "Thank you for signing up!"
     else
-      render 'new'
+      redirect_to root_path
     end
   end
 
@@ -29,14 +29,9 @@ class UsersController < ApplicationController
     render :nothing => true
   end
 
-  def destroy
-    # Destroys a user
-  end
-
   def refill_json
     @refills = current_user.upcoming_refills
     render(json: {refills: @refills}, include: [:drug, :user, :pharmacy])
-
   end
 
   private

@@ -3,7 +3,6 @@ app.prescriptions = {
     new: function PrescriptionsController() {}
   }
 };
-
 app.prescriptions.controller.new.prototype.init = function() {
   $(document).on('click', '#newPrescriptionButton', function(event) {
     $('#form').children().remove();
@@ -38,10 +37,8 @@ app.prescriptions.controller.new.prototype.init = function() {
     });
   });
 
-
   $(document).on('click', '.editPrescriptionButton', function(event) {
     var prescriptionId = parseInt(this.id.split("-")[1]);
-      // event.stopPropagation();
       var formData = $('#edit_prescription_'+prescriptionId).serializeArray();
       $.ajax({
         url: '/prescriptions/'+prescriptionId,
@@ -58,17 +55,12 @@ app.prescriptions.controller.new.prototype.init = function() {
         $('.modal').modal('hide');
         $('.prescription-div-'+prescription.id).empty()
         $('.prescription-div-'+prescription.id).html(prescription.prescriptionEl())
-
-        // debugger
       });
     event.preventDefault();
   });
-  
-  // event handling for refill buttons
   $('#exp-soon-table form').click(function(event) {
     event.preventDefault();
     var rxId = $(this).children('.btn').attr('data-rxid')
-
     $.ajax({
       url: '/prescriptions/' + rxId,
       method: 'PATCH',
@@ -80,12 +72,10 @@ app.prescriptions.controller.new.prototype.init = function() {
         var refills = data.prescription.refills;
         var $expTd = $('tr[data-rxid='+data.prescription.id+'] td:nth-child(2) span'); 
         var $refillsTd = $('tr[data-rxid='+data.prescription.id+'] td:nth-child(3) span');
-
         $expTd.fadeOut(200, function() {
           $(this).text(expDate);
           $(this).fadeIn(200);
         });
-
         $refillsTd.fadeOut(200, function() {
           $(this).text(refills);
           $(this).fadeIn(200);

@@ -21,19 +21,15 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
 
   def doctors_names
-    my_docs = []
     self.doctors.collect do |d|
-      my_docs << "#{d.id} - Dr. #{d.first_name} #{d.last_name} - #{d.location}"
-    end
-    my_docs.uniq
+      "#{d.id} - Dr. #{d.first_name} #{d.last_name} - #{d.location}"
+    end.uniq
   end
 
   def pharmacy_names
-    my_pharms = []
     self.pharmacies.collect do |p|
-      my_pharms << "#{p.id} - #{p.name} - #{p.location}"
-    end
-    my_pharms.uniq
+      "#{p.id} - #{p.name} - #{p.location}"
+    end.uniq
   end
 
   def active_prescriptions
@@ -60,12 +56,9 @@ class User < ActiveRecord::Base
   end
 
   def upcoming_refills
-    # {script: refill date}
-    # 7 days
     refills = active_prescriptions.select do |p|
       (p.end_date < Date.today + 7)
     end
-    # sort by earliest end_date
     refills.sort_by { |p| p.end_date }
   end
 

@@ -1,4 +1,3 @@
-
 app.doctor = {
   model: {
     all: [],

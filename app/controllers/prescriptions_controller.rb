@@ -99,11 +99,11 @@ class PrescriptionsController < ApplicationController
     end
 
     if params[:pharm_type] == "new"
-
       @prescription.pharmacy = Pharmacy.find_or_create_by(pharmacy_params)
     else
       @prescription.pharmacy = Pharmacy.find(params[:pharmacy][:pharmacy].split(" ").first.to_i)
     end
+    
       @prescription.refills =  prescription_params[:refills].to_i
       @prescription.fill_duration =  prescription_params[:fill_duration].to_i
       @prescription.start_date =  prescription_params[:start_date]

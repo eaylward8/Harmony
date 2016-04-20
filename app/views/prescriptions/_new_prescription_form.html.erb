@@ -8,7 +8,7 @@
     <% if current_user.doctors.length < 1 %>
     <p><%= radio_button_tag(:doc_type, "new", checked: 'checked') %>New doctor:</p>
       <p>First name&nbsp&nbsp<%= doctor_form.text_field :first_name %></p>
-      &nbsp&nbspLast name&nbsp&nbsp<%= doctor_form.text_field :last_name %>
+      <p>Last name&nbsp&nbsp<%= doctor_form.text_field :last_name %></p>
       <p>Location&nbsp&nbsp<%= doctor_form.text_field :location %></p>
     <% else %>
     <p><%= radio_button_tag(:doc_type, "existing", checked: 'checked') %> My doctors:

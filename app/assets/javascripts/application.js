@@ -32,7 +32,7 @@ $(function() {
   (function showTimeIndicator() {
     var today = new Date;
     var hour = today.getHours();
-
+// erik move
   //   if (hour >= 5 && hour < 12) {
   //     $('#morning-time').text('\u25b2');
   //   } else if (hour >= 12 && hour < 17) {

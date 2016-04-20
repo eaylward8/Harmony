@@ -1,2 +1,0 @@
-class ScheduledDosesController < ApplicationController
-end

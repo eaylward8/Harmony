@@ -33,29 +33,20 @@ app.prescription = {
         app.prescription.model.all.push(this);
       };
       prescription.prototype.prescriptionEl = function() {
-        return '<div ><div class="prescription-div-'+this.id+'"><a data-toggle="collapse" href="#collapsed-details-'+this.id+'" aria-expanded="false" aria-control="collapsed-details-'+this.id+'"><div class="prescription col-md-8 col-md-offset-2"><h2>'+this.drug.name+' <small id="prescription-'+this.id+'" drug-id="'+this.drug.id+'"> '+this.start_date+' </small></h2>'+this.detailsDiv()+'</div>';
+        return '<div ><div class="prescription-div-'+this.id+'"> \
+        <a data-toggle="collapse" href="#collapsed-details-'+this.id+'" aria-expanded="false" aria-control="collapsed-details-'+this.id+'"> \
+        <div class="prescription col-md-8 col-md-offset-2"> \
+        <h2>'+this.drug.name+' <small id="prescription-'+this.id+'" drug-id="'+this.drug.id+'"> '+this.start_date+' </small></h2>'+this.detailsDiv()+'</div>';
       };
       prescription.prototype.detailsDiv = function(){
-        return '<div class="collapse" id="collapsed-details-'+this.id+'"><p>Dose Size: '+this.dose_size+'</p><p>Refills: '+this.refills+'</p><p>Fill Duration: '+this.fill_duration+'</p><p>Start date: '+this.start_date+'</p><p>End date: '+this.end_date+'</p><p>Dr. '+this.doctor.first_name+ " "+this.doctor.last_name+'</p><p>Pharmacy: '+this.pharmacy.name+ " - " +this.pharmacy.location+'</p></a><button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#editPrescriptionModal-'+this.id+'">Update</button></div></div></div>';
-      };
-      prescription.prototype.build = function() {
-        if (app.prescription.model.createDate(this.end_date) > Date.now()) {
-          $('#active-prescriptions').append(this.prescriptionEl());  
-        } else {
-          $('#inactive-prescriptions').append(this.prescriptionEl());
-        }        
-      };
-      prescription.prototype.build_first = function() {
-        $('#prescriptions').prepend(this.prescriptionEl());
+        return '<div class="collapse" id="collapsed-details-'+this.id+'"><p>Dose Size: '+this.dose_size+'</p> \
+          <p>Refills: '+this.refills+'</p><p>Fill Duration: '+this.fill_duration+'</p> \
+          <p>Start date: '+this.start_date+'</p><p>End date: '+this.end_date+'</p> \
+          <p>Dr. '+this.doctor.first_name+ " "+this.doctor.last_name+'</p> \
+          <p>Pharmacy: '+this.pharmacy.name+ " - " +this.pharmacy.location+'</p> \
+          </a><button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#editPrescriptionModal-'+this.id+'">Update</button></div></div></div>';
       };
       return prescription;
     }()),
-
-    createDate: function(dateStr) {
-      var year = Number(dateStr.split('-')[0]);
-      var month = Number(dateStr.split('-')[1]) - 1;
-      var day = Number(dateStr.split('-')[2]);
-      return new Date(year, month, day);
-    }
   },
 };

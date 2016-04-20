@@ -1,4 +1,3 @@
-
 app.pharmacy = {
   model: {
     all: [],
