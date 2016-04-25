@@ -16,7 +16,7 @@ app.prescriptions.controller.new.prototype.init = function() {
         if ($('#drug_name').val().length > 0) {
           var drugName = $('#drug_name').val();
           $.ajax({
-            url: '/prescriptions',
+            url: '/drugs',
             method: 'POST',
             data: {drug_name: drugName}
           }).success(function(data) {
