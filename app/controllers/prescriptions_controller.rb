@@ -1,5 +1,5 @@
 class PrescriptionsController < ApplicationController
-  # before_filter :authorized?
+  skip_before_action :authorized?
 
   def index
     @user = current_user
@@ -12,15 +12,12 @@ class PrescriptionsController < ApplicationController
   end
 
   def new
-    # Form to enter a new prescription
     @prescription = Prescription.new
     render :partial => "/prescriptions/new_prescription_form", :locals => { :prescription => @prescription }
   end
 
   def edit
-    # Form to edit a prescription
     @prescription = Prescription.find(params[:id])
-
   end
 
   def create
@@ -37,51 +34,20 @@ class PrescriptionsController < ApplicationController
   end
 
   def update
-    # Updates a prescription
-   
     @prescription = Prescription.find(params[:id])
-
-    if params[:refill]
-      @prescription.refill
-      if @prescription.ending_within_week?
-        @formatted_date = @prescription.format_date(@prescription.end_date)
-        render(json: {prescription: @prescription, expSoon: true, expDate: @formatted_date}, include: [:drug])
-      else
-        render(json: {prescription: @prescription}, include: [:drug])
-      end
-    else
-      new_drug = Adapters::DrugClient.find_by_name(drug_params[:name])
-      new_drug_params = {name: new_drug.name, rxcui: new_drug.rxcui}
-      new_drug.save
-      @prescription.drug = new_drug
-    if params[:doc_type] == "new"
-      @prescription.doctor = Doctor.find_or_create_by(doctor_params)
-    else
-      @prescription.doctor = Doctor.find(params[:doctor][:doctor].split(" ").first.to_i)
-    end
-
-    if params[:pharm_type] == "new"
-      @prescription.pharmacy = Pharmacy.find_or_create_by(pharmacy_params)
-    else
-      @prescription.pharmacy = Pharmacy.find(params[:pharmacy][:pharmacy].split(" ").first.to_i)
-    end
-      @prescription.refills =  prescription_params[:refills].to_i
-      @prescription.fill_duration =  prescription_params[:fill_duration].to_i
-      @prescription.start_date =  prescription_params[:start_date]
-      @prescription.dose_size =  prescription_params[:dose_size]
-      @prescription.scheduled_doses.clear
-      scheduled_doses_params.each do |time_of_day, count|
-        count.to_i.times do
-          ScheduledDose.create(time_of_day: time_of_day, prescription_id: @prescription.id)
-        end
-      end
-      @prescription.save
-       render(json: {prescription: @prescription}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
-    end
+    @prescription.update(prescription_params)
+    drug = Adapters::DrugClient.find_by_name(drug_params[:name])
+    drug.save
+    @prescription.drug = drug
+    find_or_create_doctor
+    find_or_create_pharmacy
+    @prescription.save
+    @prescription.scheduled_doses.clear
+    create_scheduled_doses
+    render(json: {prescription: @prescription}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
   end
 
   def destroy
-    # Destroys a prescription
     prescription = Prescription.find(params[:id])
     prescription.end_date = Date.today() - 1
     prescription.save

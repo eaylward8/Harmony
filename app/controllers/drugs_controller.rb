@@ -5,5 +5,4 @@ class DrugsController < ApplicationController
     drug_validity = Drug.is_valid_drug?(params[:drug_name].capitalize)
     render json: {validity: drug_validity}
   end
-
 end
