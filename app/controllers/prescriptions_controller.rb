@@ -24,54 +24,16 @@ class PrescriptionsController < ApplicationController
   end
 
   def create
-    # drug name validation for new rx form
-    if params[:drug_name]
-      drug_validity = Drug.is_valid_drug?(params[:drug_name].capitalize)
-      render json: {validity: drug_validity}
-      return
-    end
-
     @prescription = Prescription.new(prescription_params)
     @prescription.user = current_user
-
-    if Drug.find_by_name(drug_params[:name].capitalize)
-      # check db to see if drug is already there
-      @prescription.drug = Drug.find_by_name(drug_params[:name].capitalize)
-    else
-      # otherwise make API call
-      new_drug = Adapters::DrugClient.find_by_name(drug_params[:name])
-      new_drug_params = {name: new_drug.name, rxcui: new_drug.rxcui} 
-      @prescription.drug = Drug.find_or_create_by(new_drug_params)
-    end
-
+    find_or_create_drug
     @prescription.drug.persist_interactions(current_user)
-
-    # logic for doctor creation or associaton
-    if params[:doc_type] == "new"
-      @prescription.doctor = Doctor.find_or_create_by(doctor_params)
-    else
-      @prescription.doctor = Doctor.find(params[:doctor][:doctor].split(" ").first.to_i)
-    end
-
-    if params[:pharm_type] == "new"
-      @prescription.pharmacy = Pharmacy.find_or_create_by(pharmacy_params)
-    else
-      @prescription.pharmacy = Pharmacy.find(params[:pharmacy][:pharmacy].split(" ").first.to_i)
-    end
-
+    find_or_create_doctor
+    find_or_create_pharmacy
     @prescription.save
-
-    scheduled_doses_params.each do |time_of_day, count|
-      count.to_i.times do
-        ScheduledDose.create(time_of_day: time_of_day, prescription_id: @prescription.id)
-      end
-    end
-    
+    create_scheduled_doses
     @prescription.calculate_end_date
     @user = current_user
-    respond_to do |format|
-      format.js {}
-    end
   end
 
   def update
@@ -103,7 +65,6 @@ class PrescriptionsController < ApplicationController
     else
       @prescription.pharmacy = Pharmacy.find(params[:pharmacy][:pharmacy].split(" ").first.to_i)
     end
-    
       @prescription.refills =  prescription_params[:refills].to_i
       @prescription.fill_duration =  prescription_params[:fill_duration].to_i
       @prescription.start_date =  prescription_params[:start_date]
@@ -133,6 +94,41 @@ class PrescriptionsController < ApplicationController
   end
 
   private
+
+  def find_or_create_drug
+    if Drug.find_by_name(drug_params[:name].capitalize)
+      @prescription.drug = Drug.find_by_name(drug_params[:name].capitalize)
+    else
+      new_drug = Adapters::DrugClient.find_by_name(drug_params[:name])
+      @prescription.drug = Drug.find_or_create_by({name: new_drug.name, rxcui: new_drug.rxcui})
+    end
+  end
+
+  def find_or_create_doctor
+    if params[:doc_type] == "new"
+      @prescription.doctor = Doctor.create(doctor_params)
+    else
+      doctor_id = params[:doctor][:doctor].split(" ").first.to_i
+      @prescription.doctor = Doctor.find(doctor_id)
+    end
+  end
+
+  def find_or_create_pharmacy
+    if params[:pharm_type] == "new"
+      @prescription.pharmacy = Pharmacy.create(pharmacy_params)
+    else
+      pharmacy_id = params[:pharmacy][:pharmacy].split(" ").first.to_i
+      @prescription.pharmacy = Pharmacy.find(pharmacy_id)
+    end
+  end
+
+  def create_scheduled_doses
+    scheduled_doses_params.each do |time_of_day, count|
+      count.to_i.times do
+        ScheduledDose.create(time_of_day: time_of_day, prescription_id: @prescription.id)
+      end
+    end
+  end
 
   def doctor_params
     params.require(:doctor).permit(:first_name, :last_name, :location)

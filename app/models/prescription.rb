@@ -25,7 +25,6 @@ class Prescription < ActiveRecord::Base
 
   validates :dose_size, :refills, :fill_duration, :start_date, presence: true
   validates :refills, :fill_duration, numericality: true
-# removed end date from validation
 
   def refill
     if refills > 0
@@ -41,7 +40,7 @@ class Prescription < ActiveRecord::Base
   end
 
   def calculate_end_date
-    self.end_date = self.start_date + self.fill_duration    
+    self.end_date = self.start_date + self.fill_duration
     self.save
   end
 
