@@ -26,6 +26,8 @@ class Prescription < ActiveRecord::Base
   validates :dose_size, :refills, :fill_duration, :start_date, presence: true
   validates :refills, :fill_duration, numericality: true
 
+  scope :ending_within_week, -> { where(end_date: Date.today..Date.today + 6) }
+
   def refill
     if refills > 0
       self.refills -= 1
@@ -55,10 +57,5 @@ class Prescription < ActiveRecord::Base
   def format_date(date)
     date.strftime('%A, %B %d')
   end
-
-  def ending_within_week?
-    self.end_date - Date.today < 7 ? true : false
-  end
-
 
 end

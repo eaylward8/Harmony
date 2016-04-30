@@ -11,17 +11,6 @@ module Adapters
       get_interactions(rxcuis)
     end
 
-    # def self.get_interactions_for_med(rxcui)
-    #   response = connection.class.get("/interaction/interaction.json?rxcui=#{rxcui}")
-    #   interaction_pairs = response["interactionTypeGroup"][0]["interactionType"][0]["interactionPair"]
-    #   interaction_pairs.map! do |pair|
-    #     rxcui = pair["interactionConcept"][1]["minConceptItem"]["rxcui"]
-    #     name = pair["interactionConcept"][1]["minConceptItem"]["name"]
-    #     description = pair["description"]
-    #     {name: name, rxcui: rxcui, description: description}
-    #   end
-    # end
-
     def self.get_interactions(rxcuis)
       interaction_description = ''
       rxcuis_list = rxcuis.join('+')
