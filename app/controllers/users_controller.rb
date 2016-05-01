@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
-  # allows new user signup 
   skip_before_action :authorized?, only: [:create]
 
   def show
-    # Main user dashboard for prescription info / schedule
     @user = current_user
   end
 
@@ -37,6 +35,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
-    end
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+  end
+
 end

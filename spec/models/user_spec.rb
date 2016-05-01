@@ -14,7 +14,7 @@ require 'rails_helper'
 
 describe 'User' do
 
-  describe 'factory' do 
+  describe 'factory' do
     it 'has a valid factory' do
       expect(build(:user)).to be_valid
     end
@@ -51,8 +51,8 @@ describe 'User' do
     end
   end
 
-  describe 'object relations' do 
-    it 'can have many prescriptions' do 
+  describe 'object relations' do
+    it 'can have many prescriptions' do
       user = create(:user, :with_many_prescriptions)
 
       expect(user.prescriptions.count).to eq(3)
@@ -71,8 +71,8 @@ describe 'User' do
         d1 = user1.doctors.first
         d2 = user1.doctors.last
 
-        expect(user1.doctors_names).to eq(["#{d1.id} - Dr. #{d1.first_name} #{d1.last_name} - #{d1.location}", "#{d2.id} - Dr. #{d2.first_name} #{d2.last_name} - #{d2.location}"])
-        expect(user1.doctors_names.count).to eq(2)
+        expect(Doctor.format_names(user1)).to eq(["#{d1.id} - Dr. #{d1.first_name} #{d1.last_name} - #{d1.location}", "#{d2.id} - Dr. #{d2.first_name} #{d2.last_name} - #{d2.location}"])
+        expect(Doctor.format_names(user1).count).to eq(2)
       end
     end
 
@@ -86,27 +86,23 @@ describe 'User' do
       end
     end
 
-    describe '#active_prescriptions' do 
-      it 'returns a user\'s active prescriptions' do 
-        expect(user2.active_prescriptions.count).to eq(1)
+    describe '#active_prescriptions' do
+      it 'returns a user\'s active prescriptions' do
+        expect(Prescription.user(user2.id).active.count).to eq(1)
       end
     end
 
-    describe '#inactive_prescriptions' do 
-      it 'returns a user\'s inactive prescriptions' do 
-        expect(user2.active_prescriptions.count).to eq(1)
+    describe '#inactive_prescriptions' do
+      it 'returns a user\'s inactive prescriptions' do
+        expect(Prescription.user(user2.id).active.count).to eq(1)
       end
     end
 
-    # describe '#active_prescriptions_day' do 
-      # don't think this method is being used
-    # end
-
-    describe '#prescription_schedule_week' do 
+    describe '#prescription_schedule_week' do
       let(:user3) { create(:user, :with_active_prescriptions) }
 
       it 'returns an array of hashes whose keys represent the next week and whose values are the prescriptions to be taken on those days' do 
-        day1 = user3.prescription_schedule_week.first.keys.first 
+        day1 = user3.prescription_schedule_week.first.keys.first
         day7 = user3.prescription_schedule_week.last.keys.first
 
         expect(user3.prescription_schedule_week.count).to eq(7)
@@ -115,8 +111,8 @@ describe 'User' do
       end
     end
 
-    describe '#upcoming_refills' do 
-      it 'returns prescriptions that are ending in the next 7 days and have refills' do 
+    describe '#upcoming_refills' do
+      it 'returns prescriptions that are ending in the next 7 days and have refills' do
         user = create(:user, :has_prescriptions_with_and_wo_refills)
         expect(user.upcoming_refills.count).to eq(1)
       end
@@ -124,20 +120,3 @@ describe 'User' do
 
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

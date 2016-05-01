@@ -16,7 +16,9 @@ class User < ActiveRecord::Base
   has_many :pharmacies, through: :prescriptions
   has_many :doctors, through: :prescriptions
   has_many :drugs, through: :prescriptions
+
   has_secure_password
+
   validates :first_name, :last_name, :email, presence: true
   validates :email, uniqueness: true
 
@@ -30,14 +32,6 @@ class User < ActiveRecord::Base
     self.pharmacies.collect do |p|
       "#{p.id} - #{p.name} - #{p.location}"
     end.uniq
-  end
-
-  def active_prescriptions
-    self.prescriptions.where("end_date >= ?", Date.today).where("start_date <= ?", Date.today)
-  end
-
-  def inactive_prescriptions
-    self.prescriptions.where("end_date < ?", Date.today)
   end
 
   def active_prescriptions_day(date)
@@ -56,14 +50,14 @@ class User < ActiveRecord::Base
   end
 
   def upcoming_refills
-    refills = active_prescriptions.select do |p|
-      (p.end_date < Date.today + 7)
+    refills = Prescription.user(self.id).active.select do |p|
+      p.end_date < (Date.today + 6)
     end
     refills.sort_by { |p| p.end_date }
   end
 
   def prescriptions_by_time_of_day(time_of_day)
-    prescriptions = self.active_prescriptions.select do |prescription|
+    prescriptions = Prescription.user(self.id).active.select do |prescription|
       prescription.scheduled_doses.map {|dose| dose.time_of_day}.include?(time_of_day)
     end
     render_prescriptions(prescriptions, time_of_day)
@@ -82,7 +76,7 @@ class User < ActiveRecord::Base
   end
 
   def active_drugs
-    self.active_prescriptions.map do |prescription|
+    Prescription.user(self.id).active.map do |prescription|
       prescription.drug
     end
   end
