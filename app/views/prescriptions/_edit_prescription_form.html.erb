@@ -21,7 +21,13 @@
     <p>Choose a pharmacy or enter a new one: <%=fields_for :pharmacy do |pharmacy_form| %></p>
       <p><%= radio_button_tag(:pharm_type, "existing", checked: 'checked') %>
       My Pharmacies:
-      <%= pharmacy_form.select :pharmacy, current_user.pharmacy_names %></p>
+      <%= pharmacy_form.select :pharmacy do %>
+        <%= content_tag :option, 'select' %>
+        <% Pharmacy.user(current_user).each do |pharmacy| %>
+          <%= content_tag :option, "#{pharmacy.id} - #{pharmacy.name} - #{pharmacy.location}" %>
+        <% end %>
+      <% end %>
+      </p>
     <p><%= radio_button_tag(:pharm_type, "new") %> New pharmacy:
         Name<%= pharmacy_form.text_field :name %>
         Location<%= pharmacy_form.text_field :location %> </p>

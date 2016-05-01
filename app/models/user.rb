@@ -22,12 +22,6 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, :email, presence: true
   validates :email, uniqueness: true
 
-  def pharmacy_names
-    self.pharmacies.collect do |p|
-      "#{p.id} - #{p.name} - #{p.location}"
-    end.uniq
-  end
-
   def active_prescriptions_day(date)
     # return an array of day's active prescription objects
      self.prescriptions.where("end_date >= ?", date)

@@ -16,4 +16,6 @@ class Pharmacy < ActiveRecord::Base
   has_many :drugs, through: :prescriptions
 
   validates :name,  presence: true
+
+  scope :user, -> (id) { joins(:prescriptions).where('user_id = ?', id).uniq }
 end

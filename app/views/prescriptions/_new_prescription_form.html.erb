@@ -33,7 +33,13 @@
       &nbsp&nbspLocation<%= pharmacy_form.text_field :location %></p>
     <% else %>
         <p><%= radio_button_tag(:pharm_type, "existing", checked: 'checked') %> My pharmacies:
-      <%= pharmacy_form.select :pharmacy, current_user.pharmacy_names, prompt: "select" %><br>
+      <%= pharmacy_form.select :pharmacy do %>
+        <%= content_tag :option, 'select' %>
+        <% Pharmacy.user(current_user).each do |pharmacy| %>
+          <%= content_tag :option, "#{pharmacy.id} - #{pharmacy.name} - #{pharmacy.location}" %>
+        <% end %>
+      <% end %>
+      </p>
     <p><%= radio_button_tag(:pharm_type, "new") %> New pharmacy:</p>
         <p>Name&nbsp&nbsp<%= pharmacy_form.text_field :name %>
         &nbsp&nbspLocation&nbsp&nbsp<%= pharmacy_form.text_field :location %></p>

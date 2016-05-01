@@ -66,16 +66,6 @@ describe 'User' do
     # create user with 1 active and 1 inactive prescription
     let(:user2) { create(:user, :with_an_active_and_inactive_prescription) }
 
-    describe "#pharmacy_names" do
-      it "returns a formatted list of all of a user's pharmacies" do
-        ph1 = user1.pharmacies.first
-        ph2 = user1.pharmacies.last
-
-        expect(user1.pharmacy_names).to eq(["#{ph1.id} - #{ph1.name} - #{ph1.location}", "#{ph2.id} - #{ph2.name} - #{ph2.location}"])
-        expect(user1.pharmacy_names.count).to eq(2)
-      end
-    end
-
     describe '#active_prescriptions' do
       it 'returns a user\'s active prescriptions' do
         expect(Prescription.user(user2.id).active.count).to eq(1)
