@@ -20,6 +20,14 @@ class Drug < ActiveRecord::Base
   validates :name, :rxcui, presence: true
   validates :rxcui, numericality: true
 
+  scope :user, -> (user) { joins(:prescriptions).where('user_id = ?', user.id) }
+  scope :interacting_pair, -> (interaction) do
+    joins(:drug_interactions).where('interaction_id = ?', interaction.id)
+  end
+  scope :interacting_drug, -> (interaction, drug) do
+    joins(:drug_interactions).where('interaction_id = ? AND drug_id != ?', interaction.id, drug.id)
+  end
+
   def self.all_drug_names
     self.pluck('name')
   end
@@ -32,16 +40,16 @@ class Drug < ActiveRecord::Base
     end
   end
 
-  def interactions
-    Interaction.drug(self).with_description
+  def interactions(user)
+    interacting_drugs_and_descriptions(user).select do |interaction|
+      user.drugs_actively_taking.map { |drug| drug.name }.include?(interaction[:drug_name])
+    end.uniq
   end
 
-  def associate_drug_names_with_interactions(interactions)
-    interactions.map do |interaction|
-      drug_interactions = DrugInteraction.all.select {|drug_interaction| drug_interaction.interaction_id == interaction.id}
-      drug_interaction = drug_interactions.reject {|drug_interaction| drug_interaction.drug_id == self.id}
-      drug = Drug.find(drug_interaction[0].drug_id)
-      {drug_name: drug.name, interaction: interaction.description}
+  def interacting_drugs_and_descriptions(user)
+    Interaction.drug(self).with_description.map do |interaction|
+    { drug_name: Drug.interacting_drug(interaction, self).first.name,
+      interaction: interaction.description }
     end
   end
 

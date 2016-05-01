@@ -30,7 +30,11 @@ class Prescription < ActiveRecord::Base
   scope :active, -> { where('end_date >= ? AND start_date <= ?', Date.today, Date.today) }
   scope :inactive, -> { where('end_date < ?', Date.today) }
   scope :ending_within_week, -> { where(end_date: Date.today..Date.today + 6) }
-  scope :time_of_day, -> (time) { joins(:scheduled_doses).where('time_of_day = ?', time).uniq }
+  scope :time_of_day, -> (time_of_day) { joins(:scheduled_doses).where('time_of_day = ?', time_of_day).uniq }
+
+  def doses_by_time_of_day(time_of_day)
+    self.scheduled_doses.select {|dose| dose.time_of_day == time_of_day}.count
+  end
 
   def refill
     if refills > 0

@@ -74,7 +74,6 @@ class PrescriptionsController < ApplicationController
     if params[:doc_type] == "new"
       @prescription.doctor = Doctor.create(doctor_params)
     else
-      binding.pry
       doctor_id = params[:doctor][:doctor].split(" ").first.to_i
       @prescription.doctor = Doctor.find(doctor_id)
     end

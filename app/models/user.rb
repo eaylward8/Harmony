@@ -29,32 +29,19 @@ class User < ActiveRecord::Base
     refills.sort_by { |p| p.end_date }
   end
 
-  def prescriptions_by_time_of_day(time_of_day)
-    prescriptions = Prescription.user(self).active.time_of_day(time_of_day)
-    render_prescriptions(prescriptions, time_of_day)
-  end
-
-  def render_prescriptions(prescriptions, time_of_day)
-    prescriptions.map do |prescription|
-      name = prescription.drug.name
-      doses = prescription.scheduled_doses.select {|dose| dose.time_of_day == time_of_day}.count
-      dose_size = prescription.dose_size
-      interactions = prescription.drug.interactions
-      interactions = prescription.drug.associate_drug_names_with_interactions(interactions)
-      interactions = self.active_drugs_interactions(interactions)
-      {name: name, doses: doses, dose_size: dose_size, interactions: interactions}
+  def regimen(time_of_day)
+    Prescription.user(self).active.time_of_day(time_of_day).map do |prescription|
+      { name: prescription.drug.name,
+        dose_size: prescription.dose_size,
+        doses: prescription.doses_by_time_of_day(time_of_day),
+        interactions: prescription.drug.interactions(self) }
     end
   end
 
-  def active_drugs
+  def drugs_actively_taking
     Prescription.user(self).active.map do |prescription|
       prescription.drug
     end
   end
 
-  def active_drugs_interactions(interactions)
-    interactions.select do |interaction|
-      self.active_drugs.map {|drug| drug.name}.include?(interaction[:drug_name])
-    end
-  end
 end
