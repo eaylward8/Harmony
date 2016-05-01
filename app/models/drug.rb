@@ -66,7 +66,7 @@ class Drug < ActiveRecord::Base
 
   # Returns an array of arrays pairing the drug passed in with all other active drugs
   def create_drug_pairs(user)
-    drugs = user.active_drugs.reject {|d| d.name == self.name}
+    drugs = user.drugs_actively_taking.reject {|d| d.name == self.name}
     drugs.map {|d| [self, d]}.uniq
   end
 

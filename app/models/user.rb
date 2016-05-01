@@ -22,13 +22,6 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, :email, presence: true
   validates :email, uniqueness: true
 
-  def upcoming_refills
-    refills = Prescription.user(self).active.select do |p|
-      p.end_date < (Date.today + 6)
-    end
-    refills.sort_by { |p| p.end_date }
-  end
-
   def regimen(time_of_day)
     Prescription.user(self).active.time_of_day(time_of_day).map do |prescription|
       { name: prescription.drug.name,

@@ -29,7 +29,7 @@ class Prescription < ActiveRecord::Base
   scope :user, -> (user) { where('user_id = ?', user.id) }
   scope :active, -> { where('end_date >= ? AND start_date <= ?', Date.today, Date.today) }
   scope :inactive, -> { where('end_date < ?', Date.today) }
-  scope :ending_within_week, -> { where(end_date: Date.today..Date.today + 6) }
+  scope :ending_within_week, -> { where(end_date: Date.today..Date.today + 6).order(:end_date) }
   scope :time_of_day, -> (time_of_day) { joins(:scheduled_doses).where('time_of_day = ?', time_of_day).uniq }
 
   def doses_by_time_of_day(time_of_day)

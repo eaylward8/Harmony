@@ -78,12 +78,5 @@ describe 'User' do
       end
     end
 
-    describe '#upcoming_refills' do
-      it 'returns prescriptions that are ending in the next 7 days and have refills' do
-        user = create(:user, :has_prescriptions_with_and_wo_refills)
-        expect(user.upcoming_refills.count).to eq(1)
-      end
-    end
-
   end
 end
