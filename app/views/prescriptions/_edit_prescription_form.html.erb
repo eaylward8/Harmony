@@ -7,7 +7,7 @@
     <p>Choose a doctor or enter a new one: <%=fields_for :doctor do |doctor_form| %></p>
     
     <p><%= radio_button_tag(:doc_type, "existing", checked: 'checked') %> My Doctors: 
-      <%= doctor_form.select :doctor, current_user.doctors_names, selected: nil %></p>
+      <%= doctor_form.select :doctor, Doctor.format_names(current_user), selected: nil %></p>
     <p><%= radio_button_tag(:doc_type, "new") %> New Doctor: </p>
         <p>First Name <%= doctor_form.text_field :first_name %>
         Last Name <%= doctor_form.text_field :last_name %> </p>
