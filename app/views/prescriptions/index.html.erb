@@ -23,7 +23,7 @@
                       <p>Fill Duration: <%= rx.fill_duration %></p>
                       <p>Start date: <%= rx.start_date %></p>
                       <p>End date: <%= rx.end_date %></p>
-                      <p><%= rx.doctor.professional_name %></p>
+                      <p><%= "Dr. #{rx.doctor.first_name} #{rx.doctor.last_name}" %></p>
                       <p>Pharmacy: <%= rx.pharmacy.name %> - <%= rx.pharmacy.location %></p>
                   </a>
                        <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#editPrescriptionModal-<%=rx.id%>">
@@ -56,7 +56,7 @@
                     <p>Fill Duration: <%= rx.fill_duration %></p>
                     <p>Start date: <%= rx.start_date %></p>
                     <p>End date: <%= rx.end_date %></p>
-                    <p><%= rx.doctor.professional_name %></p>
+                    <p><%= "Dr. #{rx.doctor.first_name} #{rx.doctor.last_name}" %></p>
                     <p>Pharmacy: <%= rx.pharmacy.name %> - <%= rx.pharmacy.location %></p>
                   </div>
                 </div>
