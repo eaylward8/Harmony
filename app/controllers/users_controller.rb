@@ -27,11 +27,6 @@ class UsersController < ApplicationController
     render :nothing => true
   end
 
-  def refill_json
-    @refills = current_user.upcoming_refills
-    render(json: {refills: @refills}, include: [:drug, :user, :pharmacy])
-  end
-
   private
 
   def user_params

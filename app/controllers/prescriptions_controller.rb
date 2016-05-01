@@ -54,11 +54,6 @@ class PrescriptionsController < ApplicationController
     redirect_to current_user
   end
 
-  def json
-    @prescriptions = current_user.prescriptions.sort_by { |p| p.end_date }
-    render(json: {prescriptions: @prescriptions}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
-  end
-
   private
 
   def find_or_create_drug
@@ -74,7 +69,6 @@ class PrescriptionsController < ApplicationController
     if params[:doc_type] == "new"
       @prescription.doctor = Doctor.create(doctor_params)
     else
-      binding.pry
       doctor_id = params[:doctor][:doctor].split(" ").first.to_i
       @prescription.doctor = Doctor.find(doctor_id)
     end
