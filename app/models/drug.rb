@@ -20,15 +20,12 @@ class Drug < ActiveRecord::Base
   validates :name, :rxcui, presence: true
   validates :rxcui, numericality: true
 
-  # accepts_nested_attributes_for :prescriptions
-
   def self.all_drug_names
     self.pluck('name')
   end
 
   def self.is_valid_drug?(drug_name)
     return true if Drug.find_by_name(drug_name)
-    
     if !Drug.find_by_name(drug_name)
       new_drug = Adapters::DrugClient.find_by_name(drug_name)
       !!new_drug.rxcui
@@ -36,8 +33,7 @@ class Drug < ActiveRecord::Base
   end
 
   def interactions
-    interactions = Interaction.joins(:drug_interactions).where("drug_id = ?", self.id)
-    interactions.reject {|interaction| interaction.description == "No interactions."}
+    Interaction.drug(self).with_description
   end
 
   def associate_drug_names_with_interactions(interactions)

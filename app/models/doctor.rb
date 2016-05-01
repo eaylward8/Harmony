@@ -19,5 +19,5 @@ class Doctor < ActiveRecord::Base
 
   validates :first_name, :last_name, presence: true
 
-  scope :user, -> (id) { joins(:prescriptions).where('user_id = ?', id).uniq }
+  scope :user, -> (user) { joins(:prescriptions).where('user_id = ?', user.id).uniq }
 end

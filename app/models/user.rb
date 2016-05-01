@@ -23,16 +23,14 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
 
   def upcoming_refills
-    refills = Prescription.user(self.id).active.select do |p|
+    refills = Prescription.user(self).active.select do |p|
       p.end_date < (Date.today + 6)
     end
     refills.sort_by { |p| p.end_date }
   end
 
   def prescriptions_by_time_of_day(time_of_day)
-    prescriptions = Prescription.user(self.id).active.select do |prescription|
-      prescription.scheduled_doses.map {|dose| dose.time_of_day}.include?(time_of_day)
-    end
+    prescriptions = Prescription.user(self).active.time_of_day(time_of_day)
     render_prescriptions(prescriptions, time_of_day)
   end
 
@@ -49,7 +47,7 @@ class User < ActiveRecord::Base
   end
 
   def active_drugs
-    Prescription.user(self.id).active.map do |prescription|
+    Prescription.user(self).active.map do |prescription|
       prescription.drug
     end
   end
