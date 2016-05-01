@@ -22,12 +22,6 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, :email, presence: true
   validates :email, uniqueness: true
 
-  def doctors_names
-    self.doctors.collect do |d|
-      "#{d.id} - Dr. #{d.first_name} #{d.last_name} - #{d.location}"
-    end.uniq
-  end
-
   def pharmacy_names
     self.pharmacies.collect do |p|
       "#{p.id} - #{p.name} - #{p.location}"

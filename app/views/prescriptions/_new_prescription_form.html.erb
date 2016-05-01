@@ -12,7 +12,13 @@
       <p>Location&nbsp&nbsp<%= doctor_form.text_field :location %></p>
     <% else %>
     <p><%= radio_button_tag(:doc_type, "existing", checked: 'checked') %> My doctors:
-      <%= doctor_form.select :doctor, Doctor.format_names(current_user), prompt: "select" %></p>
+      <%= doctor_form.select :doctor do %>
+        <%= content_tag :option, 'select' %>
+        <% Doctor.user(current_user).each do |doctor| %>
+          <%= content_tag :option, "#{doctor.id} - Dr. #{doctor.first_name} #{doctor.last_name} - #{doctor.location}" %>
+        <% end %>
+      <% end %>
+      </p>
     <p><%= radio_button_tag(:doc_type, "new") %> New Doctor:</p>
         <p>First name&nbsp&nbsp<%= doctor_form.text_field :first_name %>
         &nbsp&nbspLast name&nbsp&nbsp<%= doctor_form.text_field :last_name %></p>

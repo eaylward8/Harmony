@@ -21,12 +21,6 @@ class Doctor < ActiveRecord::Base
 
   scope :user, -> (id) { joins(:prescriptions).where('user_id = ?', id).uniq }
 
-  def self.format_names(user)
-    Doctor.user(user.id).collect do |doctor|
-      "#{doctor.id} - Dr. #{doctor.first_name} #{doctor.last_name} - #{doctor.location}"
-    end
-  end
-
   def professional_name
     "Dr. #{self.first_name} #{self.last_name}"
   end

@@ -1,25 +1,28 @@
-<div class='form-class-'<%= @prescription.id %>> 
+<div class='form-class-'<%= @prescription.id %>>
   <%= form_for @prescription do |f| %>
     <p>Drug name: <%=fields_for :drug do |drug_form| %>
         <%= drug_form.text_field :name, value: @prescription.drug.name %>
       <% end %></p>
 
     <p>Choose a doctor or enter a new one: <%=fields_for :doctor do |doctor_form| %></p>
-    
-    <p><%= radio_button_tag(:doc_type, "existing", checked: 'checked') %> My Doctors: 
-      <%= doctor_form.select :doctor, Doctor.format_names(current_user), selected: nil %></p>
+    <p><%= radio_button_tag(:doc_type, "existing", checked: 'checked') %> My Doctors:
+      <%= doctor_form.select :doctor do %>
+        <%= content_tag :option, 'select' %>
+        <% Doctor.user(current_user).each do |doctor| %>
+          <%= content_tag :option, "#{doctor.id} - Dr. #{doctor.first_name} #{doctor.last_name} - #{doctor.location}" %>
+        <% end %>
+      <% end %>
+    </p>
     <p><%= radio_button_tag(:doc_type, "new") %> New Doctor: </p>
         <p>First Name <%= doctor_form.text_field :first_name %>
         Last Name <%= doctor_form.text_field :last_name %> </p>
         <p>Location <%= doctor_form.text_field :location %> </p>
       <% end %>
-      
     <p>Choose a pharmacy or enter a new one: <%=fields_for :pharmacy do |pharmacy_form| %></p>
-    
-      <p><%= radio_button_tag(:pharm_type, "existing", checked: 'checked') %> 
-      My Pharmacies: 
+      <p><%= radio_button_tag(:pharm_type, "existing", checked: 'checked') %>
+      My Pharmacies:
       <%= pharmacy_form.select :pharmacy, current_user.pharmacy_names %></p>
-    <p><%= radio_button_tag(:pharm_type, "new") %> New pharmacy: 
+    <p><%= radio_button_tag(:pharm_type, "new") %> New pharmacy:
         Name<%= pharmacy_form.text_field :name %>
         Location<%= pharmacy_form.text_field :location %> </p>
       <% end %>
@@ -30,7 +33,7 @@
     <p>Number of refills:
     <%= f.number_field :refills, min: 0 %></p>
 
-    <p>Start date 
+    <p>Start date
     <%= f.date_field :start_date, :value => Date.today %></p>
 
     <p>Dose size
@@ -41,15 +44,12 @@
     Morning: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
       <%= scheduled_dose_form.select :morning, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.daily_schedule[:morning] %>
     <% end %>
-   
     Afternoon: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
       <%= scheduled_dose_form.select :afternoon, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.daily_schedule[:afternoon] %>
     <% end %>
-   
     Evening: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
       <%= scheduled_dose_form.select :evening, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.daily_schedule[:evening] %>
     <% end %>
-   
     Bedtime: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
       <%= scheduled_dose_form.select :bedtime, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.daily_schedule[:bedtime] %>
     <% end %><br>
