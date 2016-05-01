@@ -78,19 +78,6 @@ describe 'User' do
       end
     end
 
-    describe '#prescription_schedule_week' do
-      let(:user3) { create(:user, :with_active_prescriptions) }
-
-      it 'returns an array of hashes whose keys represent the next week and whose values are the prescriptions to be taken on those days' do 
-        day1 = user3.prescription_schedule_week.first.keys.first
-        day7 = user3.prescription_schedule_week.last.keys.first
-
-        expect(user3.prescription_schedule_week.count).to eq(7)
-        expect(day1).to eq(Date.today)
-        expect(day7).to eq(Date.today + 6)
-      end
-    end
-
     describe '#upcoming_refills' do
       it 'returns prescriptions that are ending in the next 7 days and have refills' do
         user = create(:user, :has_prescriptions_with_and_wo_refills)
