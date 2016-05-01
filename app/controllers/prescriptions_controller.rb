@@ -54,11 +54,6 @@ class PrescriptionsController < ApplicationController
     redirect_to current_user
   end
 
-  def json
-    @prescriptions = current_user.prescriptions.sort_by { |p| p.end_date }
-    render(json: {prescriptions: @prescriptions}, include: [:drug, :user, :doctor, :pharmacy, :scheduled_doses])
-  end
-
   private
 
   def find_or_create_drug
