@@ -1,14 +1,3 @@
-# == Schema Information
-#
-# Table name: drugs
-#
-#  id         :integer          not null, primary key
-#  name       :string
-#  rxcui      :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-
 class Drug < ActiveRecord::Base
   has_many :prescriptions
   has_many :pharmacies, through: :prescriptions
@@ -20,16 +9,14 @@ class Drug < ActiveRecord::Base
   validates :name, :rxcui, presence: true
   validates :rxcui, numericality: true
 
-  scope :user, -> (user) { joins(:prescriptions).where('user_id = ?', user.id) }
+  scope :user_active_drugs, -> (user) do
+    joins(:prescriptions).merge(Prescription.user(user).active)
+  end
   scope :interacting_pair, -> (interaction) do
     joins(:drug_interactions).where('interaction_id = ?', interaction.id)
   end
   scope :interacting_drug, -> (interaction, drug) do
     joins(:drug_interactions).where('interaction_id = ? AND drug_id != ?', interaction.id, drug.id)
-  end
-
-  def self.all_drug_names
-    self.pluck('name')
   end
 
   def self.is_valid_drug?(drug_name)
@@ -42,7 +29,7 @@ class Drug < ActiveRecord::Base
 
   def interactions(user)
     interacting_drugs_and_descriptions(user).select do |interaction|
-      user.drugs_actively_taking.map { |drug| drug.name }.include?(interaction[:drug_name])
+      Drug.user_active_drugs(user).pluck('name').include?(interaction[:drug_name])
     end.uniq
   end
 
@@ -54,9 +41,9 @@ class Drug < ActiveRecord::Base
   end
 
   def persist_interactions(user)
-    drug_pairs = create_drug_pairs(user)
-    interactions_not_known = drug_pairs.reject {|drug_pair| drug_interaction_is_known?(drug_pair)}
-    interactions_not_known.each do |drug_pair|
+    create_active_drug_pairs(user).reject do |drug_pair|
+      drugs_persisted?(drug_pair) && drug_interaction_persisted?(drug_pair)
+    end.each do |drug_pair|
       interaction = Adapters::InteractionClient.interactions(drug_pair)
       interaction.save
       DrugInteraction.create(drug_id: drug_pair[0].id, interaction_id: interaction.id)
@@ -64,18 +51,26 @@ class Drug < ActiveRecord::Base
     end
   end
 
-  # Returns an array of arrays pairing the drug passed in with all other active drugs
-  def create_drug_pairs(user)
-    drugs = user.drugs_actively_taking.reject {|d| d.name == self.name}
-    drugs.map {|d| [self, d]}.uniq
+  def create_active_drug_pairs(user)
+    Drug.user_active_drugs(user).reject do |drug|
+      drug.name == self.name
+    end.map { |drug| [self, drug] }.uniq
   end
 
-  # Checks whether both drugs passed in as arguments have already been recorded
-  # in the drug interactions table and whether they share an interaction
-  def drug_interaction_is_known?(drug_pair)
-    DrugInteraction.find_by(drug_id: drug_pair[0].id) &&
-    DrugInteraction.find_by(drug_id: drug_pair[1].id) &&
-    DrugInteraction.find_by(drug_id: drug_pair[0].id).interaction_id ==
-    DrugInteraction.find_by(drug_id: drug_pair[1].id).interaction_id
+  def drugs_persisted?(drug_pair)
+    DrugInteraction.where(drug_id: drug_pair[0].id).count > 0 &&
+    DrugInteraction.where(drug_id: drug_pair[1].id).count > 0
+  end
+
+  def drug_interaction_ids(drug)
+    DrugInteraction.where(drug_id: drug.id).map do |drug_interaction|
+      drug_interaction.interaction_id
+    end
+  end
+
+  def drug_interaction_persisted?(drug_pair)
+    drug_1_interaction_ids = drug_interaction_ids(drug_pair[0])
+    drug_2_interaction_ids = drug_interaction_ids(drug_pair[1])
+    (drug_1_interaction_ids & drug_2_interaction_ids).count > 0
   end
 end

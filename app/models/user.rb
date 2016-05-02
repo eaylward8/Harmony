@@ -1,16 +1,3 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id              :integer          not null, primary key
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  first_name      :string
-#  last_name       :string
-#  email           :string
-#  password_digest :string
-#
-
 class User < ActiveRecord::Base
   has_many :prescriptions
   has_many :pharmacies, through: :prescriptions
@@ -30,11 +17,4 @@ class User < ActiveRecord::Base
         interactions: prescription.drug.interactions(self) }
     end
   end
-
-  def drugs_actively_taking
-    Prescription.user(self).active.map do |prescription|
-      prescription.drug
-    end
-  end
-
 end
