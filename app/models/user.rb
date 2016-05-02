@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
 
   def regimen(time_of_day)
-    Prescription.user(self).active.time_of_day(time_of_day).map do |prescription|
+    self.prescriptions.active.time_of_day(time_of_day).map do |prescription|
       { name: prescription.drug.name,
         dose_size: prescription.dose_size,
         doses: prescription.doses_by_time_of_day(time_of_day),
