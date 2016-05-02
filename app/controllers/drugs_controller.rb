@@ -2,7 +2,7 @@ class DrugsController < ApplicationController
   skip_before_action :authorized?
 
   def create
-    drug_validity = Drug.is_valid_drug?(params[:drug_name].capitalize)
-    render json: {validity: drug_validity}
+    drug_validity = Drug.valid?(params[:drug_name])
+    render json: { validity: drug_validity }
   end
 end

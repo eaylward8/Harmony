@@ -19,17 +19,13 @@ class Drug < ActiveRecord::Base
     joins(:drug_interactions).where('interaction_id = ? AND drug_id != ?', interaction.id, drug.id)
   end
 
-  def self.is_valid_drug?(drug_name)
-    return true if Drug.find_by_name(drug_name)
-    if !Drug.find_by_name(drug_name)
-      new_drug = Adapters::DrugClient.find_by_name(drug_name)
-      !!new_drug.rxcui
-    end
+  def self.valid?(drug_name)
+    Drug.find_by_name(drug_name) ? true : !!Adapters::DrugClient.find_by_name(drug_name).rxcui
   end
 
   def interactions(user)
     interacting_drugs_and_descriptions(user).select do |interaction|
-      Drug.user_active_drugs(user).pluck('name').include?(interaction[:drug_name])
+      Drug.user_active_drugs(user).pluck(:name).include?(interaction[:drug_name])
     end.uniq
   end
 
@@ -63,9 +59,7 @@ class Drug < ActiveRecord::Base
   end
 
   def drug_interaction_ids(drug)
-    DrugInteraction.where(drug_id: drug.id).map do |drug_interaction|
-      drug_interaction.interaction_id
-    end
+    DrugInteraction.where(drug_id: drug.id).pluck(:interaction_id)
   end
 
   def drug_interaction_persisted?(drug_pair)

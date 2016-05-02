@@ -1,32 +1,23 @@
 <div class='container-fluid'>
   <div class='pillbox-container'>
-    <div class="row pillbox-row">
-      <div class="col-xs-12 pillbox-cell-head">
-        <%= Time.now.strftime("%A %B %d") %>, <%= Time.now.strftime("%Y") %>
+    <div class='row pillbox-row'>
+      <div class='col-xs-12 pillbox-cell-head'>
+        <%= Time.now.strftime('%A %B %d') %>, <%= Time.now.strftime('%Y') %>
       </div>
     </div>
-    <div class="row pillbox-row" id='times-of-day'>
+    <div class='row pillbox-row' id='times-of-day'>
       <%= render partial: 'pillbox_cells' %>
     </div>
   </div>
-  <div class="row" id="time-arrow-row">
-    <div class="col-xs-3 time-indicator" <span id="morning-time"></span></div>
-    <div class="col-xs-3 time-indicator" <span id="afternoon-time"></span></div>
-    <div class="col-xs-3 time-indicator" <span id="evening-time"></span></div>
-    <div class="col-xs-3 time-indicator" <span id="night-time"></span></div>
+  <div class='row' id='time-arrow-row'>
+    <div class='col-xs-3 time-indicator'><span id='morning-time'></span></div>
+    <div class='col-xs-3 time-indicator'><span id='afternoon-time'></span></div>
+    <div class='col-xs-3 time-indicator'><span id='evening-time'></span></div>
+    <div class='col-xs-3 time-indicator'><span id='night-time'></span></div>
   </div>
-  <div class="row pillbox-row" id="refill-msgs">
+  <div class='row pillbox-row' id='refill-msgs'>
     <% if !Prescription.user(@user).ending_within_week.empty? %>
       <%= render partial: 'expiring_soon' %>
     <% end %>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
