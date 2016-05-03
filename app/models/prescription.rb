@@ -26,21 +26,13 @@ class Prescription < ActiveRecord::Base
   end
 
   def calculate_doses
-    self.doses = self.fill_duration/self.doses_per_day
+    self.doses = self.fill_duration / self.doses_per_day
     self.save
   end
 
   def calculate_end_date
     self.end_date = self.start_date + self.fill_duration
     self.save
-  end
-
-  def daily_schedule
-    schedule = {morning: 0, afternoon: 0, evening: 0, bedtime: 0}
-    self.scheduled_doses.each do |scheduled_dose|
-      schedule[scheduled_dose.time_of_day.to_sym] += 1
-    end
-    schedule
   end
 
   def format_date(date)

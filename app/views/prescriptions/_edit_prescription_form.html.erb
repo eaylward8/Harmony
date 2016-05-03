@@ -48,16 +48,16 @@
     <p>How many doses will you take at these times? </p>
     <p>
     Morning: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
-      <%= scheduled_dose_form.select :morning, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.daily_schedule[:morning] %>
+      <%= scheduled_dose_form.select :morning, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.doses_by_time_of_day('morning') %>
     <% end %>
     Afternoon: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
-      <%= scheduled_dose_form.select :afternoon, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.daily_schedule[:afternoon] %>
+      <%= scheduled_dose_form.select :afternoon, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.doses_by_time_of_day('afternoon') %>
     <% end %>
     Evening: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
-      <%= scheduled_dose_form.select :evening, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.daily_schedule[:evening] %>
+      <%= scheduled_dose_form.select :evening, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.doses_by_time_of_day('evening') %>
     <% end %>
     Bedtime: <%=fields_for :scheduled_doses do |scheduled_dose_form| %>
-      <%= scheduled_dose_form.select :bedtime, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.daily_schedule[:bedtime] %>
+      <%= scheduled_dose_form.select :bedtime, [0, 1, 2, 3, 4, 5, 6, 7], selected: @prescription.doses_by_time_of_day('bedtime') %>
     <% end %><br>
    </p>
 
