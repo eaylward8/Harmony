@@ -9,9 +9,6 @@ class Drug < ActiveRecord::Base
   validates :name, :rxcui, presence: true
   validates :rxcui, numericality: true
 
-  scope :user_active_drugs, -> (user) do
-    joins(:prescriptions).merge(Prescription.user(user).active)
-  end
   scope :interacting_pair, -> (interaction) do
     joins(:drug_interactions).where('interaction_id = ?', interaction.id)
   end
@@ -20,24 +17,20 @@ class Drug < ActiveRecord::Base
   end
 
   def self.valid?(drug_name)
-    Drug.find_by_name(drug_name) ? true : !!Adapters::DrugClient.find_by_name(drug_name).rxcui
-  end
-
-  def interactions(user)
-    interacting_drugs_and_descriptions(user).select do |interaction|
-      Drug.user_active_drugs(user).pluck(:name).include?(interaction[:drug_name])
-    end.uniq
+    self.find_by_name(drug_name) ? true : !!Adapters::DrugClient.find_by_name(drug_name).rxcui
   end
 
   def interacting_drugs_and_descriptions(user)
-    Interaction.drug(self).with_description.map do |interaction|
+    self.interactions.with_description.map do |interaction|
     { drug_name: Drug.interacting_drug(interaction, self).first.name,
       interaction: interaction.description }
+    end.select do |interaction|
+      user.active_drug_names.include?(interaction[:drug_name])
     end
   end
 
   def persist_interactions(user)
-    create_active_drug_pairs(user).reject do |drug_pair|
+    self.pair_with_active_drugs(user).reject do |drug_pair|
       drugs_persisted?(drug_pair) && drug_interaction_persisted?(drug_pair)
     end.each do |drug_pair|
       interaction = Adapters::InteractionClient.interactions(drug_pair)
@@ -47,10 +40,10 @@ class Drug < ActiveRecord::Base
     end
   end
 
-  def create_active_drug_pairs(user)
-    Drug.user_active_drugs(user).reject do |drug|
-      drug.name == self.name
-    end.map { |drug| [self, drug] }.uniq
+  def pair_with_active_drugs(user)
+    user.prescriptions.active.reject do |prescription|
+      prescription.drug.name == self.name
+    end.map { |prescription| [self, prescription.drug] }.uniq
   end
 
   def drugs_persisted?(drug_pair)

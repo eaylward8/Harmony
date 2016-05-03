@@ -7,7 +7,7 @@
       <th>Refills Remaining</th>
       <th>Got Your Refill?</th>
     </tr>
-    <% Prescription.user(@user).ending_within_week.each do |rx| %>
+    <% @user.prescriptions.ending_within_week.each do |rx| %>
       <tr data-rxid='<%= rx.id %>'>
         <td class='table-data'><%= rx.drug.name %></td>
         <td class='table-data'><span><%= rx.format_date(rx.end_date) %></span></td>

@@ -16,7 +16,7 @@
     <div class='col-xs-3 time-indicator'><span id='night-time'></span></div>
   </div>
   <div class='row pillbox-row' id='refill-msgs'>
-    <% if !Prescription.user(@user).ending_within_week.empty? %>
+    <% if !@user.prescriptions.ending_within_week.empty? %>
       <%= render partial: 'expiring_soon' %>
     <% end %>
   </div>

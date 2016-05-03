@@ -14,7 +14,11 @@ class User < ActiveRecord::Base
       { name: prescription.drug.name,
         dose_size: prescription.dose_size,
         doses: prescription.doses_by_time_of_day(time_of_day),
-        interactions: prescription.drug.interactions(self) }
+        interactions: prescription.drug.interacting_drugs_and_descriptions(self) }
     end
+  end
+
+  def active_drug_names
+    self.prescriptions.active.joins(:drug).pluck(:name)
   end
 end

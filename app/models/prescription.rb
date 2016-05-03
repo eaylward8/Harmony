@@ -8,7 +8,6 @@ class Prescription < ActiveRecord::Base
   validates :dose_size, :refills, :fill_duration, :start_date, presence: true
   validates :refills, :fill_duration, numericality: true
 
-  scope :user, -> (user) { where('user_id = ?', user.id) }
   scope :active, -> { where('end_date >= ? AND start_date <= ?', Date.today, Date.today) }
   scope :inactive, -> { where('end_date < ?', Date.today) }
   scope :ending_within_week, -> { where(end_date: Date.today..Date.today + 6).order(:end_date) }

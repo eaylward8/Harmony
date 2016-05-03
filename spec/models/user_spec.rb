@@ -68,13 +68,13 @@ describe 'User' do
 
     describe '#active_prescriptions' do
       it 'returns a user\'s active prescriptions' do
-        expect(Prescription.user(user2).active.count).to eq(1)
+        expect(user2.prescriptions.active.count).to eq(1)
       end
     end
 
     describe '#inactive_prescriptions' do
       it 'returns a user\'s inactive prescriptions' do
-        expect(Prescription.user(user2).active.count).to eq(1)
+        expect(user2.prescriptions.active.count).to eq(1)
       end
     end
 
