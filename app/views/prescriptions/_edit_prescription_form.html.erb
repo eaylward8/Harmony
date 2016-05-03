@@ -8,7 +8,7 @@
     <p><%= radio_button_tag(:doc_type, "existing", checked: 'checked') %> My Doctors:
       <%= doctor_form.select :doctor do %>
         <%= content_tag :option, 'select' %>
-        <% Doctor.user(current_user).each do |doctor| %>
+        <% @user.doctors.uniq.each do |doctor| %>
           <%= content_tag :option, "#{doctor.id} - Dr. #{doctor.first_name} #{doctor.last_name} - #{doctor.location}" %>
         <% end %>
       <% end %>
@@ -23,7 +23,7 @@
       My Pharmacies:
       <%= pharmacy_form.select :pharmacy do %>
         <%= content_tag :option, 'select' %>
-        <% Pharmacy.user(current_user).each do |pharmacy| %>
+        <% @user.pharmacies.uniq.each do |pharmacy| %>
           <%= content_tag :option, "#{pharmacy.id} - #{pharmacy.name} - #{pharmacy.location}" %>
         <% end %>
       <% end %>

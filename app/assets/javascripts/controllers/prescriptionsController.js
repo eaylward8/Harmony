@@ -21,7 +21,7 @@ app.prescriptions.controller.new.prototype.init = function() {
             data: {drug_name: drugName}
           }).success(function(data) {
             var $submitBtn = $('#form-submit');
-            if (data["validity"]) {
+            if(data["validity"]) {
               $('#drug-valid-message').css('color', 'green').text('\u2714');
               $submitBtn.prop('disabled', false);
             } else {
@@ -46,7 +46,7 @@ app.prescriptions.controller.new.prototype.init = function() {
         data: formData
       }).success(function(data) {
         event.preventDefault();
-        var doctor = new app.doctor.model.new(data.prescription.doctor.first_name, data.prescription.doctor.last_name, data.prescription.doctor.location, data.prescription.doctor.specialty, data.prescription.doctor.id);
+        var doctor = new app.doctor.model.new(data.prescription.doctor.id, data.prescription.doctor.first_name, data.prescription.doctor.last_name, data.prescription.doctor.location, data.prescription.doctor.specialty);
         var user = new app.user.model.new(data.prescription.user.first_name, data.prescription.user.last_name, data.prescription.user.id);
         var pharmacy = new app.pharmacy.model.new(data.prescription.pharmacy.name, data.prescription.pharmacy.location, data.prescription.pharmacy.id);
         var drug = new app.drug.model.new(data.prescription.drug.name, data.prescription.drug.rxcui, data.prescription.drug.id);
@@ -66,7 +66,6 @@ app.prescriptions.controller.new.prototype.init = function() {
       data: {refill: true}
     }).success(function(data) {
       if (data.expSoon && data.prescription.refills > 0) {
-        //update exp date and refills
         var expDate = data.expDate;
         var refills = data.prescription.refills;
         var $expTd = $('tr[data-rxid='+data.prescription.id+'] td:nth-child(2) span');
@@ -80,7 +79,6 @@ app.prescriptions.controller.new.prototype.init = function() {
           $(this).fadeIn(200);
         });
       } else {
-        // hide and remove row if new exp date is beyond 7 days
         var $tr = $('tr[data-rxid='+data.prescription.id+']');
         $tr.hide(300, function(){ $(this).remove(); });
       }

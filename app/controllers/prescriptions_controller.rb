@@ -12,11 +12,14 @@ class PrescriptionsController < ApplicationController
   end
 
   def new
+    @user = current_user
     @prescription = Prescription.new
-    render :partial => "/prescriptions/new_prescription_form", :locals => { :prescription => @prescription }
+    render :partial => "/prescriptions/new_prescription_form",
+    :locals => { :prescription => @prescription, :user => @user }
   end
 
   def edit
+    @user = current_user
     @prescription = Prescription.find(params[:id])
   end
 
