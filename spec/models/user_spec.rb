@@ -1,15 +1,3 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id              :integer          not null, primary key
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  first_name      :string
-#  last_name       :string
-#  email           :string
-#  password_digest :string
-#
 require 'rails_helper'
 
 describe 'User' do
@@ -59,24 +47,34 @@ describe 'User' do
     end
   end
 
+  describe 'instance methods' do
+    before(:each) do
+      @user = User.create(first_name: 'John', last_name: 'Doe', email: 'johndoe@gmail.com', password: 'password')
+      Drug.create(name: 'Lipitor', rxcui: '153165')
+      Drug.create(name: 'Hydrocodone', rxcui: '5489')
+      Prescription.create(refills: 1, fill_duration: 1, start_date: Date.today, end_date: Date.today + 1, dose_size: '100mg', user_id: 1, drug_id: 1)
+      Prescription.create(refills: 1, fill_duration: 1, start_date: Date.today, end_date: Date.today + 1, dose_size: '100mg', user_id: 1, drug_id: 2)
+      ScheduledDose.create(time_of_day: 'morning', prescription_id: 1)
+      ScheduledDose.create(time_of_day: 'morning', prescription_id: 2)
+      Interaction.create(description: 'The serum concentration of Hydrocodone can be increased when it is combined with Atorvastatin.')
+      DrugInteraction.create(drug_id: 1, interaction_id: 1)
+      DrugInteraction.create(drug_id: 2, interaction_id: 1)
+    end
 
-  describe "instance methods" do
-    # create user with 2 prescriptions, doctors, drugs, & pharmacies
-    let(:user1) { create(:user, :with_many_prescriptions, number_of_prescriptions: 2) }
-    # create user with 1 active and 1 inactive prescription
-    let(:user2) { create(:user, :with_an_active_and_inactive_prescription) }
-
-    describe '#active_prescriptions' do
-      it 'returns a user\'s active prescriptions' do
-        expect(user2.prescriptions.active.count).to eq(1)
+    describe '#regimen' do
+      it 'returns a hash of information about drugs the user is taking at a given time of day' do
+        expect(@user.regimen('morning').first[:name]).to eq('Lipitor')
+        expect(@user.regimen('morning').first[:dose_size]).to eq('100mg')
+        expect(@user.regimen('morning').first[:doses]).to eq(1)
+        expect(@user.regimen('morning').first[:interactions].first[:drug_name]).to eq('Hydrocodone')
+        expect(@user.regimen('morning').first[:interactions].first[:interaction]).to eq('The serum concentration of Hydrocodone can be increased when it is combined with Atorvastatin.')
       end
     end
 
-    describe '#inactive_prescriptions' do
-      it 'returns a user\'s inactive prescriptions' do
-        expect(user2.prescriptions.active.count).to eq(1)
+    describe '#active_drug_names' do
+      it 'returns an array of drug names the user is actively taking' do
+        expect(@user.active_drug_names).to eq(['Lipitor', 'Hydrocodone'])
       end
     end
-
   end
 end

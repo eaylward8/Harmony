@@ -6,5 +6,4 @@ FactoryGirl.define do
     specialty {['Audiologist', 'Allergist', 'Anesthesiologist', 'Cardiologist', 'Dentist', 'Dermatologist'].sample}
     location {Faker::Address.street_address}
   end
-  
 end
