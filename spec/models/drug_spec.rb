@@ -54,4 +54,25 @@ describe 'Drug' do
       end
     end
   end
+
+  describe 'instance methods' do
+
+    before(:each) do
+      @user = User.create(first_name: 'John', last_name: 'Doe', email: 'johndoe@gmail.com', password: 'password')
+      @drug = Drug.create(name: 'Lipitor', rxcui: '153165')
+      Drug.create(name: 'Hydrocodone', rxcui: '5489')
+      Prescription.create(refills: 1, fill_duration: 1, start_date: Date.today, end_date: Date.today + 1, dose_size: '100mg', user_id: 1, drug_id: 1)
+      Prescription.create(refills: 1, fill_duration: 1, start_date: Date.today, end_date: Date.today + 1, dose_size: '100mg', user_id: 1, drug_id: 2)
+      Interaction.create(description: 'The serum concentration of Hydrocodone can be increased when it is combined with Atorvastatin.')
+      DrugInteraction.create(drug_id: 1, interaction_id: 1)
+      DrugInteraction.create(drug_id: 2, interaction_id: 1)
+    end
+
+    describe '#interacting_drugs_and_descriptions' do
+      it 'returns interactions info for drugs the user is actively taking' do
+        expect(@drug.interacting_drugs_and_descriptions(@user).first[:drug_name]).to eq('Hydrocodone')
+        expect(@drug.interacting_drugs_and_descriptions(@user).first[:interaction]).to eq('The serum concentration of Hydrocodone can be increased when it is combined with Atorvastatin.')
+      end
+    end
+  end
 end

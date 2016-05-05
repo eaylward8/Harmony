@@ -62,7 +62,7 @@ describe 'User' do
     end
 
     describe '#regimen' do
-      it 'returns a hash of information about drugs the user is taking at a given time of day' do
+      it 'returns info about drugs the user is taking at a given time of day' do
         expect(@user.regimen('morning').first[:name]).to eq('Lipitor')
         expect(@user.regimen('morning').first[:dose_size]).to eq('100mg')
         expect(@user.regimen('morning').first[:doses]).to eq(1)
@@ -72,7 +72,7 @@ describe 'User' do
     end
 
     describe '#active_drug_names' do
-      it 'returns an array of drug names the user is actively taking' do
+      it 'returns the names of drugs the user is actively taking' do
         expect(@user.active_drug_names).to eq(['Lipitor', 'Hydrocodone'])
       end
     end

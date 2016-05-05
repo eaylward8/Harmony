@@ -24,7 +24,7 @@ class Drug < ActiveRecord::Base
     self.interactions.with_description.map do |interaction|
     { drug_name: Drug.interacting_drug(interaction, self).first.name,
       interaction: interaction.description }
-    end.select do |interaction|
+    end.uniq.select do |interaction|
       user.active_drug_names.include?(interaction[:drug_name])
     end
   end
