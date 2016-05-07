@@ -115,10 +115,6 @@ h3 {
   padding-top: 150px;
 }
 
-.navbar-brand {
-
-}
-
 #centered-form-container {
   margin: 0px auto;
   text-align: center;
@@ -216,37 +212,22 @@ a {
 /*    prescription index   */
 /***************************/
 
-.drugs-div {
-  /*border: 1px solid red;*/
-}
-
 .parent-prescription {
-  /*border: 1px solid blue;*/
-  margin: 30px; 
+  margin: 30px;
 }
 .warning-message {
   position: absolute;
   background: rgba(255, 255, 255, .98);
-  /*margin-top: -130px;*/
   color: #9E9E9E;
-  /*border: 1px solid #FFFFFF;*/
   margin-top: -150px;
   padding: 20px;
   opacity: 50%;
   width: 300px;
-  overflow: scroll;
-  /*top: -5px;*/
-  /*bottom: 165px;*/
-  /*left: 129px;*/
-  /*opacity: 0;*/
+  
   display: none;
   z-index: 100;
 }
 
-/*.hidden {
-  display: none;
-}
-*/
 #new-prescription-btn {
   margin-top: 100px;
 }
@@ -360,4 +341,3 @@ a {
   font-size: 1.2em;
   font-weight: bold;
 }
-

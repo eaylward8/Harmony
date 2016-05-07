@@ -14,7 +14,9 @@ class User < ActiveRecord::Base
       { name: prescription.drug.name,
         dose_size: prescription.dose_size,
         doses: prescription.doses_by_time_of_day(time_of_day),
-        interactions: prescription.drug.interacting_drugs_and_descriptions(self) }
+        interactions: prescription.drug.interaction_data.select do |interaction|
+          self.active_drug_names.include?(interaction[:drug_name])
+        end }
     end
   end
 

@@ -20,13 +20,11 @@ class Drug < ActiveRecord::Base
     self.find_by_name(drug_name) ? true : !!Adapters::DrugClient.find_by_name(drug_name).rxcui
   end
 
-  def interacting_drugs_and_descriptions(user)
+  def interaction_data
     self.interactions.with_description.map do |interaction|
     { drug_name: Drug.interacting_drug(interaction, self).first.name,
       interaction: interaction.description }
-    end.uniq.select do |interaction|
-      user.active_drug_names.include?(interaction[:drug_name])
-    end
+    end.uniq
   end
 
   def persist_interactions(user)
