@@ -21,7 +21,7 @@ class Drug < ActiveRecord::Base
   end
 
   def interaction_data
-    self.interactions.with_description.map do |interaction|
+    self.interactions.with_true_interactions.map do |interaction|
     { drug_name: Drug.interacting_drug(interaction, self).first.name,
       interaction: interaction.description }
     end.uniq

@@ -25,11 +25,6 @@ class Prescription < ActiveRecord::Base
     end
   end
 
-  def calculate_doses
-    self.doses = self.fill_duration / self.doses_per_day
-    self.save
-  end
-
   def calculate_end_date
     self.end_date = self.start_date + self.fill_duration
     self.save

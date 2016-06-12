@@ -1,5 +1,5 @@
 class RefillsController < ApplicationController
-  skip_before_action :authorized?
+  # skip_before_action :authorized?
 
   def update
     @prescription = Prescription.find(params[:id])
