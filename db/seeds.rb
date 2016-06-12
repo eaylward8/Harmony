@@ -73,9 +73,11 @@ Drug.create(name: 'Glucophage', rxcui: '151827')
 duane_reade = Pharmacy.create(name: 'Duane Reade', location: '11 Broadway')
 cvs = Pharmacy.create(name: 'CVS', location: '20 Park Avenue')
 
-2.times do |user|
-  User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, password: 'password123')
-end
+# 2.times do |user|
+#   User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, password: 'password123')
+# end
+
+User.create(first_name: "Billy", last_name: "Bob", email: "billybob@gmail.com", password: '11111')
 
 Prescription.create(refills: 1, fill_duration: 1, start_date: Date.today, end_date: ((Date.today + 1) - 1), doctor_id: 1, pharmacy_id: 1, user_id: 1, drug_id: 1, dose_size: '100mg')
 Prescription.create(refills: 3, fill_duration: 2, start_date: Date.today, end_date: ((Date.today + 2) - 1), doctor_id: 2, pharmacy_id: 2, user_id: 1, drug_id: 2, dose_size: '50mg')
@@ -85,7 +87,6 @@ Prescription.create(refills: 0, fill_duration: 1, start_date: Date.today, end_da
 Prescription.create(refills: 3, fill_duration: 4, start_date: Date.today, end_date: ((Date.today + 1) - 1), doctor_id: 3, pharmacy_id: 2, user_id: 1, drug_id: 6, dose_size: '300mg')
 Prescription.create(refills: 3, fill_duration: 3, start_date: Date.today, end_date: ((Date.today + 1) - 1), doctor_id: 1, pharmacy_id: 1, user_id: 1, drug_id: 7, dose_size: '10mg')
 Prescription.create(refills: 4, fill_duration: 1, start_date: Date.today, end_date: ((Date.today + 1) - 1), doctor_id: 2, pharmacy_id: 2, user_id: 1, drug_id: 8, dose_size: '900mg')
-
 Prescription.create(refills: 1, fill_duration: 1, start_date: Date.today, end_date: ((Date.today + 1) - 1), doctor_id: 3, pharmacy_id: 1, user_id: 2, drug_id: 9, dose_size: '100mg')
 Prescription.create(refills: 3, fill_duration: 2, start_date: Date.today, end_date: ((Date.today + 2) - 1), doctor_id: 4, pharmacy_id: 2, user_id: 2, drug_id: 10, dose_size: '50mg')
 Prescription.create(refills: 0, fill_duration: 9, start_date: Date.today, end_date: ((Date.today + 9) - 1), doctor_id: 5, pharmacy_id: 1, user_id: 2, drug_id: 11, dose_size: '500mg')
