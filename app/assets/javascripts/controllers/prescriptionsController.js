@@ -57,6 +57,7 @@ app.prescriptions.controller.new.prototype.init = function() {
       });
     event.preventDefault();
   });
+
   $('#exp-soon-table form').click(function(event) {
     event.preventDefault();
     var rxId = $(this).children('.btn').attr('data-rxid');
@@ -65,7 +66,7 @@ app.prescriptions.controller.new.prototype.init = function() {
       method: 'PATCH',
       data: {refill: true}
     }).success(function(data) {
-      if (data.expSoon && data.prescription.refills > 0) {
+      if (data.expSoon) {
         var expDate = data.expDate;
         var refills = data.prescription.refills;
         var $expTd = $('tr[data-rxid='+data.prescription.id+'] td:nth-child(2) span');
@@ -78,6 +79,10 @@ app.prescriptions.controller.new.prototype.init = function() {
           $(this).text(refills);
           $(this).fadeIn(200);
         });
+        if (refills === 0) {
+          var $refillBtn = $('tr[data-rxid='+data.prescription.id+'] .btn');
+          $refillBtn.val('No Refills').removeClass('active').addClass('no-refills').attr('disabled', true);
+        }
       } else {
         var $tr = $('tr[data-rxid='+data.prescription.id+']');
         $tr.hide(300, function(){ $(this).remove(); });
