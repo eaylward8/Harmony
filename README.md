@@ -4,8 +4,8 @@ Harmony is a web application for tracking prescription medications. It's built w
 <a href="http://harmony-rx-manager.herokuapp.com/" target='_blank'>Demo Harmony on Heroku</a>
 
 Play account with pre-seeded data:
-* Username: <span>billybob</span>@example.com
-* Password: 11111
+* Username: <span>johndoe</span>@gmail.com
+* Password: password1
 
 ##Features
 Users can:
